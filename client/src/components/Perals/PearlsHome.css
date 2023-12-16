@@ -1,0 +1,11 @@
+.peralshome-main-con{
+    width: 100%;
+    height: auto;
+    /* border: 1px solid blueviolet; */
+    display: grid;
+    grid-template-columns: 20% 80%;
+   
+}
+.perals-side-nav{
+    margin-top: 2rem;
+}
