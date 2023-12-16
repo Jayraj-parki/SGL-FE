@@ -20,7 +20,6 @@ import ShoppingCart from "./components/Cart/Cart";
 import Navmobile from "./components/Navbar/mobileview";
 import PearlsHome from "./components/Perals/PearlsHome";
 
-
 function App() {
   return (
     <>
@@ -42,13 +41,12 @@ function App() {
           <Route path="/corals" element={<JewelryMain />}></Route>
           <Route path="/catrcontainer" element={<ShoppingCart />}></Route>
           <Route path="/jewelery" element={<JewelryMain />}></Route>
+          <Route path="/cart" element={<ShoppingCart />}></Route>
           {/*Admin  */}
           <Route path="/admin-login" element={<AdminLoginForm />}></Route>
           <Route path="/admin" element={<Inventory />}></Route>
           <Route path="/admin/blogs" element={<Blogs />}></Route>
           <Route path="/admin/orders" element={<Orders />}></Route>
-
-          <Route path="/cart" element={<ShoppingCart />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

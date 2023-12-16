@@ -27,3 +27,29 @@
 #head-extra-class{
     margin-top: 1.1rem;
 }
+
+/* Add these styles to your existing CSS file */
+.search-bar-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: none;
+    z-index: 1000;
+  }
+  
+  .search-bar-popup input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border:1px solid orange
+  }
+  
+  .search-bar-popup button {
+    padding: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
