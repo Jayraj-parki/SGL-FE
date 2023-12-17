@@ -39,7 +39,11 @@ const Inventory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+<<<<<<< HEAD
     const apiUrl = 'http://localhost:4000/inventorypost';
+=======
+    const apiUrl = 'https://sgl-be.onrender.com/inventorypost';
+>>>>>>> master
 
     try {
       const formDataToSend = new FormData();

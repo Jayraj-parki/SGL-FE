@@ -2,11 +2,16 @@ import { useState, useEffect } from "react";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
 import CartSidebar from "../CartSideNav";
 import "./PearlsHome.css";
+<<<<<<< HEAD
+=======
+import CircularProgress from "@mui/material/CircularProgress";
+>>>>>>> master
 
 const PearlsHome = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [perals, setPearls] = useState([]);
+<<<<<<< HEAD
 
   useEffect(() => {
     const fetchPearls = async () => {
@@ -20,6 +25,25 @@ const PearlsHome = () => {
         }
       } catch (error) {
         console.error('Error fetching Pearls:', error);
+=======
+  const [isLoading, setIsLoading] = useState(true);
+//chandra
+  useEffect(() => {
+    const fetchPearls = async () => {
+      try {
+        const response = await fetch('https://sgl-be.onrender.com/getpearls');
+        if (response.ok) {
+          const data = await response.json();
+          setPearls(data);
+          setIsLoading(false); // Set loading to false once data is fetched
+        } else {
+          console.error('Failed to fetch Pearls');
+          setIsLoading(false); 
+        }
+      } catch (error) {
+        console.error('Error fetching Pearls:', error);
+        setIsLoading(false); 
+>>>>>>> master
       }
     };
 
@@ -34,6 +58,7 @@ const PearlsHome = () => {
   const calculateQuantity = (item) => item.quantity || 1;
 
   return (
+<<<<<<< HEAD
     <>
       <div className="peralshome-main-con">
         <div className="perals-side-nav">
@@ -61,6 +86,44 @@ const PearlsHome = () => {
           </div>
         </div>
       </div>
+=======
+    <div className="pearlshome-container">
+      {isLoading && (
+        <div className="loading-container">
+          <CircularProgress />
+        </div>
+      )}
+
+      {!isLoading && (
+        <div className="peralshome-main-con">
+          <div className="perals-side-nav">
+            <Beadssidebar />
+          </div>
+          <div className="perals-map-area">
+            <div className="beadsmain-con">
+              {perals.map((item, index) => (
+                <div key={index} onClick={() => handleCardClick(item)}>
+                  <div
+                    className={`beads-box ${selectedItem === item ? "selected" : ""}`}
+                  >
+                    <img
+                      src={`data:image/png;base64,${item.image}`}
+                      alt="jewelry"
+                      width="50%"
+                      height="50%"
+                      className="beads-image"
+                    />
+                    <p className="pearlsname">{item.name}</p>
+                    <p className="">{item.price}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+>>>>>>> master
       {selectedItem && (
         <CartSidebar
           isOpen={isCartSidebarOpen}
@@ -72,7 +135,11 @@ const PearlsHome = () => {
           quantity={calculateQuantity(selectedItem)}
         />
       )}
+<<<<<<< HEAD
     </>
+=======
+    </div>
+>>>>>>> master
   );
 };
 
