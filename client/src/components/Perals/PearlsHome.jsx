@@ -20,7 +20,7 @@ const PearlsHome = () => {
           setIsLoading(false); // Set loading to false once data is fetched
         } else {
           console.error('Failed to fetch Pearls');
-          setIsLoading(false); // Set loading to false in case of an error
+          setIsLoading(false); 
         }
       } catch (error) {
         console.error('Error fetching Pearls:', error);
