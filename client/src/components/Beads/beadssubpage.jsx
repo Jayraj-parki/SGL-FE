@@ -12,10 +12,6 @@ import Bonebreads from "./beadsdata/bonebeads";
 import Cereamicbeads from "./beadsdata/ceramicbeads";
 import Coconutbeads from "./beadsdata/coconutbeads";
 import CartSidebar from "../CartSideNav"; // Import the CartSidebar component
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 const Beadssub = () => {
   const location = useLocation();
   const itemName = location.state && location.state.itemName;

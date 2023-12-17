@@ -12,13 +12,13 @@ const Inventory = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    type: '',
-    subtype: '',
-    name: '',
+    type: "",
+    subtype: "",
+    name: "",
     weight: 0,
-    shape: '',
+    shape: "",
     price: 0,
-    colour: '', // Changed from 'color'
+    colour: "", // Changed from 'color'
     value: 0,
     image: null,
   });
@@ -39,11 +39,7 @@ const Inventory = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-<<<<<<< HEAD
-    const apiUrl = 'http://localhost:4000/inventorypost';
-=======
-    const apiUrl = 'https://sgl-be.onrender.com/inventorypost';
->>>>>>> master
+    const apiUrl = "https://sgl-be.onrender.com/inventorypost";
 
     try {
       const formDataToSend = new FormData();
@@ -52,7 +48,7 @@ const Inventory = () => {
       });
 
       const response = await fetch(apiUrl, {
-        method: 'POST',
+        method: "POST",
         body: formDataToSend,
       });
 
@@ -61,13 +57,13 @@ const Inventory = () => {
         setInventoryData((prevData) => [...prevData, newItem]);
 
         setFormData({
-          type: '',
-          subtype: '',
-          name: '',
+          type: "",
+          subtype: "",
+          name: "",
           weight: 0,
-          shape: '',
+          shape: "",
           price: 0,
-          colour: '',
+          colour: "",
           value: 0,
           image: null,
         });
@@ -84,13 +80,13 @@ const Inventory = () => {
       }
     } catch (error) {
       // Handle errors
-      console.error('Error:', error);
+      console.error("Error:", error);
 
       // Show error message
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong!',
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
       });
     }
   };
