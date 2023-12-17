@@ -1,0 +1,258 @@
+/* Reset some default styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Main container for the entire page */
+.orders-page {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+/* Styling for the admin dashboard section */
+.admin-dashboard-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.admin-dashboard {
+  margin: 0;
+  text-align: center;
+}
+
+.logout-button {
+  cursor: pointer;
+  color: #ff0000;
+  text-decoration: underline;
+}
+
+.logout-button:hover {
+  color: #ffcc00;
+}
+
+/* Flex container for various sections */
+.d-flex {
+  display: flex;
+}
+
+/* Main content container */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+/* Scrollbar styling */
+.container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.container::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
+
+/* Admin side navigation container */
+.admin-side-container {
+  flex: 1;
+  order: -1;
+  margin: 0 10px; /* Adjusted margin */
+}
+
+/* Orders container styling */
+.orders-container {
+  flex: 2;
+  margin-top: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+/* Responsive styling for smaller screens */
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hamburger-icon {
+    display: block;
+  }
+
+  .admin-side-container {
+    display: none;
+    flex: 1;
+    margin: 10px 0;
+    order: -1;
+    z-index: 10000;
+  }
+
+  .hamburger-icon {
+    display: block;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 10px;
+    transition: transform 0.3s ease;
+  }
+
+  .show-menu .hamburger-icon {
+    transform: rotate(90deg);
+  }
+
+  .show-menu {
+    display: flex !important;
+  }
+
+  .orders-container {
+    flex: 1;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    overflow: auto;
+    text-align: center;
+    order: 2;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .btn-group {
+    gap: 5px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+/* Table styling */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #dee2e6;
+}
+
+@media (max-width: 767px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 0.625rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-right: 0.625rem;
+  }
+}
+
+/* Header styling */
+.thead-dark th {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Button styling */
+.btn-group {
+  display: flex;
+  gap: 5px;
+}
+
+.btn {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* Additional styles */
+.text-dark {
+  color: #212529;
+}
+
+.orange-hr {
+  border: 2px solid #ffcc00;
+  margin-top: 5px;
+}
+
+
+/* Add this to your CSS */
+.popup-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 300px; /* Adjust the maximum width as needed */
+  width: 100%;
+}
+
+/* Additional styling for overlay if needed */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
