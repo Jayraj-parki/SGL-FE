@@ -17,6 +17,7 @@ const SearchBarPopup = ({ onClose }) => {
   const [backspacePromptDisplayed, setBackspacePromptDisplayed] =
     useState(false);
   const [backspacePromptMessage, setBackspacePromptMessage] = useState("");
+  const apiURL = "https://your-api.com/recommended";
 
   const sampleData = [
     { type: "page", path: "/gems", label: "Gems" },
@@ -34,7 +35,7 @@ const SearchBarPopup = ({ onClose }) => {
 
   useEffect(() => {
     // Fetch recommended data on component mount
-    fetch("https://your-api.com/recommended")
+    fetch(apiURL)
       .then((response) => response.json())
       .then((data) => setRecommendedData(data));
   }, []);
@@ -155,7 +156,7 @@ const SearchBarPopup = ({ onClose }) => {
       <div className="search-card card rounded shadow-sm m-1 p-1">
         <div className="search-field d-flex align-items-center">
           <input
-            className="form-control searchTerm rounded-start"
+            className="form-control searchTerm rounded-start m-1"
             type="text"
             placeholder="Search here..."
             value={searchQuery}
@@ -164,18 +165,18 @@ const SearchBarPopup = ({ onClose }) => {
             required
           />
           <button
-            className="searchButton btn btn-success rounded-end p-0"
+            className="searchButton btn btn-success rounded-end p-0 w-25 "
             type="button"
             onClick={handleSearch}
           >
-            <h6>Search</h6>
+            <FontAwesomeIcon icon={faSearch} />
           </button>
           <button
-            className="closeButton btn btn-danger rounded-end p-0"
+            className="closeButton btn btn-danger rounded-end p-0 w-25"
             type="button"
             onClick={onClose}
           >
-            <h6>Cancel</h6>
+            <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
         {searchResults.length > 0 && (
