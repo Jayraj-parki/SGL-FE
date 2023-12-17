@@ -24,7 +24,7 @@ const PearlsHome = () => {
         }
       } catch (error) {
         console.error('Error fetching Pearls:', error);
-        setIsLoading(false); // Set loading to false in case of an error
+        setIsLoading(false); 
       }
     };
 
