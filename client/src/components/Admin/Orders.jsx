@@ -8,10 +8,27 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import OrderEditForm from "./OrderEditForm";
 
 const Orders = () => {
+  const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
   const [isEditFormVisible, setEditFormVisible] = useState(false);
 
-  // State to store the order being edited
+  useEffect(() => {
+   
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('https://sgl-be.onrender.com/getorders');
+      const data = await response.json();
+      setOrders(data);
+    } catch (error) {
+      console.error('Error fetching orders:', error);
+    }
+  };
+
+
+ 
   const [editingOrder, setEditingOrder] = useState(null);
 
   const handleEditOrder = (orderReqID) => {
@@ -27,7 +44,7 @@ const Orders = () => {
   };
 
   const handleSaveEditForm = (editedOrder) => {
-    // TODO: Update the order in the orderData state
+    
     const updatedOrders = orderData.map((order) =>
       order.id === editingOrder.id ? { ...order, ...editedOrder } : order
     );
@@ -51,32 +68,7 @@ const Orders = () => {
     address: "",
   });
 
-  const [orderData, setOrderData] = useState([
-    {
-      id: 1,
-      username: "JohnDoe",
-      items: [
-        { name: "Product A", quantity: 2, price: 30 },
-        { name: "Product B", quantity: 1, price: 20 },
-      ],
-      orderID: "ABC123",
-      date: "2023-01-15",
-      status: "Processing",
-      address: "123 Main Street, Cityville",
-    },
-    {
-      id: 2,
-      username: "JaneDoe",
-      items: [
-        { name: "Product C", quantity: 1, price: 40 },
-        { name: "Product D", quantity: 3, price: 15 },
-      ],
-      orderID: "XYZ456",
-      date: "2023-01-20",
-      status: "Shipped",
-      address: "456 Oak Street, Townsville",
-    },
-  ]);
+  
   const [isMenuVisible, setMenuVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -184,25 +176,25 @@ const Orders = () => {
     });
   };
 
-  const handleDeleteOrder = (orderId) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You want to delete the order?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const updatedOrders = orderData.filter((order) => order.id !== orderId);
-        setOrderData(updatedOrders);
-
-        Swal.fire("Deleted!", "Order has been deleted.", "success");
+  const handleDelete = async (orderId) => {
+    try {
+      const response = await fetch(`https://sgl-be.onrender.com/delete/${orderId}`, {
+        method: 'DELETE',
+      });
+  
+      console.log(response);
+  
+      if (response.ok) {
+        // Refresh the orders list after a successful delete
+        fetchOrders();
+      } else {
+        console.error('Failed to delete order');
       }
-    });
+    } catch (error) {
+      console.error('Error deleting order:', error);
+    }
   };
-
+  
   const handleSaveEdit = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -284,162 +276,44 @@ const Orders = () => {
           </div>
         )}
         <div className="container mt-3">
-          <div className="orders-container card">
-            <h1 className="text-dark mb-4">Orders</h1>
-            <div className="table-responsive">
-              <table className="table table-bordered table-hover">
-                <thead className="thead-dark">
-                  <tr>
-                    <th>S.no</th>
-                    <th>Username</th>
-                    <th>Items</th>
-                    <th>OrderID</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Address</th>
-                    <th>Total Price</th>
-                    <th>Actions</th>
-                    <th>Edit Orders</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orderData.map((order, index) => (
-                    <tr key={order.id}>
-                      <td>{index + 1}</td>
-                      <td>
-                        {editIndex === index ? (
-                          <input
-                            type="text"
-                            name="username"
-                            value={editedItem.username}
-                            onChange={(e) => handleEditInputChange(e, index)}
-                          />
-                        ) : (
-                          order.username
-                        )}
-                      </td>
-                      <td>
-                        {editIndex === index ? (
-                          <input
-                            type="text"
-                            name="editedField"
-                            value={editedItem.editedField}
-                            onChange={(e) => handleEditInputChange(e, index)}
-                          />
-                        ) : (
-                          order.items.map((item, i) => (
-                            <div key={i}>
-                              {item.name} (Qty: {item.quantity}, Price: $
-                              {item.price})
-                            </div>
-                          ))
-                        )}
-                      </td>
-                      <td>
-                        {editIndex === index ? (
-                          <input
-                            type="text"
-                            name="orderID"
-                            value={editedItem.orderID}
-                            onChange={(e) => handleEditInputChange(e, index)}
-                          />
-                        ) : (
-                          order.orderID
-                        )}
-                      </td>
-                      <td>{order.date}</td>
-                      <td>
-                        {editIndex === index ? (
-                          <input
-                            type="text"
-                            name="status"
-                            value={editedItem.status}
-                            onChange={(e) => handleEditInputChange(e, index)}
-                          />
-                        ) : (
-                          order.status
-                        )}
-                      </td>
-                      <td>
-                        {editIndex === index ? (
-                          <input
-                            type="text"
-                            name="address"
-                            value={editedItem.address}
-                            onChange={(e) => handleEditInputChange(e, index)}
-                          />
-                        ) : (
-                          order.address
-                        )}
-                      </td>
-                      <td>
-                        ${" "}
-                        {order.items.reduce(
-                          (total, item) => total + item.price * item.quantity,
-                          0
-                        )}
-                      </td>
-                      <td>
-                        <div className="btn-group" role="group">
-                          <button
-                            className="btn btn-warning btn-sm"
-                            onClick={() => handleUpdateStatus(order.id)}
-                          >
-                            Update
-                          </button>
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() => handleCancelOrder(order.id)}
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            className="btn btn-success btn-sm"
-                            onClick={() => handleRefundOrder(order.id)}
-                          >
-                            Refund
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="btn-group" role="group">
-                          {editIndex === index ? (
-                            <>
-                              <button
-                                className="btn btn-success btn-sm"
-                                onClick={() => handleSaveEdit(index)}
-                              >
-                                Save
-                              </button>
-                              <button
-                                className="btn btn-danger btn-sm"
-                                onClick={handleCancelEdit}
-                              >
-                                Cancel
-                              </button>
-                            </>
-                          ) : (
-                            <button
-                              className="btn btn-primary btn-sm"
-                              onClick={() => handleEditOrder(order.orderID)}
-                            >
-                              <FaEdit />
-                            </button>
-                          )}
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() => handleDeleteOrder(index)}
-                          >
-                            <FaTrashAlt />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+         
+<>
+
+        <table>
+  <thead>
+    <tr>
+      <th>User Name</th>
+      <th>Items</th>
+      <th>Order ID</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Address</th>
+      <th>Total Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {orders.map((order) => (
+      <tr key={order._id}>
+        <td>{order.userName}</td>
+        <td>{order.items}</td>
+        <td>{order.orderId}</td>
+        <td>{new Date(order.date).toLocaleDateString()}</td>
+        <td>{order.status}</td>
+        <td>{order.address}</td>
+        <td>${order.totalPrice}</td>
+        <td>
+          <button onClick={() => handleDelete(order._id)}>Delete</button>
+          <button>edit </button>
+          <button>update</button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+      </>
+
         </div>
       </div>
     </div>
