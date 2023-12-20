@@ -5,16 +5,19 @@ import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
+import { Box } from "@mui/system";
+
 
 const Blogs = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [blogData, setBlogData] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [file, setFile] = useState(null);
+  const [blogs, setBlogs] = useState([]);
+ 
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,17 +34,18 @@ const Blogs = () => {
   }, []);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await fetch("/http://localhost:4000/getblogs");
-        const data = await response.json();
-        setBlogData(data);
-      } catch (error) {
-        console.error("Error fetching blogs:", error);
-      }
-    };
     fetchBlogs();
   }, []);
+
+  const fetchBlogs = async () => {
+    try {
+      const response = await fetch("http://localhost:4000/getblogs");
+      const data = await response.json();
+      setBlogs(data);
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    }
+  };
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -93,31 +97,9 @@ const Blogs = () => {
     }
   };
 
-  const handleEditBlog = async () => {
-    try {
-      // Your existing logic for editing a blog
-      // ...
+ 
 
-      // Show success message
-      await Swal.fire({
-        icon: "success",
-        title: "Blog updated successfully!",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
-      console.error("Error updating blog:", error);
-
-      // Show error message
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
-  };
-
-  const handleDeleteBlog = async (index) => {
+  const handleDeleteBlog = async (blogId) => {
     const result = await Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -130,19 +112,23 @@ const Blogs = () => {
 
     if (result.isConfirmed) {
       try {
-        // Your existing logic for deleting a blog
-        // ...
-
-        // Show success message
-        await Swal.fire({
-          icon: "success",
-          title: "Blog deleted successfully!",
-          showConfirmButton: false,
-          timer: 1500,
+        const response = await fetch(`http://localhost:4000/deleteblogs/${blogId}`, {
+          method: "DELETE",
         });
 
-        // Refresh blogs after deleting one
-        fetchBlogs();
+        if (response.ok) {
+          await Swal.fire({
+            icon: "success",
+            title: "Blog deleted successfully!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+
+          // Refresh blogs after deleting one
+          fetchBlogs();
+        } else {
+          console.error("Failed to delete blog:", response.statusText);
+        }
       } catch (error) {
         console.error("Error deleting blog:", error);
 
@@ -299,40 +285,32 @@ const Blogs = () => {
                 </div>
 
                 <div className="posted-blogs">
-                  {blogData.map((blog, index) => (
-                    <div key={index} className="blog-card mb-3">
-                      <h3>{blog.title}</h3>
-                      <p>{blog.subtitle}</p>
-                      <p>{blog.content}</p>
-                      <img
-                        src={blog.image}
-                        alt={blog.title}
-                        className="img-fluid"
-                      />
-                      <div className="blog-actions">
-                        <button
-                          className="btn btn-warning me-2"
-                          onClick={() => setEditIndex(index)}
-                        >
-                          Edit
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => handleDeleteBlog(index)}
-                        >
-                          Delete
-                        </button>
-                        <button className="btn btn-primary ms-2">Like</button>
-                        <button className="btn btn-secondary">Share</button>
-                      </div>
-                    </div>
-                  ))}
+                
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <Box>
+        {blogs.map((blog) => (
+          <div key={blog._id} className="blog-card mb-3">
+
+            <img 
+              src={`data:image/png;base64,${blog.image}` }
+              alt="Blog"
+              width="40%"
+              height="40%"
+              className="img-fluid"
+            />
+            <p>Title: {blog.title}</p>
+            <p>Subtitle: {blog.subtitle}</p>
+            <p>Content: {blog.content}</p>
+            <button  className="btn btn-danger" onClick={() => handleDeleteBlog(blog._id)}>Delete</button>
+          </div>
+        ))}
+      </Box>
     </div>
   );
 };

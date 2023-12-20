@@ -113,7 +113,7 @@ const Inventory = () => {
           icon: "success",
           title: "Item deleted successfully!",
           showConfirmButton: false,
-          timer: 1500, // Auto close after 1.5 seconds
+          timer: 1500, 
         });
       }
     });
@@ -132,7 +132,7 @@ const Inventory = () => {
           id={name}
           name={name}
           onChange={handleChange}
-          required // Add required attribute
+          required 
         />
       ) : (
         <input
@@ -142,7 +142,7 @@ const Inventory = () => {
           name={name}
           value={formData[name]}
           onChange={handleChange}
-          required // Add required attribute
+          required 
         />
       )}
     </div>
@@ -150,7 +150,7 @@ const Inventory = () => {
 
   return (
     <div>
-      {/* Navbar for mobile view */}
+     
       <nav className="navbar navbar-light bg-light d-lg-none">
         <button
           className="navbar-toggler"
@@ -177,7 +177,7 @@ const Inventory = () => {
         </div>
       </nav>
 
-      {/* Content */}
+    
       <div className="container-fluid mt-3">
         <div className="row">
           <div id="adminSideNav" className="col-md-3 p-0 d-none d-lg-block">
