@@ -1,4 +1,5 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { useState } from "react";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/navbar";
 import GemsDisplay from "./components/Gemspage/GemsDisplay";
@@ -21,6 +22,11 @@ import Navmobile from "./components/Navbar/mobileview";
 import PearlsHome from "./components/Perals/PearlsHome";
 
 function App() {
+  const [currentApiURL, setCurrentApiURL] = useState("");
+
+  const handleCategorySelect = (apiURL) => {
+    setCurrentApiURL(apiURL);
+  };
   return (
     <>
       <BrowserRouter>
@@ -28,7 +34,10 @@ function App() {
         <Routes>
           <Route path="/mobile" element={<Navmobile />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/gems" element={<GemsDisplay />}></Route>
+          <Route
+            path="/gems"
+            element={<GemsDisplay apiURL={currentApiURL} />}
+          ></Route>
           <Route path="/aboutus" element={<Aboutus />}></Route>
           <Route path="/diamonds" element={<DiamondsDisplay />}></Route>
           <Route path="/astrology" element={<Zodiachome />}></Route>

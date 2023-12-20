@@ -7,13 +7,14 @@ import profile from "./Nav-images/Frame 75.png";
 import wishlist from "./Nav-images/Frame 77.png";
 import mybag from "./Nav-images/Frame 78.png";
 import SearchBarPopup from "./SearchBarPopup";
+import PropTypes from "prop-types";
 
-const Mainheader = () => {
-  const navigate = useNavigate();
+const Mainheader = ({ selectedProductType }) => {
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const openSearchBar = () => {
     setIsSearchBarOpen(true);
   };
+  const navigate = useNavigate();
 
   const closeSearchBar = () => {
     setIsSearchBarOpen(false);
@@ -63,10 +64,17 @@ const Mainheader = () => {
           </p>
         </div>
         {/* Conditionally render SearchBarPopup */}
-        {isSearchBarOpen && <SearchBarPopup onClose={closeSearchBar} />}
+        {isSearchBarOpen && (
+          <SearchBarPopup
+            selectedProductType={selectedProductType}
+            onClose={closeSearchBar}
+          />
+        )}
       </div>
     </>
   );
 };
-
+Mainheader.propTypes = {
+  selectedProductType: PropTypes.string.isRequired,
+};
 export default Mainheader;

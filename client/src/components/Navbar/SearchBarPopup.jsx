@@ -37,7 +37,10 @@ const SearchBarPopup = ({ onClose }) => {
     // Fetch recommended data on component mount
     fetch(apiURL)
       .then((response) => response.json())
-      .then((data) => setRecommendedData(data));
+      .then((data) => setRecommendedData(data))
+      .catch((error) =>
+        console.error("Error fetching recommended data:", error)
+      );
   }, []);
 
   const fuzzySearchInstance = new FuzzySearch(sampleData, ["label"], {
@@ -52,7 +55,7 @@ const SearchBarPopup = ({ onClose }) => {
       if (!backspacePromptDisplayed) {
         // Display a prompt or message after the first backspace
         setBackspacePromptDisplayed(true);
-        setBackspacePromptMessage("Click clear button again to exit");
+        setBackspacePromptMessage("Press backspace again to exit");
       } else {
         // Handle backspace key when the search bar is empty for the second time
         console.log("Backspace pressed. Closing search.");
@@ -68,6 +71,13 @@ const SearchBarPopup = ({ onClose }) => {
   const handleSearchChange = (event) => {
     const query = event.target.value.trim();
     setSearchQuery(query);
+
+    // Validation: Require at least 2 letters or spaces
+    if (query.length < 2) {
+      setMessage("Please enter at least 2 letters or spaces.");
+      setSearchResults([]);
+      return;
+    }
 
     // Update search results based on query and recommended data
     const filteredResults = fuzzySearchInstance.search(query);
@@ -165,7 +175,7 @@ const SearchBarPopup = ({ onClose }) => {
             required
           />
           <button
-            className="searchButton btn btn-success rounded-end p-0 w-25 "
+            className="searchButton btn btn-success rounded-end p-0 w-25"
             type="button"
             onClick={handleSearch}
           >
@@ -192,6 +202,13 @@ const SearchBarPopup = ({ onClose }) => {
             ))}
           </ul>
         )}
+        {/* Validation Warning */}
+        {searchResults.length === 0 && searchQuery.length > 1 && (
+          <div className="validation-warning">
+            <p className="mt-2 text-warning">Please refine your search.</p>
+          </div>
+        )}
+
         {/* Inside the component's JSX */}
         {backspacePromptDisplayed && (
           <p className="backspace-prompt">{backspacePromptMessage}</p>
