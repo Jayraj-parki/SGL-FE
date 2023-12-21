@@ -1,96 +1,25 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import InventoryChart from "./InventoryChart";
 import AdminSideNav from "./AdminSide";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-
+import UploadForm from "./UploadForm";
 import "./Inventory.css";
 
 const Inventory = () => {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    type: "",
-    subtype: "",
-    name: "",
-    weight: 0,
-    shape: "",
-    price: 0,
-    colour: "", // Changed from 'color'
-    value: 0,
-    image: null,
-  });
-
-  const [imageFile, setImageFile] = useState(null);
+  // State for managing inventory data
   const [inventoryData, setInventoryData] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value, type } = e.target;
-
-    if (type === "file") {
-      setImageFile(e.target.files[0]);
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
+  // Function to handle item upload
+  const handleUpload = (newItem) => {
+    setInventoryData((prevData) => [...prevData, newItem]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const apiUrl = "https://sgl-be.onrender.com/inventorypost";
-
-    try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, key === "image" ? imageFile : value);
-      });
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        body: formDataToSend,
-      });
-
-      if (response.ok) {
-        const newItem = { ...formData, image: imageFile, id: Date.now() };
-        setInventoryData((prevData) => [...prevData, newItem]);
-
-        setFormData({
-          type: "",
-          subtype: "",
-          name: "",
-          weight: 0,
-          shape: "",
-          price: 0,
-          colour: "",
-          value: 0,
-          image: null,
-        });
-
-        // Show success message
-        await Swal.fire({
-          icon: "success",
-          title: "Item added successfully!",
-          showConfirmButton: false,
-          timer: 1500, // Auto close after 1.5 seconds
-        });
-      } else {
-        console.error("Failed to add item:", response.statusText);
-      }
-    } catch (error) {
-      // Handle errors
-      console.error("Error:", error);
-
-      // Show error message
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    }
-  };
-
+  // Function to handle item deletion
   const handleInventoryItem = (itemId) => {
     // Show confirmation dialog
     Swal.fire({
@@ -113,44 +42,15 @@ const Inventory = () => {
           icon: "success",
           title: "Item deleted successfully!",
           showConfirmButton: false,
-          timer: 1500, 
+          timer: 1500,
         });
       }
     });
   };
 
-  const renderInput = (label, name) => (
-    <div className="mb-3">
-      <label htmlFor={name} className="form-label">
-        {label}
-      </label>
-      {name === "image" ? (
-        <input
-          type="file"
-          accept="image/*"
-          className="form-control"
-          id={name}
-          name={name}
-          onChange={handleChange}
-          required 
-        />
-      ) : (
-        <input
-          type="text"
-          className="form-control"
-          id={name}
-          name={name}
-          value={formData[name]}
-          onChange={handleChange}
-          required 
-        />
-      )}
-    </div>
-  );
-
   return (
     <div>
-     
+      {/* Navigation bar for smaller screens */}
       <nav className="navbar navbar-light bg-light d-lg-none">
         <button
           className="navbar-toggler"
@@ -177,14 +77,16 @@ const Inventory = () => {
         </div>
       </nav>
 
-    
+      {/* Main content */}
       <div className="container-fluid mt-3">
         <div className="row">
+          {/* Admin side navigation for larger screens */}
           <div id="adminSideNav" className="col-md-3 p-0 d-none d-lg-block">
             <AdminSideNav />
           </div>
 
           <div className="col-md-9">
+            {/* Logout button for larger screens */}
             <div className="mb-1 d-none d-lg-block">
               <div
                 onClick={() => {
@@ -196,50 +98,29 @@ const Inventory = () => {
               </div>
             </div>
 
-            <div id="uploadForm" className="card p-3 mb-4">
-              <form onSubmit={handleSubmit} className="row g-3">
-                <h1 className="text-dark mb-4 ps-0">Upload</h1>
-                <div style={{ textAlign: "left" }}>
-                  <hr
-                    style={{
-                      color: "orange",
-                      borderTop: "2px solid orange",
-                      width: "50%",
-                      margin: "0",
-                    }}
-                  />
-                </div>
-                <h6>Add items to inventory</h6>
-                {Object.keys(formData).map((key) => (
-                  <div key={key} className="col-lg-6 mb-3">
-                    {renderInput(
-                      key.charAt(0).toUpperCase() + key.slice(1),
-                      key
-                    )}
-                  </div>
-                ))}
-                <div className="col-12">
-                  <button type="submit" className="btn btn-primary mt-3">
-                    Add Item
-                  </button>
-                </div>
-              </form>
-            </div>
+            {/* Upload form */}
+            <UploadForm onUpload={handleUpload} />
 
+            {/* Current Inventory */}
             <div className="card p-4 mb-4">
               <h2 className="mb-4">Current Inventory</h2>
               <div className="table-responsive">
                 <table className="table mt-3">
                   <thead>
                     <tr>
-                      {Object.keys(formData).map((key) => (
-                        <th key={key}>
-                          {key.charAt(0).toUpperCase() + key.slice(1)}
-                        </th>
-                      ))}
+                      <th>Type</th>
+                      <th>Subtype</th>
+                      <th>Name</th>
+                      <th>Weight</th>
+                      <th>Shape</th>
+                      <th>Price</th>
+                      <th>Colour</th>
+                      <th>Value</th>
+                      <th>Image</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {inventoryData.map((item) => (
                       <tr key={item.id}>
@@ -274,6 +155,7 @@ const Inventory = () => {
               </div>
             </div>
 
+            {/* Inventory Chart */}
             <div className="card p-4 mb-4">
               <h2 className="mb-4">Inventory Chart</h2>
               <InventoryChart />
