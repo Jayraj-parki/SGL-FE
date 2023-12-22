@@ -1,26 +1,20 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginForm.css";
 
-
 const AdminLoginForm = () => {
-
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
-  const [otp, setOtp] = useState(Array(6).fill("")); 
+  const [otp, setOtp] = useState(Array(6).fill(""));
 
   const navigate = useNavigate();
 
-  
   const handleSendOtp = (e) => {
     e.preventDefault();
 
-  
     const phoneRegex = /^[0-9]{10}$/;
     const isValid = phoneRegex.test(phoneNumber);
 
-    
     if (isValid) {
       const generatedOtp = Math.floor(100000 + Math.random() * 900000);
       setOtp(Array.from(String(generatedOtp), Number)); // Convert OTP to an array
@@ -30,15 +24,11 @@ const AdminLoginForm = () => {
     }
   };
 
-  
   const handleOtpChange = (index, value) => {
-   
     if (/^\d+$/.test(value)) {
-    
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-
 
       if (index < 5 && value !== "") {
         document.getElementById(`otp-input-${index + 1}`).focus();
@@ -46,15 +36,11 @@ const AdminLoginForm = () => {
     }
   };
 
-
   const handleLogin = (e) => {
     e.preventDefault();
 
-
-  
-    navigate("/admin");
+    navigate("/admin/inventory");
   };
-
 
   return (
     <div className="login-form-card">

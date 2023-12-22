@@ -1,9 +1,12 @@
+// App.jsx
+import React from "react";
+import PropTypes from "prop-types";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { useState } from "react";
-import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/navbar";
-import GemsDisplay from "./components/Gemspage/GemsDisplay";
 import Footer from "./components/Footer/footer";
+import Navmobile from "./components/Navbar/mobileview";
+import Home from "./components/Home/Home";
+import GemsDisplay from "./components/Gemspage/GemsDisplay";
 import Aboutus from "./components/About-us/aboutus";
 import DiamondsDisplay from "./components/Diamonds/Diamondspage/DiamondGridDisplay";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
@@ -12,55 +15,145 @@ import Beadsmain from "./components/Beads/beadsmain";
 import Beadssub from "./components/Beads/beadssubpage";
 import Zodiacsubpage from "./components/Astrology-demo/zodiacpage/zodiacsubpage";
 import Coralmain from "./components/corals/coralsmainhome";
-import Blogs from "./components/Admin/Blogs";
-import Inventory from "./components/Admin/inventory";
-import Orders from "./components/Admin/Orders";
-import AdminLoginForm from "./components/Admin/AdminLogin";
+import AdminTemplate from "./components/Admin/AdminDashboard";
 import JewelryMain from "./components/jewelry/jewelryMain";
 import ShoppingCart from "./components/Cart/Cart";
-import Navmobile from "./components/Navbar/mobileview";
 import PearlsHome from "./components/Perals/PearlsHome";
-
-function App() {
-  const [currentApiURL, setCurrentApiURL] = useState("");
-
-  const handleCategorySelect = (apiURL) => {
-    setCurrentApiURL(apiURL);
-  };
+import AdminLoginForm from "./components/Admin/AdminLogin";
+const Layout = ({ children }) => (
+  <>
+    <Navbar />
+    {children}
+    <Footer />
+  </>
+);
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+const App = () => {
   return (
-    <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/mobile" element={<Navmobile />}></Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route
-            path="/gems"
-            element={<GemsDisplay apiURL={currentApiURL} />}
-          ></Route>
-          <Route path="/aboutus" element={<Aboutus />}></Route>
-          <Route path="/diamonds" element={<DiamondsDisplay />}></Route>
-          <Route path="/astrology" element={<Zodiachome />}></Route>
-          <Route path="/diamondscart" element={<DiamondCaratDisplay />}></Route>
-          <Route path="/beads" element={<Beadsmain />}></Route>
-          <Route path="/beadssub" element={<Beadssub />}></Route>
-          <Route path="/peralhome" element={<PearlsHome />}></Route>
-          <Route path="/zodiacsub" element={<Zodiacsubpage />}></Route>
-          <Route path="/corals" element={<Coralmain />}></Route>
-          <Route path="/corals" element={<JewelryMain />}></Route>
-          <Route path="/catrcontainer" element={<ShoppingCart />}></Route>
-          <Route path="/jewelery" element={<JewelryMain />}></Route>
-          <Route path="/cart" element={<ShoppingCart />}></Route>
-          {/*Admin  */}
-          <Route path="/admin-login" element={<AdminLoginForm />}></Route>
-          <Route path="/admin" element={<Inventory />}></Route>
-          <Route path="/admin/blogs" element={<Blogs />}></Route>
-          <Route path="/admin/orders" element={<Orders />}></Route>
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        {/* Non-admin routes with Layout component */}
+        <Route
+          path="/mobile"
+          element={
+            <Layout>
+              <Navmobile />
+            </Layout>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/gems"
+          element={
+            <Layout>
+              <GemsDisplay />
+            </Layout>
+          }
+        />
+        <Route
+          path="/aboutus"
+          element={
+            <Layout>
+              <Aboutus />
+            </Layout>
+          }
+        />
+        <Route
+          path="/diamonds"
+          element={
+            <Layout>
+              <DiamondsDisplay />
+            </Layout>
+          }
+        />
+        <Route
+          path="/astrology"
+          element={
+            <Layout>
+              <Zodiachome />
+            </Layout>
+          }
+        />
+        <Route
+          path="/diamondscart"
+          element={
+            <Layout>
+              <DiamondCaratDisplay />
+            </Layout>
+          }
+        />
+        <Route
+          path="/beads"
+          element={
+            <Layout>
+              <Beadsmain />
+            </Layout>
+          }
+        />
+        <Route
+          path="/beadssub"
+          element={
+            <Layout>
+              <Beadssub />
+            </Layout>
+          }
+        />
+        <Route
+          path="/peralhome"
+          element={
+            <Layout>
+              <PearlsHome />
+            </Layout>
+          }
+        />
+        <Route
+          path="/zodiacsub"
+          element={
+            <Layout>
+              <Zodiacsubpage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/corals"
+          element={
+            <Layout>
+              <Coralmain />
+            </Layout>
+          }
+        />
+        <Route
+          path="/jewelery"
+          element={
+            <Layout>
+              <JewelryMain />
+            </Layout>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <Layout>
+              <ShoppingCart />
+            </Layout>
+          }
+        />
+
+        {/* Admin routes */}
+        <Route path="/admin-login" element={<AdminLoginForm />} />
+        <Route path="/admin/*" element={<AdminTemplate />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

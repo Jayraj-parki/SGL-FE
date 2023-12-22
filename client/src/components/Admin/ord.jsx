@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import OrderEditForm from "./OrderEditForm";
-import { Modal } from "react-bootstrap";
 import AdminSideNav from "./AdminSide";
 
 const Orders = () => {
@@ -159,19 +158,14 @@ const Orders = () => {
 
   return (
     <div className="orders-page">
-      <Modal show={isEditFormVisible} onHide={handleCancelEditForm} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Order</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <OrderEditForm
-            order={editingOrder}
-            onSave={handleSaveEditForm}
-            onCancel={handleCancelEditForm}
-            className="popup-form"
-          />
-        </Modal.Body>
-      </Modal>
+      {isEditFormVisible && (
+        <OrderEditForm
+          order={editingOrder}
+          onSave={handleSaveEditForm}
+          onCancel={handleCancelEditForm}
+          className="popup-form"
+        />
+      )}
 
       <nav
         className="navbar navbar-expand-lg navbar-light bg-light"
@@ -204,7 +198,7 @@ const Orders = () => {
           <div className="col-lg-3">
             <AdminSideNav />
           </div>
-          <div className="col-lg-9  shadow p-4 mb-5 bg-white rounded w-lg-100">
+          <div className="col-lg-9">
             <div className="table-responsive">
               <table
                 className="table table-bordered table-hover"

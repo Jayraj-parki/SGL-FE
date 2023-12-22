@@ -253,14 +253,22 @@ const UploadForm = ({ onUpload }) => {
             <textarea className="form-control" {...inputProps}></textarea>
           </div>
         ) : (
-          <input type={type} className="form-control" {...inputProps} />
+          <input
+            type="text"
+            className="form-control"
+            id="name"
+            name="name"
+            value={formData.name} // Make sure it matches the property in formData
+            onChange={handleChange}
+            required
+          />
         )}
       </div>
     );
   };
 
   // Function to render textarea input fields
-  const renderTextarea = (name, value) => (
+  const renderTextarea = (name) => (
     <div className="mb-3">
       <label htmlFor={name} className="form-label">
         {name.charAt(0).toUpperCase() + name.slice(1)}
@@ -269,8 +277,8 @@ const UploadForm = ({ onUpload }) => {
         <textarea
           className="form-control"
           id={name}
-          name={name} // Use the correct name attribute
-          value={formData[name]} // Use the correct property in formData
+          name={name}
+          value={formData[name]} // Ensure value is set from formData
           onChange={handleChange}
           required
         ></textarea>
@@ -381,7 +389,7 @@ const UploadForm = ({ onUpload }) => {
   return (
     <div id="uploadForm" className="card p-3 mb-4">
       <form onSubmit={handleSubmit} className="row g-3">
-        <h1 className="text-dark mb-4 ps-0">Upload</h1>
+        <h1 className="text-dark mb-4 ps-0">Inventory</h1>
         <hr
           style={{
             color: "orange",

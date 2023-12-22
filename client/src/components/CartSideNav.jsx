@@ -4,27 +4,39 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
+// ... (previous imports)
+
 const CartSidebar = ({
   isOpen,
   onClose,
   selectedItem,
   quantity: initialQuantity,
+  itemData,
 }) => {
   const [quantity, setQuantity] = useState(initialQuantity);
+
   const handleProceedToCheckout = () => {
-    // Add logic for proceeding to checkout
-    Swal.fire({
-      icon: "success",
-      title: "Proceeding to Checkout!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+    if (quantity > 0) {
+      // Add logic for proceeding to checkout
+      Swal.fire({
+        icon: "success",
+        title: "Proceeding to Checkout!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "Cart is Empty!",
+        text: "Please add items to your cart before proceeding to checkout.",
+      });
+    }
   };
+
   const handleQuantityChange = (change) => {
     // Ensure quantity does not go below 0
     const newQuantity = Math.max(quantity + change, 0);
     setQuantity(newQuantity);
-    console.log("Quantity change:", change);
 
     // Display a success notification using SweetAlert2
     Swal.fire({
@@ -66,7 +78,7 @@ const CartSidebar = ({
 
   const calculateTotal = () => {
     // Replace with actual total calculation based on the item price and quantity
-    const itemPrice = 19.99; // Replace with the actual price from the data
+    const itemPrice = itemData.price; // Access the price from the passed itemData
 
     // Display a notification using SweetAlert2 for total calculation
     Swal.fire({
@@ -102,6 +114,7 @@ const CartSidebar = ({
     zIndex: "1000",
     overflowY: "auto",
   };
+
   const closeButtonStyle = {
     color: "#FFA500", // Orange color
     padding: "0.5rem",
@@ -128,7 +141,6 @@ const CartSidebar = ({
   const headingStyle = {
     fontSize: "1.8rem",
     marginBottom: "1.5rem",
-
     paddingBottom: "0.8rem",
     color: "#333", // Darken the text color a bit
   };
@@ -197,6 +209,7 @@ const CartSidebar = ({
     onClose: PropTypes.func.isRequired,
     selectedItem: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
+    itemData: PropTypes.object.isRequired,
   };
 
   return (
@@ -207,36 +220,49 @@ const CartSidebar = ({
           <button style={closeButtonStyle} onClick={onClose}>
             <FaTimes />
           </button>
-          {/* Wrap the image and description in a card */}
-          <div style={cardStyle}>
-            <div style={itemInfoStyle}>
-              <img src="diamond.png" alt="Diamond" style={diamondImageStyle} />
-              <span>{selectedItem}</span>
-              <div style={buttonContainerStyle}>
-                <button
-                  style={buttonStyle}
-                  onClick={() => handleQuantityChange(-1)}
-                >
-                  -
-                </button>
-                <span>{quantity}</span>
-                <button
-                  style={buttonStyle}
-                  onClick={() => handleQuantityChange(1)}
-                >
-                  +
-                </button>
+          {quantity > 0 ? (
+            <>
+              {/* Wrap the image and description in a card */}
+              <div style={cardStyle}>
+                <div style={itemInfoStyle}>
+                  <img
+                    src={itemData.image} // Use the image from the passed itemData
+                    alt={itemData.name} // Use the name from the passed itemData
+                    style={diamondImageStyle}
+                  />
+                  <span>{selectedItem}</span>
+                  <div style={buttonContainerStyle}>
+                    <button
+                      style={buttonStyle}
+                      onClick={() => handleQuantityChange(-1)}
+                    >
+                      -
+                    </button>
+                    <span>{quantity}</span>
+                    <button
+                      style={buttonStyle}
+                      onClick={() => handleQuantityChange(1)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button style={buttonStyle} onClick={handleDeleteItem}>
+                    Delete
+                  </button>
+                </div>
               </div>
-              <button style={buttonStyle} onClick={handleDeleteItem}>
-                Delete
-              </button>
-            </div>
-          </div>
+            </>
+          ) : (
+            <p>Your cart is empty.</p>
+          )}
         </div>
         <div style={contentStyle}>
           <hr style={{ margin: "0.5rem", border: "0.5px solid #FFA500" }} />
 
-          <div style={totalStyle}>Total: ${calculateTotal()}</div>
+          {quantity > 0 && (
+            <div style={totalStyle}>Total: ${calculateTotal()}</div>
+          )}
+
           <button
             onClick={() => handleProceedToCheckout()}
             style={{
@@ -269,6 +295,7 @@ CartSidebar.propTypes = {
   onClose: PropTypes.func.isRequired,
   selectedItem: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
+  itemData: PropTypes.object.isRequired,
 };
 
 export default CartSidebar;

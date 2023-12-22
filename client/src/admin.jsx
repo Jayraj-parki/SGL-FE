@@ -6,7 +6,7 @@ import { FaSignOutAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import UploadForm from "./UploadForm";
-// import "./Inventory.css";
+import "./Inventory.css";
 
 const Inventory = () => {
   const navigate = useNavigate();
@@ -45,28 +45,16 @@ const Inventory = () => {
   return (
     <div>
       {/* Navigation bar for smaller screens */}
-      <nav
-        className="navbar navbar-expand-lg navbar-light bg-light"
-        style={{ marginTop: 0 }}
-      >
-        <div
-          className="container d-flex justify-content-center align-items-center text-center"
-          style={{ marginLeft: "auto", marginRight: "auto" }}
-        >
-          <h1
-            className="admin-dashboard ms-4 ms-sm-3 mx-auto"
-            style={{ maxWidth: "fit-content" }}
-          >
-            Admin Dashboard
-          </h1>
+      <nav className="navbar navbar-light bg-light d-lg-none">
+        <div className="d-flex justify-content-between align-items-center">
+          <h1 className="admin-dashboard">Admin Dashboard</h1>
           <div
             onClick={() => {
               navigate("/admin-login");
             }}
-            className="logout-button ms-auto"
+            className="logout-button"
           >
-            <span className="d-none d-sm-inline">Logout </span>
-            <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
+            Logout <FaSignOutAlt style={{ marginLeft: "8px" }} />
           </div>
         </div>
       </nav>
@@ -74,16 +62,27 @@ const Inventory = () => {
       {/* Main content */}
       <div className="container-fluid mt-3">
         <div className="row">
-          <div className="col-md-4">
+          <div id="adminSideNav" className="col-lg-4 p-0 d-none d-lg-block">
             <AdminSideNav />
           </div>
           <div
-            className="col-md-9 order-md-2 ms-auto me-1"
+            className="col-md-9"
             style={{
-              width: "75%",
-              "@media (minWidth: 1200px)": { width: "80%", margin: "auto 0" },
+              width: "70%",
+              "@media (min-width: 1200px)": { width: "80%", margin: "0 auto" },
             }}
           >
+            <div className="mb-1 d-none d-lg-block">
+              <div
+                onClick={() => {
+                  navigate("/admin-login");
+                }}
+                className="logout-button"
+              >
+                Logout <FaSignOutAlt style={{ marginLeft: "8px" }} />
+              </div>
+            </div>
+
             <UploadForm onUpload={handleUpload} />
 
             <div className="card p-4 mb-4">
@@ -91,6 +90,7 @@ const Inventory = () => {
               <div className="table-responsive">
                 <table className="table mt-3">
                   <thead>
+                    {" "}
                     <tr>
                       <th>Type</th>
                       <th>Subtype</th>

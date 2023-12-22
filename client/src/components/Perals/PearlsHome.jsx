@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
 import CartSidebar from "../CartSideNav";
 import "./PearlsHome.css";
@@ -7,9 +7,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 const PearlsHome = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
-  const [perals, setPearls] = useState([]);
+  const [pearls, setPearls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  //chandra
+
   useEffect(() => {
     const fetchPearls = async () => {
       try {
@@ -17,13 +17,18 @@ const PearlsHome = () => {
         if (response.ok) {
           const data = await response.json();
           setPearls(data);
-          setIsLoading(false); // Set loading to false once data is fetched
+          setIsLoading(false);
         } else {
-          console.error("Failed to fetch Pearls");
+          // Handle non-OK responses
+          const errorMessage = await response.text();
+          console.error(
+            `Failed to fetch Pearls. Server response: ${errorMessage}`
+          );
           setIsLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching Pearls:", error);
+        // Handle network errors or JSON parsing errors
+        console.error("Error fetching Pearls:", error.message);
         setIsLoading(false);
       }
     };
@@ -37,6 +42,11 @@ const PearlsHome = () => {
   };
 
   const calculateQuantity = (item) => item.quantity || 1;
+
+  const closeCartSidebar = () => {
+    setSelectedItem(null);
+    setCartSidebarOpen(false);
+  };
 
   return (
     <div className="pearlshome-container">
@@ -53,12 +63,13 @@ const PearlsHome = () => {
           </div>
           <div className="perals-map-area">
             <div className="beadsmain-con">
-              {perals.map((item, index) => (
-                <div key={index} onClick={() => handleCardClick(item)}>
+              {pearls.map((item, index) => (
+                <div key={index}>
                   <div
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
+                    onClick={() => handleCardClick(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -69,6 +80,7 @@ const PearlsHome = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <p className="">{item.price}</p>
+                    <button className="buy-now-button">Buy Now</button>
                   </div>
                 </div>
               ))}
@@ -80,12 +92,10 @@ const PearlsHome = () => {
       {selectedItem && (
         <CartSidebar
           isOpen={isCartSidebarOpen}
-          onClose={() => {
-            setSelectedItem(null);
-            setCartSidebarOpen(false);
-          }}
+          onClose={closeCartSidebar}
           selectedItem={selectedItem.name}
           quantity={calculateQuantity(selectedItem)}
+          itemData={selectedItem} // Pass itemData here
         />
       )}
     </div>

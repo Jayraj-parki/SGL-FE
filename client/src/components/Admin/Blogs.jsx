@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./Blogs.css";
 import AdminSideNav from "./AdminSide";
 import { useNavigate } from "react-router-dom";
@@ -7,31 +7,14 @@ import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import { Box } from "@mui/system";
 
-
 const Blogs = () => {
   const navigate = useNavigate();
-  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
   const [file, setFile] = useState(null);
   const [blogs, setBlogs] = useState([]);
- 
-
-  useEffect(() => {
-    const handleResize = () => {
-      const isMobileView = window.innerWidth <= 768;
-      setMobileMenuOpen(isMobileView);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     fetchBlogs();
@@ -89,15 +72,13 @@ const Blogs = () => {
       }
     } catch (error) {
       console.error("Error creating blog:", error.message);
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Something went wrong!",
       });
     }
   };
-
- 
 
   const handleDeleteBlog = async (blogId) => {
     const result = await Swal.fire({
@@ -112,9 +93,12 @@ const Blogs = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:4000/deleteblogs/${blogId}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `http://localhost:4000/deleteblogs/${blogId}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (response.ok) {
           await Swal.fire({
@@ -133,7 +117,7 @@ const Blogs = () => {
         console.error("Error deleting blog:", error);
 
         // Show error message
-        Swal.fire({
+        await Swal.fire({
           icon: "error",
           title: "Oops...",
           text: "Something went wrong!",
@@ -144,46 +128,40 @@ const Blogs = () => {
 
   return (
     <div className="admin-layout">
+      <nav
+        className="navbar navbar-expand-lg navbar-light bg-light"
+        style={{ marginTop: 0 }}
+      >
+        <div
+          className="container d-flex justify-content-center align-items-center text-center"
+          style={{ marginLeft: "auto", marginRight: "auto" }}
+        >
+          <h1
+            className="admin-dashboard ms-4 ms-sm-3 mx-auto"
+            style={{ maxWidth: "fit-content" }}
+          >
+            Admin Dashboard
+          </h1>
+          <div
+            onClick={() => {
+              navigate("/admin-login");
+            }}
+            className="logout-button ms-auto"
+          >
+            <span className="d-none d-sm-inline">Logout </span>
+            <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
+          </div>
+        </div>
+      </nav>
+
       <div className="admin-content-grid">
         <div className="admin-content">
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid">
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div className="collapse navbar-collapse" id="navbarNav">
-                <div className="pagetitle">
-                  <h1>Admin Dashboard</h1>
-                  <div
-                    onClick={() => {
-                      navigate("/admin-login");
-                    }}
-                    className="logout-button"
-                  >
-                    Logout <FaSignOutAlt style={{ marginLeft: "5px" }} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </nav>
-
           <div className="blogs-layout">
-            {!isMobileMenuOpen && (
-              <div className="admin-sidenav">
-                <AdminSideNav />
-              </div>
-            )}
+            <div className="admin-sidenav">
+              <AdminSideNav />
+            </div>
 
-            <div className="blog-container">
+            <div className="blog-container border-0">
               <div className="card">
                 <h1 className="text-dark mb-4 ps-0">Blogs</h1>
                 <hr
@@ -202,7 +180,10 @@ const Blogs = () => {
                     </label>
                     <div className="image-preview">
                       {file ? (
-                        <img src={URL.createObjectURL(file)} alt="Blog Preview" />
+                        <img
+                          src={URL.createObjectURL(file)}
+                          alt="Blog Preview"
+                        />
                       ) : (
                         <div className="empty-preview-box">
                           No Image Selected
@@ -230,7 +211,10 @@ const Blogs = () => {
                   </div>
 
                   <div className="form-section">
-                    <form className="blog-form mb-4" style={{ textAlign: "left" }}>
+                    <form
+                      className="blog-form mb-4"
+                      style={{ textAlign: "left" }}
+                    >
                       <div className="form-group">
                         <label htmlFor="title">Title</label>
                         <input
@@ -284,9 +268,7 @@ const Blogs = () => {
                   </div>
                 </div>
 
-                <div className="posted-blogs">
-                
-                </div>
+                <div className="posted-blogs"></div>
               </div>
             </div>
           </div>
@@ -296,9 +278,8 @@ const Blogs = () => {
       <Box>
         {blogs.map((blog) => (
           <div key={blog._id} className="blog-card mb-3">
-
-            <img 
-              src={`data:image/png;base64,${blog.image}` }
+            <img
+              src={`data:image/png;base64,${blog.image}`}
               alt="Blog"
               width="40%"
               height="40%"
@@ -307,7 +288,12 @@ const Blogs = () => {
             <p>Title: {blog.title}</p>
             <p>Subtitle: {blog.subtitle}</p>
             <p>Content: {blog.content}</p>
-            <button  className="btn btn-danger" onClick={() => handleDeleteBlog(blog._id)}>Delete</button>
+            <button
+              className="btn btn-danger"
+              onClick={() => handleDeleteBlog(blog._id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </Box>
