@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import InventoryChart from "./InventoryChart";
 import AdminSideNav from "./AdminSide";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +40,43 @@ const Inventory = () => {
         });
       }
     });
+  };
+
+  const renderTableRows = () => {
+    return inventoryData.map((item) => (
+      <tr key={item.id}>
+        <td>{item.type}</td>
+        <td>{item.subtype}</td>
+        <td>{item.name}</td>
+        <td>{item.weight}</td>
+        <td>{item.shape}</td>
+        <td>{item.price}</td>
+        <td>{item.colour}</td>
+        <td>{item.value}</td>
+        <td>
+          {item.image ? (
+            <img
+              src={URL.createObjectURL(item.image)}
+              alt="item"
+              style={{
+                maxWidth: "50px",
+                maxHeight: "50px",
+              }}
+            />
+          ) : (
+            "No Image"
+          )}
+        </td>
+        <td>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => handleInventoryItem(item.id)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    ));
   };
 
   return (
@@ -105,36 +142,7 @@ const Inventory = () => {
                     </tr>
                   </thead>
 
-                  <tbody>
-                    {inventoryData.map((item) => (
-                      <tr key={item.id}>
-                        {Object.keys(item).map((key) => (
-                          <td key={key}>
-                            {key === "image" ? (
-                              <img
-                                src={URL.createObjectURL(item[key])}
-                                alt="item"
-                                style={{
-                                  maxWidth: "50px",
-                                  maxHeight: "50px",
-                                }}
-                              />
-                            ) : (
-                              item[key]
-                            )}
-                          </td>
-                        ))}
-                        <td>
-                          <button
-                            className="btn btn-danger btn-sm"
-                            onClick={() => handleInventoryItem(item.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
+                  <tbody>{renderTableRows()}</tbody>
                 </table>
               </div>
             </div>
