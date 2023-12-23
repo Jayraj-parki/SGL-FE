@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Blogs.css";
 import AdminSideNav from "./AdminSide";
 import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
-import { Box } from "@mui/system";
+import RecentBlogs from "./RecentBlogs";
 
 const Blogs = () => {
   const navigate = useNavigate();
-  const [editIndex, setEditIndex] = useState(null);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -55,18 +54,21 @@ const Blogs = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Blog created successfully:", data);
+
+        // Update the state in RecentBlogs.jsx immediately
+        setBlogs((prevBlogs) => [data, ...prevBlogs]);
+
         await Swal.fire({
           icon: "success",
           title: "Blog added successfully!",
           showConfirmButton: false,
           timer: 1500,
         });
+
         setContent("");
         setTitle("");
         setSubtitle("");
         setFile(null);
-        // Refresh blogs after creating a new one
-        fetchBlogs();
       } else {
         console.error("Failed to create blog:", response.statusText);
       }
@@ -77,52 +79,6 @@ const Blogs = () => {
         title: "Oops...",
         text: "Something went wrong!",
       });
-    }
-  };
-
-  const handleDeleteBlog = async (blogId) => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (result.isConfirmed) {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/deleteblogs/${blogId}`,
-          {
-            method: "DELETE",
-          }
-        );
-
-        if (response.ok) {
-          await Swal.fire({
-            icon: "success",
-            title: "Blog deleted successfully!",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-
-          // Refresh blogs after deleting one
-          fetchBlogs();
-        } else {
-          console.error("Failed to delete blog:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error deleting blog:", error);
-
-        // Show error message
-        await Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong!",
-        });
-      }
     }
   };
 
@@ -161,7 +117,15 @@ const Blogs = () => {
               <AdminSideNav />
             </div>
 
-            <div className="blog-container border-0">
+            <div
+              className="blog-container border-0 col-md-6 col-lg-8 col-xl-9 col-sm-6 ms-auto me-0"
+              style={{
+                transition: "width 0.5s ease",
+                maxWidth: "80%", // Initial width
+                marginLeft: "auto",
+                marginRight: 0,
+              }}
+            >
               <div className="card">
                 <h1 className="text-dark mb-4 ps-0">Blogs</h1>
                 <hr
@@ -246,24 +210,15 @@ const Blogs = () => {
                           onChange={(e) => setContent(e.target.value)}
                         ></textarea>
                       </div>
-                      {editIndex === null ? (
-                        <button
-                          type="button"
-                          className="btn btn-success"
-                          style={{ padding: "5px 8px", fontSize: "14px" }}
-                          onClick={handleCreateBlog}
-                        >
-                          Add Blog
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          className="btn btn-warning ms-2"
-                          onClick={handleEditBlog}
-                        >
-                          Update Blog
-                        </button>
-                      )}
+
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        style={{ padding: "5px 8px", fontSize: "14px" }}
+                        onClick={handleCreateBlog}
+                      >
+                        Add Blog
+                      </button>
                     </form>
                   </div>
                 </div>
@@ -275,28 +230,25 @@ const Blogs = () => {
         </div>
       </div>
 
-      <Box>
-        {blogs.map((blog) => (
-          <div key={blog._id} className="blog-card mb-3">
-            <img
-              src={`data:image/png;base64,${blog.image}`}
-              alt="Blog"
-              width="40%"
-              height="40%"
-              className="img-fluid"
-            />
-            <p>Title: {blog.title}</p>
-            <p>Subtitle: {blog.subtitle}</p>
-            <p>Content: {blog.content}</p>
-            <button
-              className="btn btn-danger"
-              onClick={() => handleDeleteBlog(blog._id)}
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </Box>
+      <footer
+        className="text-center mt-2"
+        style={{
+          fontSize: "0.6rem",
+          color: "#999",
+          maxHeight: "150px",
+          overflowY: "auto",
+          overflowX: "auto",
+          whiteSpace: "nowrap",
+        }}
+      >
+        <RecentBlogs
+          blogs={blogs}
+          title={title}
+          subtitle={subtitle}
+          content={content}
+          file={file}
+        />
+      </footer>
     </div>
   );
 };

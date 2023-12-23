@@ -1,13 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import "./Inventory.css";
 
-const UploadForm = ({ onUpload }) => {
-  const navigate = useNavigate();
-
+const InventoryForm = ({ onUpload }) => {
   const [formData, setFormData] = useState({
     type: "",
     subtype: "",
@@ -16,14 +12,14 @@ const UploadForm = ({ onUpload }) => {
     shape: "",
     price: 0,
     colour: "",
-    value: "", // Set this to an empty string
+    value: "",
     image: null,
   });
 
   const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
-  // ... (previous code)
-
+  // Define jewelry data
   const jewelryTypes = [
     "Gems",
     "Beads",
@@ -202,6 +198,7 @@ const UploadForm = ({ onUpload }) => {
     }
   }, [formData.type]);
 
+  // Additional information component
   const AdditionalInfo = () => {
     if (formData.type !== "text") {
       return (
@@ -225,13 +222,16 @@ const UploadForm = ({ onUpload }) => {
     return null;
   };
 
-  const renderInput = (label, name, type = "text") => {
+  // Function to render input fields
+
+  const renderInputField = (label, name, type = "text", placeholder = "") => {
     const inputProps = {
       id: name,
       name: name,
       value: formData[name],
-      onChange: handleChange,
+      onChange: handleInputChange,
       required: true,
+      placeholder: placeholder,
     };
 
     return (
@@ -250,44 +250,46 @@ const UploadForm = ({ onUpload }) => {
           </select>
         ) : type === "textarea" || type === "text" ? (
           <div>
-            <textarea className="form-control" {...inputProps}></textarea>
+            <textarea
+              className={type === "textarea" ? "form-control" : "form-control"}
+              {...inputProps}
+            ></textarea>
           </div>
         ) : (
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={formData.name} // Make sure it matches the property in formData
-            onChange={handleChange}
-            required
-          />
+          <input type="text" className="form-control" {...inputProps} />
         )}
       </div>
     );
   };
 
   // Function to render textarea input fields
-  const renderTextarea = (name) => (
-    <div className="mb-3">
-      <label htmlFor={name} className="form-label">
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </label>
-      <div>
+  const renderTextareaField = (label, name, placeholder) => {
+    return (
+      <div className="mb-3">
+        <label htmlFor={name} className="form-label">
+          {label}
+        </label>
         <textarea
           className="form-control"
           id={name}
           name={name}
-          value={formData[name]} // Ensure value is set from formData
-          onChange={handleChange}
-          required
-        ></textarea>
+          value={formData[name]}
+          onChange={(e) => setFormData({ ...formData, [name]: e.target.value })}
+          placeholder={placeholder}
+        />
       </div>
-    </div>
-  );
+    );
+  };
 
   // Function to render dropdown select fields
-  const renderDropdown = (label, name, options) => (
+
+  // Handle form input change for dropdowns
+  const handleDropdownChange = (name, value) => {
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Function to render dropdown select fields
+  const renderDropdownField = (label, name, options) => (
     <div className="mb-3">
       <label htmlFor={name} className="form-label">
         {label}
@@ -297,7 +299,7 @@ const UploadForm = ({ onUpload }) => {
         id={name}
         name={name}
         value={formData[name]}
-        onChange={handleChange}
+        onChange={(e) => handleDropdownChange(name, e.target.value)}
         required
       >
         <option value="">{`Select ${label}`}</option>
@@ -310,50 +312,61 @@ const UploadForm = ({ onUpload }) => {
     </div>
   );
 
-  //   const getValuesForType = (type) => {
-  //     if (values[type]) {
-  //       return values[type].map((item, index) => (
-  //         <div key={index} className="mb-2">
-  //           {item}
-  //         </div>
-  //       ));
-  //     }
-  //     return (
-  //       <div className="text-muted">
-  //         No specific values available for the selected type.
-  //       </div>
-  //     );
-  //   };
-
-  const handleChange = (e) => {
+  // Handle form input change
+  const handleInputChange = (e) => {
     const { name, value, type } = e.target;
 
     if (type === "file") {
-      setImageFile(e.target.files[0]);
+      const file = e.target.files[0];
+      setImageFile(file);
+
+      // Display image preview
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
     } else {
-      setFormData({ ...formData, [name]: value });
+      // Check if the name is subtype or shape and update the corresponding state
+      if (name === "subtype" || name === "shape") {
+        setFormData({ ...formData, [name]: value });
+      } else {
+        setFormData({ ...formData, [name]: value });
+      }
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiUrl = "https://sgl-be.onrender.com/inventorypost";
+
+    // Define the base API URL
+    const baseApiUrl = "https://sgl-be.onrender.com/post";
 
     try {
+      // Construct the complete API endpoint based on the selected type
+      const apiUrl = `${baseApiUrl}${formData.type.toLowerCase()}`;
+
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, key === "image" ? imageFile : value);
       });
+
+      console.log("FormData to Send:", formDataToSend);
+
+      // Log the formData before making the API call
+      console.log("FormData before API call:", formData);
 
       const response = await fetch(apiUrl, {
         method: "POST",
         body: formDataToSend,
       });
 
-      if (response.ok) {
-        const newItem = { ...formData, image: imageFile, id: Date.now() };
-        onUpload(newItem);
+      // Always call onUpload, regardless of the API response
+      const newItem = { ...formData, image: imageFile, id: Date.now() };
+      onUpload(newItem);
 
+      if (response.ok) {
         setFormData({
           type: "",
           subtype: "",
@@ -374,6 +387,7 @@ const UploadForm = ({ onUpload }) => {
         });
       } else {
         console.error("Failed to add item:", response.statusText);
+        throw new Error("Item addition failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -400,27 +414,52 @@ const UploadForm = ({ onUpload }) => {
         />
         <h6>Add items to inventory</h6>
 
-        {/* Render dropdown select for jewelryTypes */}
-        {renderDropdown("Type", "type", jewelryTypes)}
-
-        {/* Render subtype dropdown based on selected type */}
-        {formData.type && renderDropdown("Subtype", "subtype", subtypeOptions)}
-
-        {/* Render input fields for other attributes */}
-        {renderInput("Name", "name")}
-        {renderInput("Weight", "weight", "number")}
+        {renderInputField("Type", "type", "dropdown")}
+        {console.log("Subtype Options:", subtypeOptions)}
         {formData.type &&
-          renderDropdown("Units", "units", units[formData.type])}
-        {formData.type && renderDropdown("Shape", "shape", shapeOptions)}
-        {renderInput("Price", "price", "number")}
-        {renderInput("Colour", "colour")}
-        {formData.type && renderTextarea("Value", "value")}
+          renderDropdownField("Subtype", "subtype", subtypeOptions)}
+
+        {renderInputField("Name", "name")}
+        {renderInputField(
+          "Weight",
+          "weight",
+          "number",
+          "Rs (Rupees) / Weight (grams)"
+        )}
+        {formData.type &&
+          renderDropdownField("Units", "units", units[formData.type])}
+        {formData.type && renderDropdownField("Shape", "shape", shapeOptions)}
+
+        {renderInputField("Price", "price", "number", "Rs (Rupees)")}
+        {renderInputField("Colour", "colour")}
+        {formData.type && renderTextareaField("Value", "value", "Enter Value")}
         <AdditionalInfo />
+        <div className="mb-3">
+          <label htmlFor="image" className="form-label">
+            Image
+          </label>
+          <div className="input-group">
+            <label className="input-group-text" htmlFor="fileInput">
+              Choose File
+            </label>
+            <input
+              type="file"
+              className="form-control"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={handleInputChange}
+            />
+          </div>
+          {/* Image preview */}
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Image Preview"
+              className="img-preview mt-2"
+            />
+          )}
+        </div>
 
-        {/* Render input field for image */}
-        {renderInput("Image", "image", "file")}
-
-        {/* Render submit button */}
         <div className="col-12">
           <button type="submit" className="btn btn-primary mt-3">
             Add Item
@@ -431,4 +470,4 @@ const UploadForm = ({ onUpload }) => {
   );
 };
 
-export default UploadForm;
+export default InventoryForm;
