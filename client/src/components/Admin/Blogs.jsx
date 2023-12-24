@@ -21,7 +21,7 @@ const Blogs = () => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("http://localhost:4000/getblogs");
+      const response = await fetch("https://sgl-be.onrender.com/getblogs");
       const data = await response.json();
       setBlogs(data);
     } catch (error) {
@@ -46,7 +46,7 @@ const Blogs = () => {
     formData.append("subtitle", subtitle);
 
     try {
-      const response = await fetch("http://localhost:4000/postblogs", {
+      const response = await fetch("https://sgl-be.onrender.com/postblogs", {
         method: "POST",
         body: formData,
       });

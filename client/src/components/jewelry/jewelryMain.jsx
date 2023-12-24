@@ -1,34 +1,34 @@
-import "./jewelryMain.css";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
+import JewelrySidebar from "./jewelrySidebar";
 import goldJewelry from "./Data/gold";
 import silverJewelry from "./Data/silver";
 import panchadhatuJewelry from "./Data/panchadhathu";
 import coralJewelry from "./Data/coral";
-import beadsJewelry from "./Data/beads"; // Make sure to import beadsJewelry
-import CircularProgress from "@mui/material/CircularProgress";
-import JewelrySidebar from "./jewelrySidebar";
-import { useEffect, useState } from "react";
+import beadsJewelry from "./Data/beads";
+
+import "./jewelryMain.css";
 
 const JewelryMain = () => {
   const navigate = useNavigate();
   const [jewelry, setJewelry] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // Added isLoading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchJewelry();
   }, []);
 
-  const fetchJewelry = () => {
-    fetch("https://sgl-be.onrender.com/getjewellary")
-      .then((response) => response.json())
-      .then((data) => {
-        setJewelry(data);
-        setIsLoading(false); // Set loading to false once data is fetched
-      })
-      .catch((error) => {
-        console.error("Error fetching jewelry:", error);
-        setIsLoading(false); // Set loading to false in case of an error
-      });
+  const fetchJewelry = async () => {
+    try {
+      const response = await fetch("https://sgl-be.onrender.com/getjewelry");
+      const data = await response.json();
+      setJewelry(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error fetching jewelry:", error);
+      setIsLoading(false);
+    }
   };
 
   const sampleData = [
@@ -63,7 +63,7 @@ const JewelryMain = () => {
                 <div className="box">
                   <img
                     src={`data:image/png;base64,${item.image}`}
-                    alt="jewellary"
+                    alt="jewellery"
                   />
                   <p>{item.name}</p>
                   <p>{item.price}</p>

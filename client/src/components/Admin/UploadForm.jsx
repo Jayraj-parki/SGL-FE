@@ -336,36 +336,39 @@ const InventoryForm = ({ onUpload }) => {
     }
   };
 
-  // Handle form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Define the base API URL
     const baseApiUrl = "https://sgl-be.onrender.com/post";
-
+  
     try {
+      // Remove spaces from formData.type
+      const typeWithoutSpaces = formData.type.replace(/\s/g, "");
+  
       // Construct the complete API endpoint based on the selected type
-      const apiUrl = `${baseApiUrl}${formData.type.toLowerCase()}`;
-
+      const apiUrl = `${baseApiUrl}${typeWithoutSpaces.toLowerCase()}`;
+  
       const formDataToSend = new FormData();
       Object.entries(formData).forEach(([key, value]) => {
         formDataToSend.append(key, key === "image" ? imageFile : value);
       });
-
+  
       console.log("FormData to Send:", formDataToSend);
-
+  
       // Log the formData before making the API call
       console.log("FormData before API call:", formData);
-
+  
       const response = await fetch(apiUrl, {
         method: "POST",
         body: formDataToSend,
       });
-
+  
       // Always call onUpload, regardless of the API response
       const newItem = { ...formData, image: imageFile, id: Date.now() };
       onUpload(newItem);
-
+  
       if (response.ok) {
         setFormData({
           type: "",
@@ -378,7 +381,7 @@ const InventoryForm = ({ onUpload }) => {
           value: "",
           image: null,
         });
-
+  
         await Swal.fire({
           icon: "success",
           title: "Item added successfully!",
@@ -391,7 +394,7 @@ const InventoryForm = ({ onUpload }) => {
       }
     } catch (error) {
       console.error("Error:", error);
-
+  
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -399,6 +402,7 @@ const InventoryForm = ({ onUpload }) => {
       });
     }
   };
+  
 
   return (
     <div id="uploadForm" className="card p-3 mb-4">
