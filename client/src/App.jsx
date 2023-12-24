@@ -1,4 +1,4 @@
-// App.jsx
+
 import React from "react";
 import PropTypes from "prop-types";
 import { Routes, Route, BrowserRouter } from "react-router-dom";

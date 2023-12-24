@@ -8,7 +8,7 @@ const DiamondsGrid = () => {
   useEffect(() => {
     const fetchDiamonds = async () => {
       try {
-        const response = await fetch('http://localhost:4000/getdiamonds');
+        const response = await fetch('https://sgl-be.onrender.com/getdiamonds');
         const data = await response.json();
         setDiamonds(data);
         setLoading(false); // Set loading to false when data is fetched
