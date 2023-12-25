@@ -20,6 +20,8 @@ import JewelryMain from "./components/jewelry/jewelryMain";
 import ShoppingCart from "./components/Cart/Cart";
 import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
+import Login from "./components/Home/Login";
+
 const Layout = ({ children }) => (
   <>
     <Navbar />
@@ -34,6 +36,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <Login onLogin={(user) => console.log("Logged in", user)} />
+            </Layout>
+          }
+        />
         {/* Non-admin routes with Layout component */}
         <Route
           path="/mobile"
@@ -147,7 +157,7 @@ const App = () => {
             </Layout>
           }
         />
-
+        {/* Route for the Login component without Layout */}
         {/* Admin routes */}
         <Route path="/admin-login" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
