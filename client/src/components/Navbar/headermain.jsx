@@ -88,7 +88,7 @@ const Mainheader = ({ selectedProductType }) => {
       <div
         className="main-sub-nav"
         id="head-extra-class"
-        onClick={() => navigate("/catrcontainer")}
+        onClick={() => navigate("/cart")}
       >
         <p>
           My bag{" "}

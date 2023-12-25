@@ -54,15 +54,12 @@ const ShoppingCart = () => {
   );
 
   return (
-    <div className="container shopping-cart">
+    <div className="container mt-5">
       <h2 className="mb-4 text-center">Shopping Cart</h2>
 
       <div className="row">
         <div className="col-md-9">
-          <div
-            className="scroll-container row row-cols-1 row-cols-md-3"
-            style={{ maxHeight: "400px", overflowY: "auto" }}
-          >
+          <div className="row row-cols-1 row-cols-md-3">
             {cartItems.map((item) => (
               <div className="col mb-4" key={item.id}>
                 <div className="card">
@@ -108,10 +105,7 @@ const ShoppingCart = () => {
         </div>
 
         <div className="col-md-3">
-          <div
-            className="cart-summary bg-light p-3 rounded fixed-top-right shadow-lg"
-            style={{ zIndex: 1, opacity: 0.95 }}
-          >
+          <div className="cart-summary bg-light p-3 rounded shadow-lg">
             <h4 className="text-primary">Order Summary</h4>
             <p className="font-weight-bold">Total Items: {totalItems}</p>
             <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>

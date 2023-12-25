@@ -1,20 +1,22 @@
-import React from "react";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { loadStripe } from "@stripe/stripe-js";
 import Razorpay from "razorpay";
 import Swal from "sweetalert2";
-import PropTypes from "prop-types";
 
 const Payment = ({ cartItems, totalAmount, onPaymentSuccess }) => {
-  const [stripe, setStripe] = React.useState(null);
-  const [razorpay, setRazorpay] = React.useState(null);
+  const [stripe, setStripe] = useState(null);
+  const [razorpay, setRazorpay] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const initializeStripe = async () => {
       try {
-        setStripe(await loadStripe("YOUR_STRIPE_PUBLISHABLE_KEY"));
+        setStripe(await loadStripe(process.env.REACT_APP_STRIPE_KEY));
       } catch (error) {
         console.error("Error initializing Stripe:", error);
-        showErrorMessage("Failed to initialize payment gateway.");
+        showErrorMessage(
+          "Failed to initialize Stripe. Please try again later."
+        );
       }
     };
 
@@ -22,65 +24,61 @@ const Payment = ({ cartItems, totalAmount, onPaymentSuccess }) => {
 
     // Initialize Razorpay
     const options = {
-      key: "YOUR_RAZORPAY_KEY",
-      amount: totalAmount * 100,
-      currency: "INR",
-      name: "Your Company Name",
-      description: "Payment for your order",
-      order_id: "order_xyz", // Replace with your actual order ID
-      handler: (response) => {
-        console.log(response);
-        response.razorpay_payment_id
-          ? onPaymentSuccess(totalAmount)
-          : showErrorMessage("Payment failed. Please try again.");
-      },
-      prefill: {
-        name: "John Doe",
-        email: "john@example.com",
-        contact: "1234567890",
-      },
-      theme: {
-        color: "#F37254",
-      },
+      key: process.env.REACT_APP_RAZORPAY_KEY,
+      // ... other Razorpay options
     };
 
     setRazorpay(new Razorpay(options));
-  }, [cartItems, totalAmount, onPaymentSuccess]);
+  }, []);
 
   const handleCardPayment = async () => {
-    if (stripe) {
-      try {
-        const session = await stripe.redirectToPayment({
-          lineItems: cartItems.map((item) => ({
-            price: item.price * 100,
-            quantity: item.quantity || 1,
-          })),
-          mode: "payment",
-          successUrl: "YOUR_SUCCESS_URL",
-          cancelUrl: "YOUR_CANCEL_URL",
-        });
+    try {
+      const session = await stripe.redirectToPayment({
+        lineItems: cartItems.map((item) => ({
+          price: item.price * 100,
+          quantity: item.quantity || 1,
+        })),
+        mode: "payment",
+        successUrl: "YOUR_SUCCESS_URL",
+        cancelUrl: "YOUR_CANCEL_URL",
+      });
 
-        session.error
-          ? showErrorMessage(session.error.message)
-          : console.error("Error:", session.error);
-      } catch (error) {
-        console.error("Error:", error);
-        showErrorMessage("An error occurred during payment.");
+      if (session.error) {
+        showErrorMessage(session.error.message);
+      } else {
+        onPaymentSuccess(totalAmount);
       }
-    } else {
-      console.error("Stripe instance not initialized");
-      showErrorMessage(
-        "Stripe instance not initialized. Please try again later."
-      );
+    } catch (error) {
+      console.error("Error:", error);
+      showErrorMessage("An error occurred during payment. Please try again.");
     }
   };
 
   const handleRazorpayPayment = () => {
-    razorpay
-      ? razorpay.open()
-      : showErrorMessage(
-          "Razorpay instance not initialized. Please try again later."
-        );
+    razorpay.open();
+  };
+
+  const handleRazorpaySuccess = (response) => {
+    fetch("/process-razorpay-payment", {
+      method: "POST",
+      body: JSON.stringify(response),
+    })
+      .then((response) => {
+        if (response.ok) {
+          onPaymentSuccess(totalAmount);
+        } else {
+          showErrorMessage("Payment failed. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error processing Razorpay payment:", error);
+        showErrorMessage("An error occurred during payment.");
+      });
+  };
+
+  const handleRazorpayError = (error) => {
+    console.error("Razorpay payment error:", error);
+    showErrorMessage("Payment failed. Please try again.");
   };
 
   const showErrorMessage = (message) => {
@@ -110,7 +108,15 @@ const Payment = ({ cartItems, totalAmount, onPaymentSuccess }) => {
         <button className="btn btn-primary" onClick={handleCardPayment}>
           Pay with Card
         </button>
-        <button className="btn btn-primary" onClick={handleRazorpayPayment}>
+        <button
+          className="btn btn-primary"
+          onClick={() =>
+            razorpay.open({
+              onSuccess: handleRazorpaySuccess,
+              onError: handleRazorpayError,
+            })
+          }
+        >
           Pay with Razorpay (UPI, etc.)
         </button>
       </div>
