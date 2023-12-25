@@ -17,7 +17,7 @@ import Zodiacsubpage from "./components/Astrology-demo/zodiacpage/zodiacsubpage"
 import Coralmain from "./components/corals/coralsmainhome";
 import AdminTemplate from "./components/Admin/AdminDashboard";
 import JewelryMain from "./components/jewelry/jewelryMain";
-import ShoppingCart from "./components/Cart/Cart";
+import ShoppingCart from "./components/Cart/ShoppingCart";
 import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
