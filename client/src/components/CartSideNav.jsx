@@ -4,20 +4,24 @@ import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-// ... (previous imports)
-
 const CartSidebar = ({
   isOpen,
   onClose,
   selectedItem,
   quantity: initialQuantity,
   itemData,
+  onProceedToCheckout,
 }) => {
   const [quantity, setQuantity] = useState(initialQuantity);
-
   const handleProceedToCheckout = () => {
-    if (quantity > 0) {
-      // Add logic for proceeding to checkout
+    // Retrieve the item data from sessionStorage
+    const storedItemData = sessionStorage.getItem("cartItemData");
+    const parsedItemData = storedItemData ? JSON.parse(storedItemData) : null;
+
+    if (parsedItemData && quantity > 0) {
+      // Call the callback function with retrieved itemData
+      onProceedToCheckout(parsedItemData);
+
       Swal.fire({
         icon: "success",
         title: "Proceeding to Checkout!",
@@ -204,14 +208,6 @@ const CartSidebar = ({
     transition: "background-color 0.3s ease-in-out", // Add a smooth transition
   };
 
-  CartSidebar.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    selectedItem: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    itemData: PropTypes.object.isRequired,
-  };
-
   return (
     <div style={overlayStyle}>
       <div style={sidebarStyle}>
@@ -296,6 +292,7 @@ CartSidebar.propTypes = {
   selectedItem: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   itemData: PropTypes.object.isRequired,
+  onProceedToCheckout: PropTypes.func.isRequired,
 };
 
 export default CartSidebar;
