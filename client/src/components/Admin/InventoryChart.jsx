@@ -19,7 +19,12 @@ const InventoryChart = () => {
   const chartData = prepareChartData(inventoryData);
 
   return (
-    <div>
+    <div
+      style={{
+        maxWidth: "100%",
+        margin: "auto",
+      }}
+    >
       <VictoryChart height={400} width={600} domainPadding={20}>
         <VictoryLegend
           x={50}

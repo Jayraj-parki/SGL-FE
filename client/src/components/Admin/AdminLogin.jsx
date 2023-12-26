@@ -1,122 +1,99 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa"; // Import eye and home icons
 import "./LoginForm.css";
 
 const AdminLoginForm = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [isPhoneNumberValid, setIsPhoneNumberValid] = useState(true);
-  const [otp, setOtp] = useState(Array(6).fill(""));
-
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // New state for password visibility
   const navigate = useNavigate();
-
-  const handleSendOtp = (e) => {
-    e.preventDefault();
-
-    const phoneRegex = /^[0-9]{10}$/;
-    const isValid = phoneRegex.test(phoneNumber);
-
-    if (isValid) {
-      const generatedOtp = Math.floor(100000 + Math.random() * 900000);
-      setOtp(Array.from(String(generatedOtp), Number)); // Convert OTP to an array
-      setIsPhoneNumberValid(true);
-    } else {
-      setIsPhoneNumberValid(false);
-    }
-  };
-
-  const handleOtpChange = (index, value) => {
-    if (/^\d+$/.test(value)) {
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-
-      if (index < 5 && value !== "") {
-        document.getElementById(`otp-input-${index + 1}`).focus();
-      }
-    }
-  };
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    navigate("/admin/inventory");
+    // Check if the username and password are correct
+    if (username === "admin" && password === "password") {
+      navigate("/admin/inventory");
+    } else {
+      // Handle incorrect username or password
+      alert("Invalid username or password");
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
     <div className="login-form-card">
+      <Link to="/" className="home-icon m-1">
+        <FaHome
+          style={{ color: "#FFA500", fontSize: "1.5em", margin: "auto" }}
+        />
+      </Link>
       <div className="image-box">
         <div className="image-container"></div>
       </div>
       <div className="login-form-container">
         <div className="login-form-container smart-card">
           <h1 style={{ color: "#FFA500" }}>Admin Login</h1>
-          {/* Conditional rendering based on whether OTP is sent or not */}
-          {!otp.every((digit) => digit !== "") ? (
-            <form onSubmit={handleSendOtp}>
-              <label>
-                Phone Number:
-                {/* Input for entering phone number */}
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  placeholder="Enter your phone number"
-                  required
-                  pattern="[0-9]{10}"
-                  title="Please enter a valid 10-digit phone number"
-                  // Styling for the input based on validation
-                  style={{
-                    border: isPhoneNumberValid
-                      ? "1px solid #ccc"
-                      : "1px solid red",
-                    borderRadius: "5px",
-                    padding: "8px",
-                  }}
-                />
-              </label>
-              {/* Button to send OTP */}
+          <form onSubmit={handleLogin}>
+            <label>
+              Username:
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter your username"
+                required
+              />
+            </label>
+            <label style={{ display: "flex", alignItems: "center" }}>
+              Password:
+              <input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                required
+                style={{ marginRight: "1px", marginLeft: "2px" }}
+              />
               <button
-                type="submit"
-                style={{ background: "#FFA500", color: "#fff" }}
+                className="toggle-password-icon bg-white"
+                onClick={togglePasswordVisibility}
+                style={{
+                  fontSize: "1em",
+                  padding: "0",
+                  width: "5%",
+                  height: "75%",
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginBottom: "15px",
+                  border: "1px solid #ccc",
+                  borderRadius: "0 5px 5px 0",
+                }}
               >
-                Send OTP
+                {showPassword ? (
+                  <FaEyeSlash style={{ fontSize: "0.8em" }} />
+                ) : (
+                  <FaEye style={{ fontSize: "0.8em" }} />
+                )}
               </button>
-            </form>
-          ) : (
-            <form onSubmit={handleLogin}>
-              <div className="otp-container">
-                <label>
-                  OTP:
-                  <div className="otp-inputs">
-                    {/* Map through OTP digits and create input boxes */}
-                    {otp.map((digit, index) => (
-                      <input
-                        key={index}
-                        id={`otp-input-${index}`}
-                        type="text"
-                        maxLength="1"
-                        value={digit}
-                        onChange={(e) => handleOtpChange(index, e.target.value)}
-                        required
-                      />
-                    ))}
-                  </div>
-                </label>
-              </div>
-              {/* Button to submit OTP and login */}
-              <button
-                type="submit"
-                style={{ background: "#FFA500", color: "#fff" }}
-              >
-                Login
-              </button>
-            </form>
-          )}
+            </label>
+            <button
+              type="submit"
+              style={{ background: "#FFA500", color: "#fff" }}
+            >
+              Login
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-// Export the component
 export default AdminLoginForm;

@@ -109,21 +109,32 @@ const Inventory = () => {
       </nav>
 
       {/* Main content */}
-      <div className="container-fluid mt-3">
+      <div
+        className="container-fluid mt-3"
+        style={{
+          "@media (min-width: 768px) and (max-width: 1199px)": {
+            marginLeft: "-75px",
+          },
+          "@media (min-width: 1200px)": { marginLeft: "-75px" },
+        }}
+      >
         <div className="row">
           <div className="col-md-4">
             <AdminSideNav />
           </div>
           <div
-            className="col-md-9 order-md-2 ms-auto me-1"
+            className="col-md-8 order-md-2 ms-auto me-1"
             style={{
               width: "75%",
-              "@media (minWidth: 1200px)": { width: "80%", margin: "auto 0" },
+              "@media (minWidth: 1200px)": { width: "80%", margin: "4rem 0" },
             }}
           >
             <UploadForm onUpload={handleUpload} />
 
-            <div className="card p-4 mb-4">
+            <div
+              className="card p-4 mb-4"
+              style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
+            >
               <h2 className="mb-4">Current Inventory</h2>
               <div className="table-responsive">
                 <table className="table mt-3">
@@ -147,7 +158,10 @@ const Inventory = () => {
               </div>
             </div>
 
-            <div className="card p-4 mb-4">
+            <div
+              className="card p-4 mb-4"
+              style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
+            >
               <h2 className="mb-4">Inventory Chart</h2>
               <InventoryChart />
             </div>

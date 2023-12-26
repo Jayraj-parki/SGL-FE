@@ -118,12 +118,13 @@ const Blogs = () => {
             </div>
 
             <div
-              className="blog-container border-0 col-md-6 col-lg-8 col-xl-9 col-sm-6 ms-auto me-0"
+              className="blog-container border-0 col-md-6 col-lg-8 col-xl-8 col-sm-6 ms-auto me-2"
               style={{
                 transition: "width 0.5s ease",
-                maxWidth: "80%", // Initial width
+                maxWidth: "75%", // Initial width
                 marginLeft: "auto",
-                marginRight: 0,
+                marginRight: "1rem",
+                boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", // Add this line for box shadow
               }}
             >
               <div className="card">
@@ -213,8 +214,24 @@ const Blogs = () => {
 
                       <button
                         type="button"
-                        className="btn btn-success"
-                        style={{ padding: "5px 8px", fontSize: "14px" }}
+                        className="btn btn-sm btn-success w-75"
+                        style={{
+                          padding: "5px 10px",
+                          fontSize: "14px",
+                          height: "40px",
+                          backgroundColor: "#FFA500", // Orange color
+                          borderColor: "#FFA500", // Orange color
+                          color: "#fff", // White text color
+                          transition: "background-color 0.3s",
+                          "@media (min-width: 576px)": {
+                            padding: "8px 8px",
+                            fontSize: "16px",
+                          },
+                          ":hover": {
+                            backgroundColor: "#28a745", // Green color on hover
+                            borderColor: "#28a745", // Green color on hover
+                          },
+                        }}
                         onClick={handleCreateBlog}
                       >
                         Add Blog
@@ -235,10 +252,14 @@ const Blogs = () => {
         style={{
           fontSize: "0.6rem",
           color: "#999",
-          maxHeight: "150px",
+          maxHeight: "10rem",
           overflowY: "auto",
           overflowX: "auto",
           whiteSpace: "nowrap",
+          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+          display: "block", // Set display to block
+          width: "100%", // Set width to 100%
+          padding: "1rem", // Add some padding
         }}
       >
         <RecentBlogs
