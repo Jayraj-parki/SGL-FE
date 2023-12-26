@@ -1,33 +1,44 @@
-import { useState } from "react";
-import { Carousel, Button, Row, Col } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Carousel, Row, Col, Card } from "react-bootstrap";
 import AddCart from "../../CartButtons";
-import CartSidebar from "../../CartSideNav"; // Import the CartSidebar component
+import CartSidebar from "../../CartSideNav";
 import Swal from "sweetalert2";
+import "./ProductFullView.css"; // Import a CSS file for additional styles
 
 const ProductFullView = () => {
   const [isCartOpen, setCartOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(
-    RoundDiamondData[0].imageUrl
-  );
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [coralData, setCoralData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getcorals");
+        const data = await response.json();
+        setCoralData(data);
+        setSelectedImage(data[0]?.image || null);
+      } catch (error) {
+        console.error("Error fetching coral data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Run this effect only once on mount
 
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);
   };
 
-  const selectedDiamond = RoundDiamondData.find(
-    (diamond) => diamond.imageUrl === selectedImage
+  const selectedCoral = coralData.find(
+    (coral) => coral.image === selectedImage
   );
 
   const handleAddToCart = (quantity) => {
-    // Add logic to update cart state or perform other actions
-    // For example, you might want to update the cart items in a global state
-    // or make an API request to add the item to the server-side cart.
-
     // Display a SweetAlert success message
     Swal.fire({
       icon: "success",
       title: "Added to Cart!",
-      text: `${quantity} ${selectedDiamond.description}(s) added to your cart.`,
+      text: `${quantity} ${selectedCoral.name}(s) added to your cart.`,
       showConfirmButton: false,
       timer: 2000,
     });
@@ -36,82 +47,44 @@ const ProductFullView = () => {
     setCartOpen(true);
   };
 
-  const renderCarousel = () => (
-    <div>
-      <p className="home-diamonds-round">
-        <span className="span">
-          Home / Diamonds / {selectedDiamond?.description}
-        </span>
-      </p>
-      <Carousel>
-        {RoundDiamondData.map((diamond, index) => (
-          <Carousel.Item key={index}>
-            <img
-              className={`d-block w-75 mx-auto ${
-                selectedImage === diamond.imageUrl ? "focused" : ""
-              }`}
-              src={diamond.imageUrl}
-              alt={`Thumbnail ${index + 1}`}
-              onClick={() => handleImageClick(diamond.imageUrl)}
-              style={{ cursor: "pointer" }}
-            />
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </div>
-  );
-
-  const renderTinyImages = () => (
-    <Row className="mt-3">
-      {RoundDiamondData.slice(0, 3).map((diamond, index) => (
-        <Col xs={4} key={index}>
-          <img
-            className={`d-block w-100 tiny-image ${
-              selectedImage === diamond.imageUrl ? "focused" : ""
-            }`}
-            src={diamond}
-            alt={`Tiny Thumbnail ${index + 1}`}
-            onClick={() => handleImageClick(diamond.imageUrl)}
-            style={{ cursor: "pointer" }}
-          />
-        </Col>
-      ))}
-    </Row>
-  );
-
   return (
-    <div className="container mt-5">
-      <Row>
-        <Col md={6}>
-          <Row className="mb-3">
-            <Col md={12}>{renderCarousel()}</Col>
-          </Row>
-          <Row>{renderTinyImages()}</Row>
+    <div className="card" id="ProductViewContainer">
+      <Row className="mb-4">
+        <Col md={5} xs={12}>
+          <Carousel interval={null} className="product-carousel">
+            {coralData.map((coral, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  className="d-block w-100"
+                  src={`data:image/png;base64,${coral.image}`}
+                  alt={`Thumbnail ${index + 1}`}
+                  onClick={() => handleImageClick(coral.image)}
+                />
+              </Carousel.Item>
+            ))}
+          </Carousel>
         </Col>
 
-        <Col md={6}>
-          {selectedDiamond && (
-            <div className="p-3 bg-light border position-relative d-flex flex-column h-100">
-              <div className="text-wrapper-15 text-orange mb-3">
-                <strong>{selectedDiamond.description}</strong>
-              </div>
-              <div className="text-wrapper-16 text-orange mb-3">
-                <strong>Price: {selectedDiamond.price}</strong>
-              </div>
-              <div className="text-wrapper-17 text-orange mb-3">
-                <strong>Cut: {selectedDiamond.cut}</strong>
-              </div>
-              <div className="text-wrapper-18 text-orange mb-3">
-                <strong>Carat: {selectedDiamond.carat}</strong>
-              </div>
-              <div className="text-wrapper-19 text-orange mb-3">
-                <strong>Fluorescence: {selectedDiamond.fluorescence}</strong>
-              </div>
-              <div className="text-wrapper-20 text-orange mb-3">
-                <strong>Shape: {selectedDiamond.shape}</strong>
-              </div>
+        <Col md={6} xs={12}>
+          {selectedCoral && (
+            <Card className="product-details-card">
+              <Card.Body
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  overflow: "auto", // Add this line
+                }}
+              >
+                <div>
+                  <Card.Title>{selectedCoral.name}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    ${selectedCoral.price.toFixed(2)}
+                  </Card.Subtitle>
+                  <Card.Text>{selectedCoral.description}</Card.Text>
+                </div>
 
-              <div className="mt-auto">
                 <AddCart
                   onAddToCart={handleAddToCart}
                   buttonStyle={{
@@ -122,53 +95,41 @@ const ProductFullView = () => {
                     border: "none",
                     cursor: "pointer",
                     transition: "background-color 0.3s ease",
+                    width: "100%", // Set the width to 100%
                   }}
-                  // Customize the number badge style
                   badgeStyle={{
                     backgroundColor: "#4CAF50",
                     fontSize: "0.8rem",
                   }}
                 />
-                {/* Display the cart sidebar if it's open */}
-                {isCartOpen && (
-                  <CartSidebar
-                    isOpen={isCartOpen}
-                    onClose={() => setCartOpen(false)}
-                    selectedItem={selectedDiamond.description}
-                    quantity={1}
-                  />
-                )}
-              </div>
-            </div>
+              </Card.Body>
+            </Card>
           )}
         </Col>
       </Row>
-
-      {/* Previous and Next Buttons */}
       <Row className="mt-3">
-        <Col xs={6} className="text-end">
-          <Button
-            variant="secondary"
-            onClick={() => handleImageClick(RoundDiamondData[0].imageUrl)}
-            style={{ zIndex: "" }}
-          >
-            Previous
-          </Button>
-        </Col>
-        <Col xs={6} className="text-start">
-          <Button
-            variant="secondary"
-            onClick={() =>
-              handleImageClick(
-                RoundDiamondData[RoundDiamondData.length - 1].imageUrl
-              )
-            }
-            style={{ zIndex: "1" }}
-          >
-            Next
-          </Button>
-        </Col>
+        {coralData.slice(0, 4).map((coral, index) => (
+          <Col md={2} xs={6} key={index} className="mb-3">
+            <img
+              className={`d-block w-100 thumbnail-image ${
+                selectedImage === coral.image ? "focused" : ""
+              }`}
+              src={`data:image/png;base64,${coral.image}`}
+              alt={`Thumbnail ${index + 1}`}
+              onClick={() => handleImageClick(coral.image)}
+            />
+          </Col>
+        ))}
       </Row>
+      {isCartOpen && (
+        <CartSidebar
+          isOpen={isCartOpen}
+          onClose={() => setCartOpen(false)}
+          selectedItem={selectedCoral.name}
+          quantity={1}
+          itemData={selectedCoral}
+        />
+      )}
     </div>
   );
 };

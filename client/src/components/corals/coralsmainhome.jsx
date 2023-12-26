@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./coralsmainhome.css";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
-import CartSidebar from "../CartSideNav";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const Coralmain = () => {
+  const navigate = useNavigate();
+
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [corals, setCorals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,11 +31,8 @@ const Coralmain = () => {
 
   const handleCardClick = (clickedItem) => {
     setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
-
-  const calculateQuantity = (item) => {
-    return item.quantity || 1;
+    // Redirect to /diamondscart with selected data
+    navigate("/diamondscart", { state: { selectedItem: clickedItem } });
   };
 
   return (
@@ -71,17 +69,6 @@ const Coralmain = () => {
               </div>
             ))}
           </div>
-          {selectedItem && (
-            <CartSidebar
-              isOpen={isCartSidebarOpen}
-              onClose={() => {
-                setSelectedItem(null);
-                setCartSidebarOpen(false);
-              }}
-              selectedItem={selectedItem.name}
-              quantity={calculateQuantity(selectedItem)}
-            />
-          )}
         </>
       )}
     </div>
