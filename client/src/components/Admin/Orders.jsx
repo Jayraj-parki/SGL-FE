@@ -6,6 +6,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import OrderEditForm from "./OrderEditForm";
 import { Modal } from "react-bootstrap";
 import AdminSideNav from "./AdminSide";
+import "./Orders-styles.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -199,7 +200,7 @@ const Orders = () => {
         </div>
       </nav>
 
-      <div className="container mt-3">
+      <div id="OrdersWindow" className="container mt-3">
         <div className="row">
           <div className="col-lg-3 mb-0">
             <AdminSideNav />
@@ -218,6 +219,15 @@ const Orders = () => {
             }}
           >
             <div className="table-responsive">
+              <h1 className="text-dark mb-4 ps-0">Orders</h1>
+              <hr
+                style={{
+                  color: "orange",
+                  borderTop: "2px solid orange",
+                  width: "50%",
+                  marginRight: "auto",
+                }}
+              />
               <table
                 className="table table-bordered table-hover"
                 style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
@@ -247,31 +257,36 @@ const Orders = () => {
                       <td>
                         <button
                           onClick={() => handleDelete(order._id)}
-                          className="btn btn-danger"
+                          style={{ backgroundColor: "#dc3545", color: "#fff" }}
+                          className="btn btn-danger m-auto mt-1"
                         >
                           Delete
                         </button>
                         <button
                           onClick={() => handleEditOrder(order._id)}
-                          className="btn btn-warning"
+                          style={{ backgroundColor: "#ffc107", color: "#000" }}
+                          className="btn btn-warning m-auto mt-1"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleUpdateStatus(order._id)}
-                          className="btn btn-success"
+                          style={{ backgroundColor: "#28a745", color: "#fff" }}
+                          className="btn btn-success m-auto mt-1"
                         >
                           Update
                         </button>
                         <button
                           onClick={() => handleCancelOrder(order._id)}
-                          className="btn btn-secondary"
+                          style={{ backgroundColor: "#6c757d", color: "#fff" }}
+                          className="btn btn-secondary m-auto mt-1"
                         >
                           Cancel
                         </button>
                         <button
                           onClick={() => handleRefundOrder(order._id)}
-                          className="btn btn-info"
+                          style={{ backgroundColor: "#17a2b8", color: "#fff" }}
+                          className="btn btn-info m-auto mt-1"
                         >
                           Refund
                         </button>

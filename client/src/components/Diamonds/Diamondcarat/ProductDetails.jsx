@@ -4,7 +4,7 @@ import ProductFullView from "./ProductFullView"; // Assuming the correct file na
 import FooterWithImages from "./FooterWithImages"; // Assuming the correct file name
 // import "./Style.css";
 
-const DiamondCaratDisplay = () => {
+const ProductDetails = () => {
   return (
     <div className="diamond-display-container">
       <div className="diamond-display-content">
@@ -17,4 +17,4 @@ const DiamondCaratDisplay = () => {
   );
 };
 
-export default DiamondCaratDisplay;
+export default ProductDetails;

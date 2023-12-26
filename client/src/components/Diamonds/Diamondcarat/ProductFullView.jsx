@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Carousel, Button, Row, Col } from "react-bootstrap";
-
 import AddCart from "../../CartButtons";
 import CartSidebar from "../../CartSideNav"; // Import the CartSidebar component
 import Swal from "sweetalert2";
@@ -83,7 +82,6 @@ const ProductFullView = () => {
   return (
     <div className="container mt-5">
       <Row>
-        
         <Col md={6}>
           <Row className="mb-3">
             <Col md={12}>{renderCarousel()}</Col>
@@ -91,11 +89,9 @@ const ProductFullView = () => {
           <Row>{renderTinyImages()}</Row>
         </Col>
 
-        
         <Col md={6}>
           {selectedDiamond && (
             <div className="p-3 bg-light border position-relative d-flex flex-column h-100">
-             
               <div className="text-wrapper-15 text-orange mb-3">
                 <strong>{selectedDiamond.description}</strong>
               </div>
@@ -115,11 +111,9 @@ const ProductFullView = () => {
                 <strong>Shape: {selectedDiamond.shape}</strong>
               </div>
 
-              
               <div className="mt-auto">
                 <AddCart
                   onAddToCart={handleAddToCart}
-                 
                   buttonStyle={{
                     backgroundColor: "#FFA500",
                     color: "#FFFFFF",

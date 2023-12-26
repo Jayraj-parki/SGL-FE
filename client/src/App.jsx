@@ -1,4 +1,3 @@
-
 import React from "react";
 import PropTypes from "prop-types";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
@@ -8,9 +7,9 @@ import Navmobile from "./components/Navbar/mobileview";
 import Home from "./components/Home/Home";
 import GemsDisplay from "./components/Gemspage/GemsDisplay";
 import Aboutus from "./components/About-us/aboutus";
-import DiamondsDisplay from "./components/Diamonds/Diamondspage/DiamondGridDisplay";
+import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
-import DiamondCaratDisplay from "./components/Diamonds/Diamondcarat/DiamondCaratDisplay";
+import ProductDetails from "./components/Diamonds/Diamondcarat/ProductDetails";
 import Beadsmain from "./components/Beads/beadsmain";
 import Beadssub from "./components/Beads/beadssubpage";
 import Zodiacsubpage from "./components/Astrology-demo/zodiacpage/zodiacsubpage";
@@ -81,7 +80,7 @@ const App = () => {
           path="/diamonds"
           element={
             <Layout>
-              <DiamondsDisplay />
+              <DiamondsHome />
             </Layout>
           }
         />
@@ -97,7 +96,7 @@ const App = () => {
           path="/diamondscart"
           element={
             <Layout>
-              <DiamondCaratDisplay />
+              <ProductDetails />
             </Layout>
           }
         />

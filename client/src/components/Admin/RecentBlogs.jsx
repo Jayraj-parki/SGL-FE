@@ -116,9 +116,13 @@ const RecentBlogs = ({ blogs, title, subtitle, content, file }) => {
   ));
 
   return (
-    <footer
+    <div
       className="text-center mt-2"
-      style={{ fontSize: "0.7rem", color: "#999" }}
+      style={{
+        fontSize: "0.7rem",
+        color: "#999",
+        marginLeft: "1rem", // Add left margin
+      }}
     >
       <div className="container mt-2">
         <h2 className="text-center mb-2" style={{ fontSize: "1rem" }}>
@@ -162,7 +166,7 @@ const RecentBlogs = ({ blogs, title, subtitle, content, file }) => {
           <p>&copy; 2023 Your Blog App</p>
         </footer>
       </div>
-    </footer>
+    </div>
   );
 };
 
