@@ -2,9 +2,10 @@
     width: auto;
     margin: 2rem 0rem;
     height: auto;
+    padding:1rem
     /* border: 1px solid black; */
 }
-.zodiacheadding{
+.zodiacheading{
     font-size: 100px;
     font-family: Rosario;
     font-size: 128px;
@@ -78,3 +79,80 @@
     flex-wrap: wrap;
     
 }
+
+
+/* ... (your existing styles) */
+
+.zodiac-card {
+    position: relative;
+    width: 200px; /* Set a fixed width for the card */
+    height: 300px; /* Set a fixed height for the card */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensure the image doesn't overflow */
+    background-color: rgb(255, 255, 255); /* Set the background color to gray */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .zodiac-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintain aspect ratio */
+    border: 1px solid #ddd; /* Optional: Add a border to the image */
+    border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+    margin:1px
+  }
+  
+
+  
+  .zodiac-card button {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; /* Set the width of the button */
+    padding: 5px 10px; /* Adjust padding as needed */
+    font-size: 14px; /* Adjust font size as needed */
+    background-color: rgba(128, 128, 128, 0.3); /* Set the background color of the button */
+    border: none;
+    border-radius: 5px; /* Optional: Add border-radius for a rounded look */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .zodiac-card button:hover {
+    background-color: rgba(128, 128, 128, 0.8);
+    color:#ddd /* Semi-transparent gray background on button hover */
+  }
+  
+  .zodiac-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem; /* Add padding for spacing */
+  }
+  
+  .zodiac-card {
+    flex: 0 0 auto; /* Maintain the size of each card */
+    margin-right: 1rem; /* Add margin for spacing between cards */
+  }
+  
+  .scroll-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .scroll-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .scroll-buttons button:hover {
+    color: #007bff; /* Change color on hover as desired */
+  }
+  
+  
+  /* ... (your existing styles) */
+  

@@ -3,7 +3,7 @@ import "./AddCart.css";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 
-const AddCart = ({ onAddToCart }) => {
+const AddCart = ({ onAddToCart, onQuantityChange }) => {
   const addToWishlist = () => {
     // Add your logic for adding to the wishlist here
     Swal.fire({
@@ -19,12 +19,14 @@ const AddCart = ({ onAddToCart }) => {
   const incrementCart = () => {
     setCartQuantity(cartQuantity + 1);
     animateButton();
+    onQuantityChange(cartQuantity + 1); // Call the prop function with the updated quantity
   };
 
   const decrementCart = () => {
     if (cartQuantity > 0) {
       setCartQuantity(cartQuantity - 1);
       animateButton();
+      onQuantityChange(cartQuantity - 1); // Call the prop function with the updated quantity
     }
   };
 
