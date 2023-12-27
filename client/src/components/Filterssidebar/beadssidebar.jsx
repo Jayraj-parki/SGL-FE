@@ -133,12 +133,12 @@ const Beadssidebar = () => {
           />
         ))}
       </div>
-      <div className="selected-options">
+      {/* <div className="selected-options">
         <p>Selected Type: {selectedType}</p>
         <p>Selected Subtype: {selectedSubtype}</p>
         <p>Selected Shape: {selectedShape}</p>
         <p>Selected Price: {selectedPrice}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,35 +1,87 @@
-<<<<<<< HEAD
 .peralshome-main-con{
-    width: 100%;
-    height: auto;
-    /* border: 1px solid blueviolet; */
-    display: grid;
-    grid-template-columns: 20% 80%;
-   
+  width: 100%;
+  height: auto;
+  /* border: 1px solid blueviolet; */
+  display: grid;
+  grid-template-columns: 20% 80%;
+ 
 }
 .perals-side-nav{
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
-=======
 .perals-home-main-con {
-    width: 100%;
-    height: auto;
-    display: grid;
-    grid-template-columns: 20% 80%;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.perals-side-nav {
+  margin-top: 2rem;
+}
+.pearlshome-container {
+  position: relative;
+}
+
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.pearlsname{
+margin: 0px;
+}
+.buy-now-button{
+ margin: 0px;
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+   
+    .peralshome-main-con{
+      width: 100%;
+      height: auto;
+      /* border: 1px solid blueviolet; */
+      display: grid;
+      grid-template-columns: 100%;
+      justify-content: center;
+      align-items: center;
+    
+    }
+    .beadsmain-con{
+      width: 100%;
+      height: auto;
+      display: flex;
+      /* flex-direction: row; */
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      /* border: 1px solid black; */
+      column-gap: 1rem;
+      row-gap: 1rem;
+      margin: 0rem 0rem;
+      padding: 0rem 0rem;
   }
-  
-  .perals-side-nav {
-    margin-top: 2rem;
-  }
-  .pearlshome-container {
-    position: relative;
-  }
-  
-  .loading-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
->>>>>>> master
+  .beads-image{
+    width: 9rem;
+    height: 6rem;
+ 
+    /* border: 1px solid green; */
+
+}
+.buy-now-button{
+  font-size: 10px;
+}
+.beads-box{
+  width: 9rem;
+  height: auto;
+  /* border: 1px solid black; */
+}
+.beadssidebar-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+}
