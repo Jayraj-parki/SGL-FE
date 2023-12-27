@@ -80,7 +80,7 @@ const PearlsHome = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <p className="">{item.price}</p>
-                    <button className="buy-now-button">Buy Now</button>
+                    <button className="buy-now-button">View Product</button>
                   </div>
                 </div>
               ))}

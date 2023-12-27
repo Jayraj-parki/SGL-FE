@@ -12,7 +12,6 @@ import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
 import ProductDetails from "./components/Diamonds/Diamondcarat/ProductDetails";
 import Beadsmain from "./components/Beads/beadsmain";
 import Beadssub from "./components/Beads/beadssubpage";
-import Zodiacsubpage from "./components/Astrology-demo/zodiacpage/zodiacsubpage";
 import Coralmain from "./components/corals/coralsmainhome";
 import AdminTemplate from "./components/Admin/AdminDashboard";
 import JewelryMain from "./components/jewelry/jewelryMain";
@@ -124,14 +123,7 @@ const App = () => {
             </Layout>
           }
         />
-        <Route
-          path="/zodiacsub"
-          element={
-            <Layout>
-              <Zodiacsubpage />
-            </Layout>
-          }
-        />
+
         <Route
           path="/corals"
           element={
