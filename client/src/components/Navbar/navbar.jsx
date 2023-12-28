@@ -1,10 +1,11 @@
+import PropTypes from "prop-types";
 import "./navbar.css";
 import { useState } from "react";
 import Mainheader from "./headermain";
 import Productheader from "./productsheader";
 import Navmobile from "./mobileview";
 
-const Navbar = () => {
+const Navbar = ({ userData }) => {
   const [selectedProductType, setSelectedProductType] = useState("");
 
   const handleSelectProductType = (productType) => {
@@ -13,7 +14,10 @@ const Navbar = () => {
   return (
     <>
       <div className="desk-head">
-        <Mainheader selectedProductType={selectedProductType} />
+        <Mainheader
+          userData={userData}
+          selectedProductType={selectedProductType}
+        />
       </div>
       <div className="mobile-head">
         <Navmobile />
@@ -25,5 +29,8 @@ const Navbar = () => {
       </div>
     </>
   );
+};
+Navbar.propTypes = {
+  userData: PropTypes.object, // Adjust the prop type based on your user data structure
 };
 export default Navbar;

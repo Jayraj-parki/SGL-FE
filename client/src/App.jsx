@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar/navbar";
@@ -20,17 +20,24 @@ import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
 
-const Layout = ({ children }) => (
+const Layout = ({ children, userData }) => (
   <>
-    <Navbar />
+    <Navbar userData={userData} />
     {children}
     <Footer />
   </>
 );
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  userData: PropTypes.object, // Add the prop type for userData
 };
 const App = () => {
+  const [userData, setUserData] = useState(null);
+
+  const handleLogin = (user) => {
+    setUserData(user);
+  };
   return (
     <BrowserRouter>
       <Routes>
@@ -38,7 +45,7 @@ const App = () => {
           path="/login"
           element={
             <Layout>
-              <Login onLogin={(user) => console.log("Logged in", user)} />
+              <Login onLogin={handleLogin} />
             </Layout>
           }
         />
@@ -54,7 +61,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Layout>
+            <Layout userData={userData}>
               <Home />
             </Layout>
           }

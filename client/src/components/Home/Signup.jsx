@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import "./Signup.css";
 
-const Signup = ({ navigate }) => {
+const Signup = ({ onSignupSuccess }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     whatsapp: "",
@@ -27,7 +29,12 @@ const Signup = ({ navigate }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/signup", {
+      // Log user-entered data
+      console.log("User Entered Data:", formData);
+
+      console.log("Submitting form...");
+
+      const response = await fetch("https://login-b4sh.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,22 +42,32 @@ const Signup = ({ navigate }) => {
         body: JSON.stringify(formData),
       });
 
+      console.log("API Response:", response);
+
       if (!response.ok) {
         const errorData = await response.json();
+        console.error("Error Data:", errorData);
         throw new Error(errorData.message || "Unknown error");
       }
 
       const responseData = await response.json();
+      console.log("Response Data:", responseData);
 
       // Store data in sessionStorage
       sessionStorage.setItem("user", JSON.stringify(responseData.user));
       sessionStorage.setItem("accessToken", responseData.accessToken);
       sessionStorage.setItem("requestToken", responseData.requestToken);
 
-      console.log("ProfileData", responseData);
+      console.log("Profile Data:", responseData);
+
       // Handle response data as needed
       toast.success("Signup successful");
-      navigate("/profile");
+
+      // Call onSignupSuccess with false to close the signup form
+      onSignupSuccess(false);
+
+      // Navigate to the login page
+      navigate("/login");
     } catch (error) {
       console.error("Error:", error);
       toast.error(`Error: ${error.message || "Unknown error"}`);
@@ -152,7 +169,7 @@ const Signup = ({ navigate }) => {
 };
 
 Signup.propTypes = {
-  navigate: PropTypes.func.isRequired,
+  onSignupSuccess: PropTypes.func.isRequired,
 };
 
 export default Signup;
