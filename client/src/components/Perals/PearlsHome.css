@@ -1,0 +1,122 @@
+.peralshome-main-con{
+  width: 100%;
+  height: auto;
+  /* border: 1px solid blueviolet; */
+  display: grid;
+  grid-template-columns: 20% 80%;
+  margin: 1rem 0rem;
+}
+
+.perals-side-nav{
+  margin-top: 1rem;
+}
+
+.pearlshome-container {
+  position: relative;
+}
+.perals-map-area{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black;  */
+  flex-direction: row;
+
+}
+.beadsmain-con{
+  /* border: 1px solid black; */
+  display:  flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 2rem;
+  column-gap: 2rem;
+  padding: 2rem 0rem;
+  
+}
+.beads-box {
+  /* border: 1px solid black;  */
+  width: 13rem;
+  height: auto;
+  transition: transform 0.3s ease-in-out; /* Adding a smooth transition effect */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.beads-box:hover {
+  transform: scale(1.1); /* Scale the box up by 10% on hover */
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+.beads-image{
+  width: 13rem;
+  height: 12rem;
+}
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.pearlsname{
+margin: 0px;
+text-align: center;
+font-size: 25px;
+}
+h4{
+  margin: 0px;
+  text-align: center;
+  font-size: 20px;
+}
+/* p{
+  margin: 0px;
+  text-align: center;
+} */
+.buy-now-button{
+ margin: 0px;
+}
+
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+   
+    .peralshome-main-con{
+      width: 100%;
+      height: auto;
+      /* border: 1px solid blueviolet; */
+      display: grid;
+      grid-template-columns: 100%;
+      justify-content: center;
+      align-items: center;
+    
+    }
+    .beadsmain-con{
+      border: 1px solid black;
+      display:  flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 1rem;
+      column-gap: 1rem;
+      padding: 1rem 0rem;
+    }
+    .beads-box{
+      border: 1px solid black;
+      width: 10rem;
+      height: auto;
+      /* border: 1px solid black; */
+    }
+    .beads-image{
+      width: 10rem;
+      height: 7rem;
+    }
+    
+.buy-now-button{
+  font-size: 15px;
+}
+
+.beadssidebar-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+}
