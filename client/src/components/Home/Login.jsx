@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import Avatar from "react-avatar";
 import { FaUser } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-import Profile from "./Profile";
+import { useNavigate } from "react-router-dom";
 import Signup from "./Signup"; // Assuming you have a Signup component
 import ForgotPassword from "./ForgotPassword";
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -23,13 +24,18 @@ const Login = ({ onLogin }) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+  const handleSignupSuccess = (data) => {
+    // Handle the signup success data if needed
+    console.log("Signup Success Data:", data);
 
+    // Close the signup form
+    setShowSignup(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Simulate a login request, replace this with your actual login logic
-      const response = await fetch("/api/login", {
+      const response = await fetch("https://login-b4sh.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,18 +53,42 @@ const Login = ({ onLogin }) => {
       // Store user data in state
       setUserData(responseData.user);
 
-      // Store user data in sessionStorage
+      // Store user data in sessionStorage immediately
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
 
       // Call the onLogin function with the user data
       onLogin(responseData.user);
 
       // Display success message using toastify
-      toast.success("Login successful!");
+      toast.success("Login successful!", {
+        onClose: () => {
+          // After the toast is closed, wait for 3 seconds and then navigate to '/'
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
+        },
+      });
     } catch (error) {
       console.error("Error:", error);
-      // Handle login error using toastify
-      toast.error("Login failed. Please try again.");
+
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+        // Handle network errors
+        console.error("Network error or failed to fetch:", error);
+        toast.error("Network error or failed to fetch. Please try again.");
+      } else {
+        // Log the entire response for debugging purposes
+        if (error.response) {
+          console.error("Server Response:", error.response.data);
+          console.error("Status Code:", error.response.status);
+          console.error("Headers:", error.response.headers);
+        } else if (error.request) {
+          console.error("No response received. Request:", error.request);
+        } else {
+          console.error("Error setting up the request:", error.message);
+        }
+
+        toast.error("Login failed. Please try again.");
+      }
     }
   };
 
@@ -71,10 +101,6 @@ const Login = ({ onLogin }) => {
     setShowForgotPassword(true);
     setShowSignup(false);
   };
-
-  if (userData) {
-    return <Profile user={userData} />;
-  }
 
   return (
     <div className="container mt-5">
@@ -100,7 +126,7 @@ const Login = ({ onLogin }) => {
             showForgotPassword ? (
               <ForgotPassword />
             ) : (
-              <Signup />
+              <Signup onSignupSuccess={handleSignupSuccess} />
             )
           ) : (
             <form onSubmit={handleSubmit}>
@@ -167,7 +193,6 @@ const Login = ({ onLogin }) => {
           )}
         </div>
       </div>
-      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };

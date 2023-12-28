@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaSearch, FaHeart, FaShoppingBag } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,15 +8,24 @@ import profile from "./Nav-images/Frame 75.png";
 import SearchBarPopup from "./SearchBarPopup";
 import Profile from "../Home/Profile";
 
-const Mainheader = ({ selectedProductType }) => {
+const Mainheader = ({ selectedProductType, userData }) => {
   // State for managing the search bar and profile popup
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
-
+  const [isProfileBlinking, setIsProfileBlinking] = useState(false);
   // Hook for programmatic navigation
   const navigate = useNavigate();
 
   // Event handler to open the search bar
+  const startBlinking = () => {
+    setIsProfileBlinking(true);
+
+    // Stop blinking after 3 seconds
+    setTimeout(() => {
+      setIsProfileBlinking(false);
+    }, 3000);
+  };
+
   const openSearchBar = () => {
     setIsSearchBarOpen(true);
   };
@@ -35,7 +44,12 @@ const Mainheader = ({ selectedProductType }) => {
     <div className="main-nav-section">
       {/* Profile icon with click event to toggle the profile popup */}
       <div className="main-sub-nav" onClick={toggleProfilePopup}>
-        <img src={profile} alt="profile" className="profile" />
+        <div
+          className={`main-sub-nav ${isProfileBlinking ? "blinking" : ""}`}
+          onClick={toggleProfilePopup}
+        >
+          <img src={profile} alt="profile" className="profile" />
+        </div>
       </div>
 
       {/* Popup container for the Profile component */}
@@ -54,6 +68,8 @@ const Mainheader = ({ selectedProductType }) => {
           <Profile
             onClose={() => setIsProfilePopupOpen(false)}
             selectedProductType={selectedProductType}
+            userData={userData}
+            startBlinking={startBlinking}
           />
         </div>
       )}
@@ -111,6 +127,7 @@ const Mainheader = ({ selectedProductType }) => {
 
 Mainheader.propTypes = {
   selectedProductType: PropTypes.string.isRequired,
+  userData: PropTypes.object, // Adjust the prop type based on your user data structure
 };
 
 export default Mainheader;

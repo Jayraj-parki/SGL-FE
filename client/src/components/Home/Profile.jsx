@@ -4,7 +4,13 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import "./profile.css";
 
-const Profile = ({ user, handleLogout, onClose }) => {
+const Profile = ({
+  userData,
+  handleLogout,
+  onClose,
+  selectedProductType,
+  startBlinking,
+}) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -38,48 +44,8 @@ const Profile = ({ user, handleLogout, onClose }) => {
   }, [handleLogout]);
 
   const handleClose = () => {
-    // Call the onClose prop to close the modal
     onClose();
   };
-
-  if (!user || !user.username) {
-    return (
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header bg-light text-danger">
-            <h5 className="modal-title text-danger">Profile</h5>
-            {/* Close button in the header */}
-          </div>
-          <div className="modal-body p-4">
-            {error ? (
-              <p>{error}</p>
-            ) : (
-              <>
-                <p>Please log in to view your profile.</p>
-                <Link to="/login">
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => toast.info("Redirecting to login page...")}
-                  >
-                    Login
-                  </button>
-                </Link>
-              </>
-            )}
-            {/* Close button in the modal body */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleClose}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="modal-dialog modal-dialog-centered">
@@ -89,32 +55,65 @@ const Profile = ({ user, handleLogout, onClose }) => {
           {/* Close button in the header */}
           <button
             type="button"
-            className="close"
+            className="close p-0 ms-auto btn-sm"
             aria-label="Close"
             onClick={handleClose}
+            style={{ width: "24px", height: "24px" }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div className="modal-body p-4">
-          <div className="text-center">
-            <img
-              src={user.profileImage || "default-profile-image.jpg"}
-              alt="Profile"
-              className="img-fluid rounded-circle mb-3"
-              style={{ width: "150px", height: "150px" }}
-            />
-            <h4 className="text-dark">{user.username}</h4>
-            <p className="text-muted">{user.email}</p>
-          </div>
+          {!userData || !userData.username ? (
+            <>
+              {error ? (
+                <p>{error}</p>
+              ) : (
+                <>
+                  <p>Please log in to view your profile.</p>
+                  <Link to="/login">
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() =>
+                        toast.info("Redirecting to the login page...")
+                      }
+                    >
+                      Login
+                    </button>
+                  </Link>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <div className="text-center">
+                <img
+                  src={userData.profileImage || "default-profile-image.jpg"}
+                  alt="Profile"
+                  className={`img-fluid rounded-circle mb-3 ${
+                    startBlinking ? "blinking" : ""
+                  }`}
+                  style={{ width: "150px", height: "150px" }}
+                />
+                <h4 className="text-dark">{userData.username}</h4>
+                <p className="text-muted">{userData.email}</p>
+              </div>
+            </>
+          )}
           {/* Close button in the modal body */}
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-secondary m-1 m-auto mt-3"
             onClick={handleClose}
           >
             Close
           </button>
+          {selectedProductType && (
+            <p>
+              Selected Product Type: <strong>{selectedProductType}</strong>
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -122,19 +121,23 @@ const Profile = ({ user, handleLogout, onClose }) => {
 };
 
 Profile.propTypes = {
-  user: PropTypes.shape({
+  userData: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
     profileImage: PropTypes.string,
   }),
   handleLogout: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  selectedProductType: PropTypes.string,
+  startBlinking: PropTypes.bool.isRequired,
 };
 
 Profile.defaultProps = {
-  user: null,
+  userData: null,
   handleLogout: () => {},
   onClose: () => {},
+  selectedProductType: "",
+  startBlinking: false,
 };
 
 export default Profile;
