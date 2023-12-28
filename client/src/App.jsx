@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
 import Navmobile from "./components/Navbar/mobileview";
 import Home from "./components/Home/Home";
-// import GemsDisplay from "./components/Gemspage/GemsDisplay";
+import GemGrid from "./components/Gemspage/GemGrid";
 import Aboutus from "./components/About-us/aboutus";
 import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
@@ -68,7 +68,7 @@ const App = () => {
           }
         />
         <Route
-          path="/gems"
+          path="/Gems"
           element={
             <Layout>
               <GemGrid />
@@ -84,7 +84,7 @@ const App = () => {
           }
         />
         <Route
-          path="/diamonds"
+          path="/Diamonds"
           element={
             <Layout>
               <DiamondsHome />
@@ -103,21 +103,21 @@ const App = () => {
           path="/diamondscart"
           element={
             <Layout>
-              <ProductDetails/>
+              <ProductDetails />
             </Layout>
           }
         />
         <Route
-          path="/beads"
+          path="/Beads"
           element={
             <Layout>
               <Beadsmain />
             </Layout>
           }
         />
-      
+
         <Route
-          path="/peralhome"
+          path="/Pearls"
           element={
             <Layout>
               <PearlsHome />
@@ -126,7 +126,7 @@ const App = () => {
         />
 
         <Route
-          path="/corals"
+          path="/Corals"
           element={
             <Layout>
               <Coralmain />
@@ -134,7 +134,7 @@ const App = () => {
           }
         />
         <Route
-          path="/jewelery"
+          path="/Jewelry"
           element={
             <Layout>
               <JewelryMain />

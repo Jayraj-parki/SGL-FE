@@ -10,12 +10,34 @@ const ProductFullView = ({ selectedItem }) => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [calculatedPrice, setCalculatedPrice] = useState(0);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
+    updateCalculatedPrice(newQuantity);
   };
+
+  const updateCalculatedPrice = (newQuantity) => {
+    if (selectedItem) {
+      const itemPrice = parseFloat(selectedItem.price);
+
+      // Calculate total price based on quantity
+      let totalPrice;
+      if (newQuantity > 0) {
+        totalPrice = (newQuantity * itemPrice).toFixed(2);
+      } else if (newQuantity < 0) {
+        // Divide the price by the absolute quantity if it's less than 0
+        totalPrice = (itemPrice / Math.abs(newQuantity)).toFixed(2);
+      } else {
+        // Quantity is 0
+        totalPrice = 0;
+      }
+
+      setCalculatedPrice(totalPrice);
+    }
+  };
+
   useEffect(() => {
-    // Check if there is a selected item and it has an image
     if (selectedItem && selectedItem.image) {
       setSelectedImage(selectedItem.image);
     } else {
@@ -28,7 +50,16 @@ const ProductFullView = ({ selectedItem }) => {
         timer: 3000,
       });
     }
-  }, [selectedItem]);
+
+    // Convert price to a number if it's provided as a string
+    const parsedPrice = parseFloat(selectedItem.price);
+    if (!isNaN(parsedPrice)) {
+      selectedItem.price = parsedPrice;
+    }
+
+    // Update calculated price when the component mounts
+    updateCalculatedPrice(quantity);
+  }, [selectedItem, quantity]);
 
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);
@@ -47,14 +78,11 @@ const ProductFullView = ({ selectedItem }) => {
       return;
     }
 
-    const itemPrice = parseFloat(selectedItem.price.replace("$", ""));
-    const totalPrice = (quantity * itemPrice).toFixed(2);
-
     // Display a success message if the item is added to the cart
     Swal.fire({
       icon: "success",
       title: "Added to Cart!",
-      text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${totalPrice}`,
+      text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
       showConfirmButton: false,
       timer: 2000,
     });
@@ -69,12 +97,17 @@ const ProductFullView = ({ selectedItem }) => {
         <Col md={5} xs={12}>
           <Carousel interval={null} className="product-carousel">
             <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={selectedItem.image}
-                alt={`Thumbnail`}
-                onClick={() => handleImageClick(selectedItem.image)}
-              />
+              {selectedItem && selectedItem.image ? (
+                <img
+                  className="d-block w-100"
+                  src={`data:image/png;base64,${selectedItem.image}`}
+                  alt={`Thumbnail`}
+                  onClick={() => handleImageClick(selectedItem.image)}
+                />
+              ) : (
+                // Display a placeholder or handle the case when the image is undefined
+                <p>No image available</p>
+              )}
             </Carousel.Item>
           </Carousel>
         </Col>
@@ -82,35 +115,16 @@ const ProductFullView = ({ selectedItem }) => {
         <Col md={6} xs={12}>
           {selectedItem && (
             <Card className="product-details-card">
-              <Card.Body
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  overflow: "auto",
-                }}
-              >
-                <div style={{ marginBottom: "0.5rem" }}>
-                  <div style={{ fontWeight: "bold", textAlign: "left" }}>
-                    Name:
+              <Card.Body>
+                <div>
+                  <div className="product-detail">
+                    <span className="detail-label">Name:</span>
+                    <span className="detail-value">{selectedItem.name}</span>
                   </div>
-                  <Card.Title
-                    style={{ marginBottom: "0.5rem", textAlign: "left" }}
-                  >
-                    {selectedItem.name}
-                  </Card.Title>
-                </div>
-
-                <div style={{ marginBottom: "0.5rem" }}>
-                  <div style={{ fontWeight: "bold", textAlign: "left" }}>
-                    Price:
+                  <div className="product-detail">
+                    <span className="detail-label">Price:</span>
+                    <span className="detail-value">${calculatedPrice}</span>
                   </div>
-                  <Card.Subtitle
-                    className="mb-2 text-muted"
-                    style={{ textAlign: "left" }}
-                  >
-                    {selectedItem.price}
-                  </Card.Subtitle>
                 </div>
 
                 {/* Add your description here */}
@@ -143,7 +157,7 @@ const ProductFullView = ({ selectedItem }) => {
           isOpen={isCartOpen}
           onClose={() => setCartOpen(false)}
           selectedItem={selectedItem.name}
-          quantity={1}
+          quantity={quantity}
           itemData={selectedItem}
         />
       )}
@@ -155,7 +169,7 @@ ProductFullView.propTypes = {
   selectedItem: PropTypes.shape({
     name: PropTypes.string,
     image: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
     // Add more properties as needed
   }),
 };

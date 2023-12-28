@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Beadssidebar from "../Filterssidebar/beadssidebar";
-import CartSidebar from "../CartSideNav";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PearlsHome.css";
+import Beadssidebar from "../Filterssidebar/beadssidebar";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const PearlsHome = () => {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [pearls, setPearls] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +19,6 @@ const PearlsHome = () => {
           setPearls(data);
           setIsLoading(false);
         } else {
-          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
             `Failed to fetch Pearls. Server response: ${errorMessage}`
@@ -27,8 +26,7 @@ const PearlsHome = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        // Handle network errors or JSON parsing errors
-        console.error("Error fetching Pearls:", error.message);
+        console.error("Error fetching pearls:", error.message);
         setIsLoading(false);
       }
     };
@@ -36,16 +34,13 @@ const PearlsHome = () => {
     fetchPearls();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
+  const handleViewDetails = (clickedItem) => {
     setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
-
-  const calculateQuantity = (item) => item.quantity || 1;
-
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+    sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
+    // Update the route based on your navigation setup
+    // For example, assuming "/diamondscart" is the route to navigate to
+    // Replace this line with your actual navigation logic
+    navigate("/diamondscart");
   };
 
   return (
@@ -69,7 +64,7 @@ const PearlsHome = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
+                    onClick={() => handleViewDetails(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -79,24 +74,19 @@ const PearlsHome = () => {
                       className="beads-image"
                     />
                     <p className="pearlsname">{item.name}</p>
-                    <h4 className="item-price">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <h4 className="">{item.price}</h4>
+                    <button
+                      className="buy-now-button"
+                      onClick={() => handleViewDetails(item)}
+                    >
+                      View Product
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
       )}
     </div>
   );

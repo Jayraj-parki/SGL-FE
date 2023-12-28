@@ -8,7 +8,6 @@ const jewelryData = {
     "Astrology Gems",
     "Pearls",
     "Corals",
-    "Zodiac Stones",
   ],
   subtypes: {
     Gems: ["Precious", "Semi-precious"],
@@ -36,6 +35,8 @@ const jewelryData = {
       "Hessonite",
       "Cat's Eye",
     ],
+    Pearls: ["Akoya", "South Sea", "Tahitian", "Freshwater"],
+    Corals: ["Red Coral", "Pink Coral", "Bamboo Coral", "Blue Coral"],
   },
   shapes: {
     Gems: [

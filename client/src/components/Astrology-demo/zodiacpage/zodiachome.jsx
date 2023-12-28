@@ -163,7 +163,7 @@ const Zodiachome = () => {
             <div key={index} className="zodiac-card">
               <img src={item.image} alt={item.name} />
               <button onClick={() => handleViewDetails(item)}>
-                View Details
+                View Product
               </button>
             </div>
           ))}
