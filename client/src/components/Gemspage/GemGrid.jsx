@@ -1,122 +1,102 @@
 import React, { useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
-import "./GemsGrid.css";
-
-const itemsPerPage = 20;
+import "../Perals/PearlsHome.css";
+import Beadssidebar from "../Filterssidebar/beadssidebar";
 
 const GemGrid = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [gems, setGems] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
+  const [Gems, setGems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const fetchGems = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getgems");
+        if (response.ok) {
+          const data = await response.json();
+          setGems(data);
+          setIsLoading(false);
+        } else {
+          // Handle non-OK responses
+          const errorMessage = await response.text();
+          console.error(
+            `Failed to fetch Pearls. Server response: ${errorMessage}`
+          );
+          setIsLoading(false);
+        }
+      } catch (error) {
+        // Handle network errors or JSON parsing errors
+        console.error("Error fetching Pearls:", error.message);
+        setIsLoading(false);
+      }
+    };
+
     fetchGems();
   }, []);
 
-  const fetchGems = () => {
-    setLoading(true);
-    fetch("https://sgl-be.onrender.com/getgems")
-      .then((response) => response.json())
-      .then((data) => setGems(data))
-      .catch((error) => console.error("Error fetching gems:", error))
-      .finally(() => setLoading(false));
+  const handleCardClick = (clickedItem) => {
+    setSelectedItem(clickedItem);
+    setCartSidebarOpen(true);
   };
 
-  const totalPages = Math.ceil(gems.length / itemsPerPage);
+  const calculateQuantity = (item) => item.quantity || 1;
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+  const closeCartSidebar = () => {
+    setSelectedItem(null);
+    setCartSidebarOpen(false);
   };
-
-  const data = gems.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      {loading && (
-        <div style={{ textAlign: "center" }}>
+    <div className="pearlshome-container">
+      {isLoading && (
+        <div className="loading-container">
           <CircularProgress />
-          <p>Loading...</p>
         </div>
       )}
-      <div
-        style={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div style={{ padding: "20px" }}></div>
-        <div style={{ flexGrow: 1, padding: "20px" }}>
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4">
-            {data.map((gem, index) => (
-              <div key={index} className="col mb-2">
-                <div className="card gem-card">
-                  <img
-                    src={`data:image/png;base64,${gem.image}`}
-                    alt={gem.name}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title" style={{ fontSize: "12px" }}>
-                      {gem.name}
-                    </h5>
-                    <h5 className="card-title" style={{ fontSize: "12px" }}>
-                      {gem.price}
-                    </h5>
+
+      {!isLoading && (
+        <div className="peralshome-main-con">
+          <div className="perals-side-nav">
+            <Beadssidebar />
+          </div>
+          <div className="perals-map-area">
+            <div className="beadsmain-con">
+              {Gems.map((item, index) => (
+                <div key={index}>
+                  <div
+                    className={`beads-box ${
+                      selectedItem === item ? "selected" : ""
+                    }`}
+                    onClick={() => handleCardClick(item)}
+                  >
+                    <img
+                      src={`data:image/png;base64,${item.image}`}
+                      alt="jewelry"
+                      width="50%"
+                      height="50%"
+                      className="beads-image"
+                    />
+                    <p className="pearlsname">{item.name}</p>
+                    <h4 className="peralsprice">{item.price}</h4>
+                    <button className="buy-now-button">View Product</button>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "10px",
-              width: "fit-content", // Set width to fit its content
-              margin: "0 auto", // Center the div
-            }}
-          >
-            <button
-              onClick={() => handlePageChange(currentPage - 1)}
-              className="btn"
-              disabled={currentPage === 1}
-              style={{
-                fontSize: "12px",
-                padding: "3px 6px",
-                backgroundColor: "#FFA500", // Orange color
-                color: "#fff",
-                border: "1px solid #FFA500",
-              }}
-            >
-              Previous
-            </button>
-            <span
-              style={{ fontSize: "10px", margin: "0 2px", color: "#555" }}
-            >{`Showing Page ${currentPage} of ${totalPages}`}</span>
-
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              className="btn"
-              disabled={currentPage === totalPages}
-              style={{
-                fontSize: "12px",
-                padding: "3px 6px",
-                backgroundColor: "#FFA500", // Orange color
-                color: "#fff",
-                border: "1px solid #FFA500",
-              }}
-            >
-              Next
-            </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {selectedItem && (
+        <CartSidebar
+          isOpen={isCartSidebarOpen}
+          onClose={closeCartSidebar}
+          selectedItem={selectedItem.name}
+          quantity={calculateQuantity(selectedItem)}
+          itemData={selectedItem} // Pass itemData here
+        />
+      )}
     </div>
   );
 };

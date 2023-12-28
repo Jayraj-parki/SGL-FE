@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./coralsmainhome.css";
+import "../Perals/PearlsHome.css";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
 import CircularProgress from "@mui/material/CircularProgress";
 
@@ -12,64 +12,92 @@ const Coralmain = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch corals data when the component mounts
+    const fetchCorals = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getcorals");
+        if (response.ok) {
+          const data = await response.json();
+          setCorals(data);
+          setIsLoading(false);
+        } else {
+          // Handle non-OK responses
+          const errorMessage = await response.text();
+          console.error(
+            `Failed to fetch Pearls. Server response: ${errorMessage}`
+          );
+          setIsLoading(false);
+        }
+      } catch (error) {
+        // Handle network errors or JSON parsing errors
+        console.error("Error fetching coraals:", error.message);
+        setIsLoading(false);
+      }
+    };
+
     fetchCorals();
   }, []);
 
-  const fetchCorals = () => {
-    fetch("https://sgl-be.onrender.com/getcorals")
-      .then((response) => response.json())
-      .then((data) => {
-        setCorals(data);
-        setIsLoading(false); // Set loading to false once data is fetched
-      })
-      .catch((error) => {
-        console.error("Error fetching corals:", error);
-        setIsLoading(false); // Set loading to false in case of an error
-      });
-  };
-
   const handleCardClick = (clickedItem) => {
     setSelectedItem(clickedItem);
-    // Redirect to /diamondscart with selected data
-    navigate("/diamondscart", { state: { selectedItem: clickedItem } });
+    setCartSidebarOpen(true);
+  };
+
+  const calculateQuantity = (item) => item.quantity || 1;
+
+  const closeCartSidebar = () => {
+    setSelectedItem(null);
+    setCartSidebarOpen(false);
   };
 
   return (
-    <div className="corals-main">
+    <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
-          <div className="loading-content">
-            <CircularProgress />
-          </div>
+          <CircularProgress />
         </div>
       )}
 
       {!isLoading && (
-        <>
-          <div className="coralsidenav">
+        <div className="peralshome-main-con">
+          <div className="perals-side-nav">
             <Beadssidebar />
           </div>
-          <div className="corals-con">
-            {corals.map((item, index) => (
-              <div key={index} onClick={() => handleCardClick(item)}>
-                <div
-                  className={`box ${selectedItem === item ? "selected" : ""}`}
-                >
-                  <img
-                    src={`data:image/png;base64,${item.image}`}
-                    alt="coral"
-                    width="50%"
-                    height="50%"
-                    className="corals-image"
-                  />
-                  <p>{item.name}</p>
-                  <p>{item.price}</p>
+          <div className="perals-map-area">
+            <div className="beadsmain-con">
+              {corals.map((item, index) => (
+                <div key={index}>
+                  <div
+                    className={`beads-box ${
+                      selectedItem === item ? "selected" : ""
+                    }`}
+                    onClick={() => handleCardClick(item)}
+                  >
+                    <img
+                      src={`data:image/png;base64,${item.image}`}
+                      alt="jewelry"
+                      width="50%"
+                      height="50%"
+                      className="beads-image"
+                    />
+                    <p className="pearlsname">{item.name}</p>
+                    <h4 className="">{item.price}</h4>
+                    <button className="buy-now-button">View Product</button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </>
+        </div>
+      )}
+
+      {selectedItem && (
+        <CartSidebar
+          isOpen={isCartSidebarOpen}
+          onClose={closeCartSidebar}
+          selectedItem={selectedItem.name}
+          quantity={calculateQuantity(selectedItem)}
+          itemData={selectedItem} // Pass itemData here
+        />
       )}
     </div>
   );

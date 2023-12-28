@@ -1,17 +1,18 @@
 import { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
 import Navmobile from "./components/Navbar/mobileview";
 import Home from "./components/Home/Home";
-import GemsDisplay from "./components/Gemspage/GemsDisplay";
+// import GemsDisplay from "./components/Gemspage/GemsDisplay";
 import Aboutus from "./components/About-us/aboutus";
 import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
-import ProductDetails from "./components/Diamonds/Diamondcarat/ProductDetails";
+import ProductDetails from "./components/Productfullview/ProductDetails";
 import Beadsmain from "./components/Beads/beadsmain";
-import Beadssub from "./components/Beads/beadssubpage";
+// import Beadssub from "./components/Beads/beadssubpage";
 import Coralmain from "./components/corals/coralsmainhome";
 import AdminTemplate from "./components/Admin/AdminDashboard";
 import JewelryMain from "./components/jewelry/jewelryMain";
@@ -70,7 +71,7 @@ const App = () => {
           path="/gems"
           element={
             <Layout>
-              <GemsDisplay />
+              <GemGrid />
             </Layout>
           }
         />
@@ -102,7 +103,7 @@ const App = () => {
           path="/diamondscart"
           element={
             <Layout>
-              <ProductDetails />
+              <ProductDetails/>
             </Layout>
           }
         />
@@ -114,14 +115,7 @@ const App = () => {
             </Layout>
           }
         />
-        <Route
-          path="/beadssub"
-          element={
-            <Layout>
-              <Beadssub />
-            </Layout>
-          }
-        />
+      
         <Route
           path="/peralhome"
           element={

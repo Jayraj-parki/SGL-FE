@@ -18,14 +18,16 @@ const DiamondsHome = () => {
           setDiamonds(data);
           setIsLoading(false);
         } else {
+          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
-            `Failed to fetch Diamonds. Server response: ${errorMessage}`
+            `Failed to fetch Pearls. Server response: ${errorMessage}`
           );
           setIsLoading(false);
         }
       } catch (error) {
-        console.error("Error fetching Diamonds:", error.message);
+        // Handle network errors or JSON parsing errors
+        console.error("Error fetching diamonds:", error.message);
         setIsLoading(false);
       }
     };
@@ -46,7 +48,7 @@ const DiamondsHome = () => {
   };
 
   return (
-    <div className="diamondsgrid-container">
+    <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
           <CircularProgress />
@@ -54,30 +56,30 @@ const DiamondsHome = () => {
       )}
 
       {!isLoading && (
-        <div className="diamondsgrid-main-con">
-          <div className="diamonds-side-nav">
+        <div className="peralshome-main-con">
+          <div className="perals-side-nav">
             <Beadssidebar />
           </div>
-          <div className="diamonds-map-area">
-            <div className="diamondsmain-con">
+          <div className="perals-map-area">
+            <div className="beadsmain-con">
               {diamonds.map((item, index) => (
                 <div key={index}>
                   <div
-                    className={`diamonds-box ${
+                    className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
                     onClick={() => handleCardClick(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
-                      alt="diamond"
+                      alt="jewelry"
                       width="50%"
                       height="50%"
-                      className="diamonds-image"
+                      className="beads-image"
                     />
-                    <p className="diamondsname">{item.name}</p>
-                    <p className="">{item.price}</p>
-                    <button className="buy-now-button">Buy Now</button>
+                    <p className="pearlsname">{item.name}</p>
+                    <h4 className="item-price">{item.price}</h4>
+                    <button className="buy-now-button">View Product</button>
                   </div>
                 </div>
               ))}
@@ -98,5 +100,4 @@ const DiamondsHome = () => {
     </div>
   );
 };
-
 export default DiamondsHome;

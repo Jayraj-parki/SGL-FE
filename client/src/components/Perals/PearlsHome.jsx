@@ -79,7 +79,7 @@ const PearlsHome = () => {
                       className="beads-image"
                     />
                     <p className="pearlsname">{item.name}</p>
-                    <p className="">{item.price}</p>
+                    <h4 className="item-price">{item.price}</h4>
                     <button className="buy-now-button">View Product</button>
                   </div>
                 </div>

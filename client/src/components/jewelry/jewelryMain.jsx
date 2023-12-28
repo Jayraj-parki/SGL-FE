@@ -1,50 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import JewelrySidebar from "./jewelrySidebar";
-import goldJewelry from "./Data/gold";
-import silverJewelry from "./Data/silver";
-import panchadhatuJewelry from "./Data/panchadhathu";
-import coralJewelry from "./Data/coral";
-import beadsJewelry from "./Data/beads";
 
-import "./jewelryMain.css";
+
+import "../Perals/PearlsHome.css";
+import Beadssidebar from "../Filterssidebar/beadssidebar";
 
 const JewelryMain = () => {
   const navigate = useNavigate();
   const [jewelry, setJewelry] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
 
   useEffect(() => {
-    fetchJewelry();
+    const fetchJewelery = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getjewelry");
+        if (response.ok) {
+          const data = await response.json();
+          setJewelry(data);
+          setIsLoading(false);
+        } else {
+          // Handle non-OK responses
+          const errorMessage = await response.text();
+          console.error(
+            `Failed to fetch jewelry. Server response: ${errorMessage}`
+          );
+          setIsLoading(false);
+        }
+      } catch (error) {
+        // Handle network errors or JSON parsing errors
+        console.error("Error fetching Pearls:", error.message);
+        setIsLoading(false);
+      }
+    };
+
+    fetchJewelery();
   }, []);
 
-  const fetchJewelry = async () => {
-    try {
-      const response = await fetch("https://sgl-be.onrender.com/getjewelry");
-      const data = await response.json();
-      setJewelry(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error("Error fetching jewelry:", error);
-      setIsLoading(false);
-    }
+  const handleCardClick = (clickedItem) => {
+    setSelectedItem(clickedItem);
+    setCartSidebarOpen(true);
   };
 
-  const sampleData = [
-    ...goldJewelry,
-    ...silverJewelry,
-    ...panchadhatuJewelry,
-    ...coralJewelry,
-    ...beadsJewelry,
-  ];
+  const calculateQuantity = (item) => item.quantity || 1;
 
-  const navigateToSubPage = (itemName) => {
-    navigate("/Jewelrysub", { state: { itemName } });
+  const closeCartSidebar = () => {
+    setSelectedItem(null);
+    setCartSidebarOpen(false);
   };
 
   return (
-    <div className="Jewelrymain-con">
+    <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
           <CircularProgress />
@@ -52,26 +60,47 @@ const JewelryMain = () => {
       )}
 
       {!isLoading && (
-        <>
-          <div className="sidebar-container">
-            <JewelrySidebar />
+        <div className="peralshome-main-con">
+          <div className="perals-side-nav">
+            <Beadssidebar />
           </div>
-
-          <div className="main-content-container">
-            {jewelry.map((item, index) => (
-              <div key={index} onClick={() => navigateToSubPage(item.name)}>
-                <div className="box">
-                  <img
-                    src={`data:image/png;base64,${item.image}`}
-                    alt="jewellery"
-                  />
-                  <p>{item.name}</p>
-                  <p>{item.price}</p>
+          <div className="perals-map-area">
+            <div className="beadsmain-con">
+              {jewelry.map((item, index) => (
+                <div key={index}>
+                  <div
+                    className={`beads-box ${
+                      selectedItem === item ? "selected" : ""
+                    }`}
+                    onClick={() => handleCardClick(item)}
+                  >
+                    <img
+                      src={`data:image/png;base64,${item.image}`}
+                      alt="jewelry"
+                      width="50%"
+                      height="50%"
+                      className="beads-image"
+                    />
+                    {/*  */}
+                    <p className="pearlsname">{item.name}</p>
+                    <h4 className="item-price">{item.price}</h4>
+                    <button className="buy-now-button">View Product</button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </>
+        </div>
+      )}
+
+      {selectedItem && (
+        <CartSidebar
+          isOpen={isCartSidebarOpen}
+          onClose={closeCartSidebar}
+          selectedItem={selectedItem.name}
+          quantity={calculateQuantity(selectedItem)}
+          itemData={selectedItem} // Pass itemData here
+        />
       )}
     </div>
   );
