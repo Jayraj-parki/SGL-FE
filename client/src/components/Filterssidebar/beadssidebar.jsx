@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// Beadssidebar.js
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import jewelryData from "./jewelryData";
 import "./beadssidebar.css";
@@ -9,9 +10,10 @@ const SidebarSection = ({
   activeSection,
   onToggleVisibility,
   onSelectOption,
-  selectedShape,
   selectedType,
   selectedSubtype,
+  selectedShape,
+  selectedPrice,
 }) => (
   <div className="sidebar-section">
     <div className="select-main" onClick={() => onToggleVisibility(title)}>
@@ -25,24 +27,29 @@ const SidebarSection = ({
       style={{ display: activeSection === title ? "block" : "none" }}
     >
       {options.map((option) => (
-        <div key={option} onClick={() => onSelectOption(title, option)}>
+        <div
+          key={option}
+          onClick={() => {
+            console.log(`Selected ${title}: ${option}`);
+            onSelectOption(title, option);
+          }}
+        >
           <input
             type="checkbox"
             id={`${title}-${option}`}
             checked={
-              title === "Shapes"
-                ? selectedShape === option
-                : (title === activeSection &&
-                    (title === "Type" || title === "Prices") &&
-                    selectedType === option) ||
-                  (title === "Subtypes" && selectedSubtype === option)
+              (title === "Type" && selectedType === option) ||
+              (title === "Subtypes" && selectedSubtype === option) ||
+              (title === "Shapes" && selectedShape === option) ||
+              (title === "Prices" && selectedPrice === option)
             }
             readOnly
           />
           <label
             htmlFor={`${title}-${option}`}
             className={`option-label ${
-              title === "Shapes" && selectedShape === option
+              (title === "Type" && selectedType === option) ||
+              (title === "Shapes" && selectedShape === option)
                 ? "selected-option"
                 : ""
             }`}
@@ -58,31 +65,56 @@ const SidebarSection = ({
 SidebarSection.propTypes = {
   title: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  activeSection: PropTypes.string.isRequired,
+  activeSection: PropTypes.string, // Make it optional
   onToggleVisibility: PropTypes.func.isRequired,
   onSelectOption: PropTypes.func.isRequired,
-  selectedShape: PropTypes.string,
   selectedType: PropTypes.string,
   selectedSubtype: PropTypes.string,
+  selectedShape: PropTypes.string,
+  selectedPrice: PropTypes.string,
 };
 
 const Beadssidebar = () => {
   const [activeSection, setActiveSection] = useState("Type");
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState(() => {
+    // Set the default value based on the value stored in local storage
+    const storedProductType = localStorage.getItem("selectedProductType");
+    return storedProductType || "Beads";
+  });
   const [selectedSubtype, setSelectedSubtype] = useState(null);
   const [selectedShape, setSelectedShape] = useState(null);
   const [selectedPrice, setSelectedPrice] = useState(null);
 
+  useEffect(() => {
+    // Load the selected product type from local storage on component mount
+    const storedProductType = localStorage.getItem("selectedProductType");
+    if (storedProductType) {
+      setSelectedType(storedProductType);
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage when the selectedType changes
+    localStorage.setItem("selectedProductType", selectedType);
+
+    // Update subtypes when selectedType changes
+    setSelectedSubtype(null); // Reset selected subtype
+  }, [selectedType]);
+
+  // Define toggleVisibility function
   const toggleVisibility = (section) => {
     setActiveSection(activeSection === section ? null : section);
   };
 
   const onSelectOption = (section, option) => {
+    console.log(`Selected ${section}: ${option}`);
     if (section === "Type") {
       setSelectedType(option);
       setSelectedSubtype(null);
       setSelectedShape(null);
       setSelectedPrice(null);
+      // Set the active section to "Subtypes" when a type is selected
+      setActiveSection("Subtypes");
     } else if (section === "Subtypes") {
       setSelectedSubtype(option);
       setSelectedShape(null);
@@ -91,22 +123,30 @@ const Beadssidebar = () => {
       setSelectedShape((prevShape) => (prevShape === option ? null : option));
       setSelectedPrice(null);
     } else if (section === "Prices") {
-      setSelectedPrice(option);
+      setSelectedPrice((prevPrice) => (prevPrice === option ? null : option));
     }
   };
 
   const getOptions = () => {
+    console.log("Active Section:", activeSection);
+    console.log("Selected Type:", selectedType);
     switch (activeSection) {
-      case "Type":
-        return jewelryData.types;
-      case "Subtypes":
-        return jewelryData.subtypes[selectedType] || [];
-      case "Shapes":
-        return jewelryData.shapes[selectedType] || [];
-      case "Prices":
-        return jewelryData.prices;
-      default:
+      case "Type": {
+        return [selectedType]; // Return only the selected type
+      }
+      case "Subtypes": {
+        const subtypes = jewelryData.subtypes[selectedType];
+        return subtypes ? subtypes : []; // Return subtypes if available, otherwise an empty array
+      }
+      case "Shapes": {
+        return jewelryData.shapes[selectedType] || []; // Return shapes if available, otherwise an empty array
+      }
+      case "Prices": {
+        return jewelryData.prices; // Return prices array
+      }
+      default: {
         return [];
+      }
     }
   };
 
@@ -124,21 +164,16 @@ const Beadssidebar = () => {
           <SidebarSection
             key={section.title}
             {...section}
-            activeSection={activeSection}
+            activeSection={activeSection} // Pass activeSection prop here
             onToggleVisibility={toggleVisibility}
             onSelectOption={onSelectOption}
             selectedShape={selectedShape}
             selectedType={selectedType}
             selectedSubtype={selectedSubtype}
+            selectedPrice={selectedPrice}
           />
         ))}
       </div>
-      {/* <div className="selected-options">
-        <p>Selected Type: {selectedType}</p>
-        <p>Selected Subtype: {selectedSubtype}</p>
-        <p>Selected Shape: {selectedShape}</p>
-        <p>Selected Price: {selectedPrice}</p>
-      </div> */}
     </div>
   );
 };

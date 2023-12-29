@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-
-
-import "../Perals/PearlsHome.css";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
+import { useNavigate } from "react-router-dom";
 
 const JewelryMain = () => {
   const navigate = useNavigate();
   const [jewelry, setJewelry] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
 
   useEffect(() => {
-    const fetchJewelery = async () => {
+    const fetchJewelry = async () => {
       try {
         const response = await fetch("https://sgl-be.onrender.com/getjewelry");
         if (response.ok) {
@@ -22,33 +18,30 @@ const JewelryMain = () => {
           setJewelry(data);
           setIsLoading(false);
         } else {
-          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
-            `Failed to fetch jewelry. Server response: ${errorMessage}`
+            `Failed to fetch Jewelry. Server response: ${errorMessage}`
           );
           setIsLoading(false);
         }
       } catch (error) {
-        // Handle network errors or JSON parsing errors
-        console.error("Error fetching Pearls:", error.message);
+        console.error("Error fetching Jewelry:", error.message);
         setIsLoading(false);
       }
     };
 
-    fetchJewelery();
+    fetchJewelry();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
-    setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
-
-  const calculateQuantity = (item) => item.quantity || 1;
-
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+  const handleViewDetails = (clickedItem) => {
+    try {
+      sessionStorage.removeItem("selectedItem");
+      setSelectedItem(clickedItem);
+      sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
+      navigate("/jewelrycart");
+    } catch (error) {
+      console.error("Error storing item:", error.message);
+    }
   };
 
   return (
@@ -72,7 +65,7 @@ const JewelryMain = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
+                    onClick={() => handleViewDetails(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -81,26 +74,20 @@ const JewelryMain = () => {
                       height="50%"
                       className="beads-image"
                     />
-                    {/*  */}
                     <p className="pearlsname">{item.name}</p>
                     <h4 className="item-price">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <button
+                      className="buy-now-button"
+                      onClick={() => handleViewDetails(item)}
+                    >
+                      View Product
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
       )}
     </div>
   );

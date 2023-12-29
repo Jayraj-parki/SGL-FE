@@ -4,11 +4,9 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
 
-const ExampleComponent = () => {
+const Beadsmain = () => {
   const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
- 
   const [beads, setBeads] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,7 +19,6 @@ const ExampleComponent = () => {
           setBeads(data);
           setIsLoading(false);
         } else {
-          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
             `Failed to fetch beads. Server response: ${errorMessage}`
@@ -29,7 +26,6 @@ const ExampleComponent = () => {
           setIsLoading(false);
         }
       } catch (error) {
-        // Handle network errors or JSON parsing errors
         console.error("Error fetching Pearls:", error.message);
         setIsLoading(false);
       }
@@ -38,23 +34,22 @@ const ExampleComponent = () => {
     fetchBeads();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
+  const handleViewDetails = (clickedItem) => {
+    // Set the selected item in the component state
     setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
 
-  const calculateQuantity = (item) => item.quantity || 1;
+    // Store selected item data in session storage, including the image
+    sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
 
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+    // Redirect to the "/diamondscart" route
+    navigate("/diamondscart");
   };
 
   return (
     <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress/>
+          <CircularProgress />
         </div>
       )}
 
@@ -71,7 +66,7 @@ const ExampleComponent = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
+                    onClick={() => handleViewDetails(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -90,18 +85,8 @@ const ExampleComponent = () => {
           </div>
         </div>
       )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
-      )}
     </div>
   );
 };
 
-export default ExampleComponent;
+export default Beadsmain;

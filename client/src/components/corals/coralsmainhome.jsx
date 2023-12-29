@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../Perals/PearlsHome.css";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
@@ -6,7 +6,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const Coralmain = () => {
   const navigate = useNavigate();
-
   const [selectedItem, setSelectedItem] = useState(null);
   const [corals, setCorals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,16 +19,14 @@ const Coralmain = () => {
           setCorals(data);
           setIsLoading(false);
         } else {
-          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
-            `Failed to fetch Pearls. Server response: ${errorMessage}`
+            `Failed to fetch Corals. Server response: ${errorMessage}`
           );
           setIsLoading(false);
         }
       } catch (error) {
-        // Handle network errors or JSON parsing errors
-        console.error("Error fetching coraals:", error.message);
+        console.error("Error fetching corals:", error.message);
         setIsLoading(false);
       }
     };
@@ -37,16 +34,10 @@ const Coralmain = () => {
     fetchCorals();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
+  const handleViewDetails = (clickedItem) => {
     setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
-
-  const calculateQuantity = (item) => item.quantity || 1;
-
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+    sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
+    navigate("/diamondscart");
   };
 
   return (
@@ -70,7 +61,7 @@ const Coralmain = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
+                    onClick={() => handleViewDetails(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -81,23 +72,18 @@ const Coralmain = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <h4 className="">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <button
+                      className="buy-now-button"
+                      onClick={() => handleViewDetails(item)}
+                    >
+                      View Product
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
       )}
     </div>
   );

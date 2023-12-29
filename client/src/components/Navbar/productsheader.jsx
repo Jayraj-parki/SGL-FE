@@ -8,6 +8,8 @@ const Productheader = ({ onSelectProductType }) => {
   const navigate = useNavigate();
 
   const handleProductClick = (productType) => {
+    localStorage.setItem("selectedProductType", productType); // Update local storage
+    console.log(`Selected Product Type: ${productType}`); // Log the selected product type
     navigate(`/${productType}`);
     onSelectProductType(productType); // Callback to update the selected product type
   };
@@ -16,25 +18,25 @@ const Productheader = ({ onSelectProductType }) => {
     <div className="product-nav-section">
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("gems")}
+        onClick={() => handleProductClick("Gems")}
       >
         Gems
       </div>
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("beads")}
+        onClick={() => handleProductClick("Beads")}
       >
         Beads
       </div>
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("diamonds")}
+        onClick={() => handleProductClick("Diamonds")}
       >
         Diamonds
       </div>
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("jewelery")}
+        onClick={() => handleProductClick("Jewelry")}
       >
         Jewellery
       </div>
@@ -46,20 +48,22 @@ const Productheader = ({ onSelectProductType }) => {
       </div>
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("peralhome")}
+        onClick={() => handleProductClick("Pearls")}
       >
         Pearls
       </div>
       <div
         className="product-head-sub-section"
-        onClick={() => handleProductClick("corals")}
+        onClick={() => handleProductClick("Corals")}
       >
         Corals
       </div>
     </div>
   );
 };
+
 Productheader.propTypes = {
   onSelectProductType: PropTypes.func.isRequired,
 };
+
 export default Productheader;

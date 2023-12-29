@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Beadssidebar from "../../Filterssidebar/beadssidebar";
-import CartSidebar from "../../CartSideNav";
+import { useNavigate } from "react-router-dom";
 
 const DiamondsHome = () => {
+  const navigate = useNavigate();
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [diamonds, setDiamonds] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,15 +18,13 @@ const DiamondsHome = () => {
           setDiamonds(data);
           setIsLoading(false);
         } else {
-          // Handle non-OK responses
           const errorMessage = await response.text();
           console.error(
-            `Failed to fetch Pearls. Server response: ${errorMessage}`
+            `Failed to fetch Diamonds. Server response: ${errorMessage}`
           );
           setIsLoading(false);
         }
       } catch (error) {
-        // Handle network errors or JSON parsing errors
         console.error("Error fetching diamonds:", error.message);
         setIsLoading(false);
       }
@@ -35,16 +33,17 @@ const DiamondsHome = () => {
     fetchDiamonds();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
-    setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
-
-  const calculateQuantity = (item) => item.quantity || 1;
-
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+  const handleViewDetails = (clickedItem) => {
+    try {
+      // Clear existing item from sessionStorage
+      sessionStorage.removeItem("selectedItem");
+      setSelectedItem(clickedItem);
+      sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
+      // Redirect to the "/diamondscart" route
+      navigate("/diamondscart");
+    } catch (error) {
+      console.error("Error storing item:", error.message);
+    }
   };
 
   return (
@@ -68,7 +67,7 @@ const DiamondsHome = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
+                    onClick={() => handleViewDetails(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -79,7 +78,12 @@ const DiamondsHome = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <h4 className="item-price">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <button
+                      className="buy-now-button"
+                      onClick={() => handleViewDetails(item)}
+                    >
+                      View Product
+                    </button>
                   </div>
                 </div>
               ))}
@@ -87,17 +91,8 @@ const DiamondsHome = () => {
           </div>
         </div>
       )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
-      )}
     </div>
   );
 };
+
 export default DiamondsHome;

@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import "../Perals/PearlsHome.css";
 import Beadssidebar from "../Filterssidebar/beadssidebar";
+import { useNavigate } from "react-router-dom";
 
 const GemGrid = () => {
   const [selectedItem, setSelectedItem] = useState(null);
-  const [isCartSidebarOpen, setCartSidebarOpen] = useState(false);
+  const navigate = useNavigate();
   const [Gems, setGems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,16 +36,15 @@ const GemGrid = () => {
     fetchGems();
   }, []);
 
-  const handleCardClick = (clickedItem) => {
+  const handleViewDetails = (clickedItem) => {
+    // Set the selected item in the component state
     setSelectedItem(clickedItem);
-    setCartSidebarOpen(true);
-  };
 
-  const calculateQuantity = (item) => item.quantity || 1;
+    // Store selected item data in session storage, including the image
+    sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
 
-  const closeCartSidebar = () => {
-    setSelectedItem(null);
-    setCartSidebarOpen(false);
+    // Redirect to the "/diamondscart" route
+    navigate("/diamondscart");
   };
 
   return (
@@ -68,7 +68,6 @@ const GemGrid = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleCardClick(item)}
                   >
                     <img
                       src={`data:image/png;base64,${item.image}`}
@@ -79,23 +78,18 @@ const GemGrid = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <h4 className="peralsprice">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <button
+                      className="buy-now-button"
+                      onClick={() => handleViewDetails(item)}
+                    >
+                      View Product
+                    </button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      )}
-
-      {selectedItem && (
-        <CartSidebar
-          isOpen={isCartSidebarOpen}
-          onClose={closeCartSidebar}
-          selectedItem={selectedItem.name}
-          quantity={calculateQuantity(selectedItem)}
-          itemData={selectedItem} // Pass itemData here
-        />
       )}
     </div>
   );
