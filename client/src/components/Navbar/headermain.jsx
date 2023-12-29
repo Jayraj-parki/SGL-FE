@@ -81,7 +81,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
       <div className="main-sub-nav" onClick={() => navigate("/aboutus")}>
         About us
       </div>
-      <div className="main-sub-nav">Contact us</div>
+      <div className="main-sub-nav" onClick={() => navigate("/contact")}>Contact us</div>
       <div className="main-sub-nav">
         <img src={logo} alt="logo" />
       </div>
