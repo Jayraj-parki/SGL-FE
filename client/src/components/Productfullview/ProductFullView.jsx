@@ -13,11 +13,32 @@ const ProductFullView = ({ selectedItem }) => {
   const [quantity, setQuantity] = useState(1);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
   const [matchingStone, setMatchingStone] = useState(null);
+  const [showScrollAnimation, setShowScrollAnimation] = useState(true);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
     updateCalculatedPrice(newQuantity);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Check if the scroll position is greater than a certain threshold
+      const shouldShowScrollAnimation = scrollPosition < 100;
+
+      // Update the state to control the scroll animation
+      setShowScrollAnimation(shouldShowScrollAnimation);
+    };
+
+    // Attach the scroll event listener when the component mounts
+    window.addEventListener("scroll", handleScroll);
+
+    // Detach the scroll event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const updateCalculatedPrice = (newQuantity) => {
     if (selectedItem) {
@@ -144,7 +165,6 @@ const ProductFullView = ({ selectedItem }) => {
             </Carousel.Item>
           </Carousel>
         </Col>
-
         <Col md={6} xs={12}>
           {selectedItem && (
             <Card className="product-details-card">
@@ -161,25 +181,31 @@ const ProductFullView = ({ selectedItem }) => {
                 </div>
 
                 {/* Add your description here */}
-
-                <AddCart
-                  onAddToCart={handleAddToCart}
-                  onQuantityChange={handleQuantityChange}
-                  buttonStyle={{
-                    backgroundColor: "#FFA500",
-                    color: "#FFFFFF",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "0.25rem",
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                    width: "100%",
-                  }}
-                  badgeStyle={{
-                    backgroundColor: "#4CAF50",
-                    fontSize: "0.8rem",
-                  }}
-                />
+                <div
+                  className={`add-cart-wrapper ${
+                    showScrollAnimation ? "scroll-animation" : ""
+                  }`}
+                  style={{ overflowX: "auto", minWidth: "150px" }}
+                >
+                  <AddCart
+                    onAddToCart={handleAddToCart}
+                    onQuantityChange={handleQuantityChange}
+                    buttonStyle={{
+                      backgroundColor: "#FFA500",
+                      color: "#FFFFFF",
+                      padding: "0",
+                      borderRadius: "0.25rem",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease",
+                      width: "50%",
+                    }}
+                    badgeStyle={{
+                      backgroundColor: "#4CAF50",
+                      fontSize: "0.8rem",
+                    }}
+                  />
+                </div>
               </Card.Body>
             </Card>
           )}

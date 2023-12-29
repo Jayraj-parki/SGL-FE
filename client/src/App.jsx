@@ -20,7 +20,6 @@ import ShoppingCart from "./components/Cart/ShoppingCart";
 import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
-import GemGrid from "./components/Gemspage/GemGrid";
 import Contact from "./components/contact/contact";
 
 const Layout = ({ children, userData }) => (
@@ -73,12 +72,11 @@ const App = () => {
           path="/contact"
           element={
             <Layout>
-              <Contact/>
+              <Contact />
             </Layout>
           }
         />
         <Route
-          
           path="/Gems"
           element={
             <Layout>
