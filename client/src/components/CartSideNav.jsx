@@ -218,14 +218,18 @@ const CartSidebar = ({
           </button>
           {quantity > 0 ? (
             <>
-              {/* Wrap the image and description in a card */}
               <div style={cardStyle}>
                 <div style={itemInfoStyle}>
                   <img
-                    src={itemData.image} // Use the image from the passed itemData
-                    alt={itemData.name} // Use the name from the passed itemData
+                    src={
+                      itemData.image.startsWith("/")
+                        ? `data:image/png;base64,${itemData.image}`
+                        : itemData.image
+                    }
+                    alt={itemData.name}
                     style={diamondImageStyle}
                   />
+
                   <span>{selectedItem}</span>
                   <div style={buttonContainerStyle}>
                     <button

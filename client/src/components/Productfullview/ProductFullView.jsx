@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Carousel, Row, Col, Card } from "react-bootstrap";
 import AddCart from "../CartButtons";
 import CartSidebar from "../CartSideNav";
 import Swal from "sweetalert2";
 import "./ProductFullView.css";
+import zodiacStonesData from "./zodiacStonesData";
 
 const ProductFullView = ({ selectedItem }) => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [matchingStone, setMatchingStone] = useState(null);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -38,27 +40,38 @@ const ProductFullView = ({ selectedItem }) => {
   };
 
   useEffect(() => {
-    if (selectedItem && selectedItem.image) {
-      setSelectedImage(selectedItem.image);
-    } else {
-      // Display a warning message if no selected item is available
-      Swal.fire({
-        icon: "warning",
-        title: "No Item Selected",
-        text: "No item is selected. Please go back and select an item.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    }
+    if (selectedItem) {
+      if (selectedItem.image) {
+        setSelectedImage(selectedItem.image);
+      } else {
+        // Find the zodiac stone in the imported data (case-insensitive)
+        const stone = zodiacStonesData.find(
+          (stone) =>
+            stone.name.toLowerCase() === selectedItem.name.toLowerCase()
+        );
 
-    // Convert price to a number if it's provided as a string
-    const parsedPrice = parseFloat(selectedItem.price);
-    if (!isNaN(parsedPrice)) {
-      selectedItem.price = parsedPrice;
-    }
+        if (stone) {
+          setMatchingStone(stone); // Set matchingStone if found
+          setSelectedImage(stone.image);
+        } else {
+          // Display a warning message if the item is not a zodiac stone and has no image
+          Swal.fire({
+            icon: "warning",
+            title: "No Image",
+            text: "The selected item is not a zodiac stone and has no image.",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        }
+      }
 
-    // Update calculated price when the component mounts
-    updateCalculatedPrice(quantity);
+      const parsedPrice = parseFloat(selectedItem.price);
+      if (!isNaN(parsedPrice)) {
+        selectedItem.price = parsedPrice;
+      }
+
+      updateCalculatedPrice(quantity);
+    }
   }, [selectedItem, quantity]);
 
   const handleImageClick = (imageUrl) => {
@@ -97,16 +110,36 @@ const ProductFullView = ({ selectedItem }) => {
         <Col md={5} xs={12}>
           <Carousel interval={null} className="product-carousel">
             <Carousel.Item>
-              {selectedItem && selectedItem.image ? (
-                <img
-                  className="d-block w-100"
-                  src={`data:image/png;base64,${selectedItem.image}`}
-                  alt={`Thumbnail`}
-                  onClick={() => handleImageClick(selectedItem.image)}
-                />
+              {selectedItem ? (
+                <>
+                  {selectedItem.image ? (
+                    <img
+                      className="d-block w-100"
+                      src={
+                        selectedItem.image.startsWith("/")
+                          ? `data:image/png;base64,${selectedItem.image}`
+                          : selectedItem.image
+                      }
+                      alt={`Thumbnail`}
+                      onClick={() => handleImageClick(selectedItem.image)}
+                    />
+                  ) : (
+                    <>
+                      {matchingStone ? (
+                        <img
+                          className="d-block w-100"
+                          src={matchingStone.image}
+                          alt={`Thumbnail`}
+                          onClick={() => handleImageClick(matchingStone.image)}
+                        />
+                      ) : (
+                        <p>No image available</p>
+                      )}
+                    </>
+                  )}
+                </>
               ) : (
-                // Display a placeholder or handle the case when the image is undefined
-                <p>No image available</p>
+                <p>No item selected</p>
               )}
             </Carousel.Item>
           </Carousel>

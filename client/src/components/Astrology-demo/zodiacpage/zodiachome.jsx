@@ -17,17 +17,17 @@ import taurusstones from "../../../assets/zodiacstones/taurus.png";
 import virgostones from "../../../assets/zodiacstones/virgo.png";
 
 const zodiacStonesData = [
-  { name: "Aries", image: ariesstones, price: "$10" },
-  { name: "Aquarius", image: aquariusstones, price: "$15" },
-  { name: "Cancer", image: cancerstones, price: "$12" },
-  { name: "Capricorn", image: capricornstones, price: "$18" },
-  { name: "Gemini", image: geministones, price: "$14" },
-  { name: "Leo", image: leostones, price: "$20" },
-  { name: "Libra", image: librastones, price: "$16" },
-  { name: "Pisces", image: piecesstones, price: "$22" },
-  { name: "Scorpio", image: scorpiostones, price: "$25" },
-  { name: "Taurus", image: taurusstones, price: "$19" },
-  { name: "Virgo", image: virgostones, price: "$21" },
+  { name: "Aries", image: ariesstones, price: 1000 },
+  { name: "Aquarius", image: aquariusstones, price: 1500 },
+  { name: "Cancer", image: cancerstones, price: 1200 },
+  { name: "Capricorn", image: capricornstones, price: 1800 },
+  { name: "Gemini", image: geministones, price: 1400 },
+  { name: "Leo", image: leostones, price: 2000 },
+  { name: "Libra", image: librastones, price: 1600 },
+  { name: "Pisces", image: piecesstones, price: 2200 },
+  { name: "Scorpio", image: scorpiostones, price: 2500 },
+  { name: "Taurus", image: taurusstones, price: 1900 },
+  { name: "Virgo", image: virgostones, price: 2100 },
 ];
 
 const Zodiachome = () => {
@@ -114,14 +114,38 @@ const Zodiachome = () => {
       document.removeEventListener("keydown", handleUserActivity);
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const handleViewDetails = (clickedItem) => {
-    setSelectedItem(clickedItem);
+  const handleViewDetails = async (clickedItem) => {
+    // Convert the image to base64
+    const base64Image = await getImageAsBase64(clickedItem.image);
+
+    // Set the base64 image in the clickedItem
+    const updatedItem = { ...clickedItem, image: base64Image };
+
+    setSelectedItem(updatedItem);
 
     // Store selected item data in session storage
-    sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
+    sessionStorage.setItem("selectedItem", JSON.stringify(updatedItem));
+    localStorage.setItem("selectedItem", JSON.stringify(updatedItem));
 
     // Redirect to /diamondscart with selected data
-    navigate("/diamondscart");
+    navigate("/diamondscart", { state: { selectedItem: updatedItem } });
+  };
+
+  const getImageAsBase64 = async (imageUrl) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const base64Image = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      return base64Image;
+    } catch (error) {
+      console.error("Error converting image to base64:", error.message);
+      return null; // Handle the error appropriately
+    }
   };
 
   return (
