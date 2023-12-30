@@ -1,7 +1,7 @@
 // AdminTemplate.jsx
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import Inventory from "./inventory";
+import Inventory from "./InventoryMain";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
 
