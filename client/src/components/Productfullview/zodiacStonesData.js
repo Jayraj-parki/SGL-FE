@@ -7,6 +7,7 @@ import Capricorn from "../../assets/zodiacstones/capricorn.png";
 import Gemini from "../../assets/zodiacstones/gemini.png";
 import Leo from "../../assets/zodiacstones/leo.png";
 import Libra from "../../assets/zodiacstones/libra.png";
+
 import Pisces from "../../assets/zodiacstones/pisches.png";
 import Scorpio from "../../assets/zodiacstones/scorpio.png";
 import Taurus from "../../assets/zodiacstones/taurus.png";
