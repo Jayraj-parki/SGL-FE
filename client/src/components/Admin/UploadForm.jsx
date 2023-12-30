@@ -25,7 +25,7 @@ const InventoryForm = ({ onUpload }) => {
     "Gems",
     "Beads",
     "Diamonds",
-    "jewelry",
+    "Jewelry",
     "Astrology Gems",
     "Pearls",
     "Corals",
@@ -36,7 +36,7 @@ const InventoryForm = ({ onUpload }) => {
     Gems: ["Precious", "Semi-precious"],
     Beads: ["Gemstone", "Glass", "Metal", "Wood", "Plastic", "Ceramic"],
     Diamonds: ["White", "Yellow", "Pink", "Blue", "Green", "Black"],
-    jewelry: [
+    Jewelry: [
       "Rings",
       "Necklaces",
       "Bracelets",
@@ -113,7 +113,7 @@ const InventoryForm = ({ onUpload }) => {
       "Asscher",
       "Baguette",
     ],
-    jewelry: [
+    Jewelry: [
       "Styles: Vintage",
       "Modern",
       "Minimalist",
@@ -133,7 +133,7 @@ const InventoryForm = ({ onUpload }) => {
     Gems: ["Carat (metric; 1 carat = 0.2 grams)"],
     Beads: ["Sold by strand", "Weight (grams)", "Individual bead"],
     Diamonds: ["Carat (metric)"],
-    jewelry: ["Individual piece or set"],
+    Jewelry: ["Individual piece or set"],
     "Astrology Gems": ["Carats or grams"],
     Pearls: ["Grain (0.775 carats)", "Strand", "Individual pearl"],
     Corals: ["Grams or individual piece"],
@@ -150,7 +150,7 @@ const InventoryForm = ({ onUpload }) => {
     Diamonds: [
       "Extremely high, especially for larger, colorless diamonds of good clarity. Prices can soar into the millions for exceptional stones.",
     ],
-    jewelry: [
+    Jewelry: [
       "Enormous range based on materials, design, brand, and historical significance. Some pieces can be priceless antiques, while others are affordable everyday wear.",
     ],
     "Astrology Gems": [

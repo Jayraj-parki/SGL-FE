@@ -12,7 +12,7 @@ const JewelryMain = () => {
   useEffect(() => {
     const fetchJewelry = async () => {
       try {
-        const response = await fetch("https://sgl-be.onrender.com/getjewelry");
+        const response = await fetch(`https://sgl-be.onrender.com/getjewelry`);
         if (response.ok) {
           const data = await response.json();
           setJewelry(data);
