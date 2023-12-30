@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import Signup from "./Signup"; // Assuming you have a Signup component
-import ForgotPassword from "./ForgotPassword";
+import ForgotPassword from "./Forgotpassword";
 import "./Login.css";
 
 const Login = ({ onLogin }) => {
