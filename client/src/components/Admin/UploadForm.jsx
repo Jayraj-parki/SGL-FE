@@ -20,23 +20,23 @@ const InventoryForm = ({ onUpload }) => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  // Define jewelry data
-  const jewelryTypes = [
+  // Define Jewellary data
+  const JewellaryTypes = [
     "Gems",
     "Beads",
     "Diamonds",
-    "Jewelry",
+    "Jewellary",
     "Astrology Gems",
     "Pearls",
     "Corals",
     "Zodiac Stones",
   ];
 
-  const jewelrySubtypes = {
+  const JewellarySubtypes = {
     Gems: ["Precious", "Semi-precious"],
     Beads: ["Gemstone", "Glass", "Metal", "Wood", "Plastic", "Ceramic"],
     Diamonds: ["White", "Yellow", "Pink", "Blue", "Green", "Black"],
-    Jewelry: [
+    Jewellary: [
       "Rings",
       "Necklaces",
       "Bracelets",
@@ -45,7 +45,7 @@ const InventoryForm = ({ onUpload }) => {
       "Brooches",
       "Anklets",
       "Cufflinks",
-      "Body jewelry",
+      "Body Jewellary",
     ],
     "Astrology Gems": [
       "Ruby",
@@ -76,7 +76,7 @@ const InventoryForm = ({ onUpload }) => {
     ],
   };
 
-  const jewelryShapes = {
+  const JewellaryShapes = {
     Gems: [
       "Round",
       "Brilliant",
@@ -113,7 +113,7 @@ const InventoryForm = ({ onUpload }) => {
       "Asscher",
       "Baguette",
     ],
-    Jewelry: [
+    Jewellary: [
       "Styles: Vintage",
       "Modern",
       "Minimalist",
@@ -133,7 +133,7 @@ const InventoryForm = ({ onUpload }) => {
     Gems: ["Carat (metric; 1 carat = 0.2 grams)"],
     Beads: ["Sold by strand", "Weight (grams)", "Individual bead"],
     Diamonds: ["Carat (metric)"],
-    Jewelry: ["Individual piece or set"],
+    Jewellary: ["Individual piece or set"],
     "Astrology Gems": ["Carats or grams"],
     Pearls: ["Grain (0.775 carats)", "Strand", "Individual pearl"],
     Corals: ["Grams or individual piece"],
@@ -150,7 +150,7 @@ const InventoryForm = ({ onUpload }) => {
     Diamonds: [
       "Extremely high, especially for larger, colorless diamonds of good clarity. Prices can soar into the millions for exceptional stones.",
     ],
-    Jewelry: [
+    Jewellary: [
       "Enormous range based on materials, design, brand, and historical significance. Some pieces can be priceless antiques, while others are affordable everyday wear.",
     ],
     "Astrology Gems": [
@@ -185,15 +185,15 @@ const InventoryForm = ({ onUpload }) => {
   // Effect to update subtype and shape options based on selected type
   useEffect(() => {
     // Set subtype options based on selected type
-    if (formData.type && jewelrySubtypes[formData.type]) {
-      setSubtypeOptions(jewelrySubtypes[formData.type]);
+    if (formData.type && JewellarySubtypes[formData.type]) {
+      setSubtypeOptions(JewellarySubtypes[formData.type]);
     } else {
       setSubtypeOptions([]);
     }
 
     // Set shape options based on selected type
-    if (formData.type && jewelryShapes[formData.type]) {
-      setShapeOptions(jewelryShapes[formData.type]);
+    if (formData.type && JewellaryShapes[formData.type]) {
+      setShapeOptions(JewellaryShapes[formData.type]);
     } else {
       setShapeOptions([]);
     }
@@ -243,7 +243,7 @@ const InventoryForm = ({ onUpload }) => {
         {type === "dropdown" ? (
           <select className="form-select" {...inputProps}>
             <option value="">{`Select ${label}`}</option>
-            {jewelryTypes.map((option) => (
+            {JewellaryTypes.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
