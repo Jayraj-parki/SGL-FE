@@ -160,7 +160,7 @@ const App = () => {
         />
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
-        <Route path="/admin-login" element={<AdminLoginForm />} />
+        <Route path="/adminlogin" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
       </Routes>
     </BrowserRouter>

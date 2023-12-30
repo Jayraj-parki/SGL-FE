@@ -10,9 +10,9 @@ const AdminTemplate = () => {
   const isLoggedIn = true; // Replace with your authentication logic
 
   useEffect(() => {
-    // If the user is not logged in, redirect to /admin-login
+    // If the user is not logged in, redirect to /adminlogin
     if (!isLoggedIn) {
-      navigate("/admin-login");
+      navigate("/adminlogin");
     }
   }, [isLoggedIn, navigate]);
 
@@ -26,8 +26,8 @@ const AdminTemplate = () => {
             isLoggedIn ? (
               <Outlet />
             ) : (
-              // Redirect to /admin-login if not logged in
-              <Navigate to="/admin-login" />
+              // Redirect to /adminlogin if not logged in
+              <Navigate to="/adminlogin" />
             )
           }
         >

@@ -1,0 +1,20 @@
+{
+    "routes": [
+        {
+            "handle": "filesystem"
+        },
+        {
+            "src": "/adminlogin",
+            "dest": "/adminlogin"
+        },
+        {
+            "src": "/404",
+            "dest": "/"
+        },
+        {
+            "src": "/(.*)",
+            "status": 404,
+            "dest": "/404"
+        }
+    ]
+}

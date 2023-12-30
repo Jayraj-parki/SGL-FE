@@ -190,7 +190,7 @@ const Orders = () => {
           </h1>
           <div
             onClick={() => {
-              navigate("/admin-login");
+              navigate("/adminlogin");
             }}
             className="logout-button ms-auto"
           >
