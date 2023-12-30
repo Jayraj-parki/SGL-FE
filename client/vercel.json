@@ -5,11 +5,11 @@
         },
         {
             "src": "/adminlogin",
-            "dest": "/adminlogin"
+            "dest": "/index.html"
         },
         {
             "src": "/404",
-            "dest": "/"
+            "dest": "/index.html"
         },
         {
             "src": "/(.*)",
