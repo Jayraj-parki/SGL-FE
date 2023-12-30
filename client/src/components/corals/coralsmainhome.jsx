@@ -14,6 +14,7 @@ const Coralmain = () => {
     const fetchCorals = async () => {
       try {
         const response = await fetch("https://sgl-be.onrender.com/getcorals");
+
         if (response.ok) {
           const data = await response.json();
           setCorals(data);
