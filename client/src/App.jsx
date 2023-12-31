@@ -78,14 +78,6 @@ const App = () => {
           }
         />
         <Route
-          path="/Gems"
-          element={
-            <Layout>
-              <GemGrid />
-            </Layout>
-          }
-        />
-        <Route
           path="/aboutus"
           element={
             <Layout>
