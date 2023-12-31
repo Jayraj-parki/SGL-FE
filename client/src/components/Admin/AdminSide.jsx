@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaComments, FaShoppingCart, FaList } from "react-icons/fa";
+import { FaComments, FaShoppingCart, FaList, FaBox } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 const AdminSideNav = () => {
@@ -23,6 +23,11 @@ const AdminSideNav = () => {
     {
       path: "/admin/orders", // Adjusted path to be relative to /admin
       name: "Orders",
+      icon: <FaBox />,
+    },
+    {
+      path: "/admin/queries", // Adjusted path to be relative to /admin
+      name: "Queries",
       icon: <FaComments />,
     },
   ];

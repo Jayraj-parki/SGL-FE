@@ -24,7 +24,7 @@ const InventoryForm = ({ onUpload }) => {
     "Gems",
     "Beads",
     "Diamonds",
-    "Jewelry",
+    "jewellary",
     "Astrology Gems",
     "Pearls",
     "Corals",

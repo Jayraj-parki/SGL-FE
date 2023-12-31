@@ -85,11 +85,20 @@ const Mainheader = ({ selectedProductType, userData }) => {
       <div className="main-sub-nav">
         <img src={logo} alt="logo" />
       </div>
+      <div className="main-sub-nav" onClick={() => navigate("/contact")}>Contact us</div>
       <div className="main-sub-nav" id="head-extra-class">
         <p>
           Search{" "}
           <span onClick={openSearchBar}>
             <FaSearch className="icons" />
+          </span>
+        </p>
+      </div>
+      <div className="main-sub-nav" id="head-extra-class">
+        <p>
+          Blogs{" "}
+          <span onClick={() => navigate("/blog")}>
+            <FaHeart className="icons" />
           </span>
         </p>
       </div>
@@ -107,7 +116,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
         onClick={() => navigate("/cart")}
       >
         <p>
-          My bag{" "}
+          My cart{" "}
           <span>
             <FaShoppingBag className="icons" />
           </span>

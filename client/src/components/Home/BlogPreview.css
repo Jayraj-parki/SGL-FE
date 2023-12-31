@@ -5,8 +5,8 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     /* border: 1px solid black; */
-    padding: 2rem 0rem;
-    row-gap: 3rem;
+    padding: 0rem 0rem;
+    row-gap: 2rem;
 }
 .card img{
     width: 100%;
@@ -33,6 +33,34 @@
     text-align: left;
     color: black;
 }
+.blogs-submit{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 1rem;
+}
+
+.aspect-ratio-container {
+    position: relative;
+    width: 100%; /* Set the width as needed */
+  }
+  
+  .aspect-ratio-item {
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (9 / 16 * 100%) */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .aspect-ratio-item img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+  }
 
 @media (min-width: 360px) and (max-width: 600px){
     .home-blogs-section{

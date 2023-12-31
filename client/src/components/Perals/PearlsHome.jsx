@@ -14,7 +14,7 @@ const PearlsHome = () => {
     const fetchPearls = async () => {
       try {
         const response = await fetch("https://sgl-be.onrender.com/getpearls");
-        if (response.ok) {
+        if (response.ok) { 
           const data = await response.json();
           setPearls(data);
           setIsLoading(false);

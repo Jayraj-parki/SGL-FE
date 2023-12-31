@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
 import Navmobile from "./components/Navbar/mobileview";
 import Home from "./components/Home/Home";
-import GemGrid from "./components/Gemspage/GemGrid";
+// import GemGrid from "./components/Gemspage/GemGrid";
 import Aboutus from "./components/About-us/aboutus";
 import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
@@ -22,6 +22,7 @@ import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
 import GemGrid from "./components/Gemspage/GemGrid";
 import Contact from "./components/contact/contact";
+import Blog from "./components/Blogs/blogs";
 
 const Layout = ({ children, userData }) => (
   <>
@@ -160,6 +161,15 @@ const App = () => {
             </Layout>
           }
         />
+         <Route
+          path="/blog"
+          element={
+            <Layout>
+              <Blog />
+            </Layout>
+          }
+        />
+       
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
         <Route path="/admin-login" element={<AdminLoginForm />} />

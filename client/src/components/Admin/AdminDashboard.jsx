@@ -4,6 +4,7 @@ import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Inventory from "./Inventory";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
+import Queries from "./Queries";
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -31,9 +32,10 @@ const AdminTemplate = () => {
             )
           }
         >
-          <Route path="inventory" element={<Inventory />} />
+          <Route path="inventory" element={<Inventory />}/>
           <Route path="blogs" element={<Blogs />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="queries" element={<Queries/>}/>
         </Route>
       </Routes>
     </div>
