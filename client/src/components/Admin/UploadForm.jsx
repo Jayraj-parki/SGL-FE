@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import "./Inventory.css";
+import PropTypes from "prop-types";
 
 const InventoryForm = ({ onUpload }) => {
   const [formData, setFormData] = useState({
@@ -491,5 +492,7 @@ const InventoryForm = ({ onUpload }) => {
     </div>
   );
 };
-
+InventoryForm.propTypes = {
+  onUpload: PropTypes.func.isRequired,
+};
 export default InventoryForm;

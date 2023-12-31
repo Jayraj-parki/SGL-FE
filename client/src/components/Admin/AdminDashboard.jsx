@@ -1,7 +1,7 @@
 // AdminTemplate.jsx
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import Inventory from "./Inventory";
+import Inventory from "./InventoryMain";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
 import Queries from "./Queries";
@@ -11,9 +11,9 @@ const AdminTemplate = () => {
   const isLoggedIn = true; // Replace with your authentication logic
 
   useEffect(() => {
-    // If the user is not logged in, redirect to /admin-login
+    // If the user is not logged in, redirect to /adminlogin
     if (!isLoggedIn) {
-      navigate("/admin-login");
+      navigate("/adminlogin");
     }
   }, [isLoggedIn, navigate]);
 
@@ -27,8 +27,8 @@ const AdminTemplate = () => {
             isLoggedIn ? (
               <Outlet />
             ) : (
-              // Redirect to /admin-login if not logged in
-              <Navigate to="/admin-login" />
+              // Redirect to /adminlogin if not logged in
+              <Navigate to="/adminlogin" />
             )
           }
         >

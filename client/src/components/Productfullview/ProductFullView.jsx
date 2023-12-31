@@ -1,21 +1,44 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Carousel, Row, Col, Card } from "react-bootstrap";
 import AddCart from "../CartButtons";
 import CartSidebar from "../CartSideNav";
 import Swal from "sweetalert2";
 import "./ProductFullView.css";
+import zodiacStonesData from "./zodiacStonesData";
 
 const ProductFullView = ({ selectedItem }) => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [calculatedPrice, setCalculatedPrice] = useState(0);
+  const [matchingStone, setMatchingStone] = useState(null);
+  const [showScrollAnimation, setShowScrollAnimation] = useState(true);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
     updateCalculatedPrice(newQuantity);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Check if the scroll position is greater than a certain threshold
+      const shouldShowScrollAnimation = scrollPosition < 100;
+
+      // Update the state to control the scroll animation
+      setShowScrollAnimation(shouldShowScrollAnimation);
+    };
+
+    // Attach the scroll event listener when the component mounts
+    window.addEventListener("scroll", handleScroll);
+
+    // Detach the scroll event listener when the component unmounts
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const updateCalculatedPrice = (newQuantity) => {
     if (selectedItem) {
@@ -38,27 +61,38 @@ const ProductFullView = ({ selectedItem }) => {
   };
 
   useEffect(() => {
-    if (selectedItem && selectedItem.image) {
-      setSelectedImage(selectedItem.image);
-    } else {
-      // Display a warning message if no selected item is available
-      Swal.fire({
-        icon: "warning",
-        title: "No Item Selected",
-        text: "No item is selected. Please go back and select an item.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-    }
+    if (selectedItem) {
+      if (selectedItem.image) {
+        setSelectedImage(selectedItem.image);
+      } else {
+        // Find the zodiac stone in the imported data (case-insensitive)
+        const stone = zodiacStonesData.find(
+          (stone) =>
+            stone.name.toLowerCase() === selectedItem.name.toLowerCase()
+        );
 
-    // Convert price to a number if it's provided as a string
-    const parsedPrice = parseFloat(selectedItem.price);
-    if (!isNaN(parsedPrice)) {
-      selectedItem.price = parsedPrice;
-    }
+        if (stone) {
+          setMatchingStone(stone); // Set matchingStone if found
+          setSelectedImage(stone.image);
+        } else {
+          // Display a warning message if the item is not a zodiac stone and has no image
+          Swal.fire({
+            icon: "warning",
+            title: "No Image",
+            text: "The selected item is not a zodiac stone and has no image.",
+            showConfirmButton: false,
+            timer: 3000,
+          });
+        }
+      }
 
-    // Update calculated price when the component mounts
-    updateCalculatedPrice(quantity);
+      const parsedPrice = parseFloat(selectedItem.price);
+      if (!isNaN(parsedPrice)) {
+        selectedItem.price = parsedPrice;
+      }
+
+      updateCalculatedPrice(quantity);
+    }
   }, [selectedItem, quantity]);
 
   const handleImageClick = (imageUrl) => {
@@ -97,21 +131,40 @@ const ProductFullView = ({ selectedItem }) => {
         <Col md={5} xs={12}>
           <Carousel interval={null} className="product-carousel">
             <Carousel.Item>
-              {selectedItem && selectedItem.image ? (
-                <img
-                  className="d-block w-100"
-                  src={`data:image/png;base64,${selectedItem.image}`}
-                  alt={`Thumbnail`}
-                  onClick={() => handleImageClick(selectedItem.image)}
-                />
+              {selectedItem ? (
+                <>
+                  {selectedItem.image ? (
+                    <img
+                      className="d-block w-100"
+                      src={
+                        selectedItem.image.startsWith("/")
+                          ? `data:image/png;base64,${selectedItem.image}`
+                          : selectedItem.image
+                      }
+                      alt={`Thumbnail`}
+                      onClick={() => handleImageClick(selectedItem.image)}
+                    />
+                  ) : (
+                    <>
+                      {matchingStone ? (
+                        <img
+                          className="d-block w-100"
+                          src={matchingStone.image}
+                          alt={`Thumbnail`}
+                          onClick={() => handleImageClick(matchingStone.image)}
+                        />
+                      ) : (
+                        <p>No image available</p>
+                      )}
+                    </>
+                  )}
+                </>
               ) : (
-                // Display a placeholder or handle the case when the image is undefined
-                <p>No image available</p>
+                <p>No item selected</p>
               )}
             </Carousel.Item>
           </Carousel>
         </Col>
-
         <Col md={6} xs={12}>
           {selectedItem && (
             <Card className="product-details-card">
@@ -128,25 +181,31 @@ const ProductFullView = ({ selectedItem }) => {
                 </div>
 
                 {/* Add your description here */}
-
-                <AddCart
-                  onAddToCart={handleAddToCart}
-                  onQuantityChange={handleQuantityChange}
-                  buttonStyle={{
-                    backgroundColor: "#FFA500",
-                    color: "#FFFFFF",
-                    padding: "0.5rem 1rem",
-                    borderRadius: "0.25rem",
-                    border: "none",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                    width: "100%",
-                  }}
-                  badgeStyle={{
-                    backgroundColor: "#4CAF50",
-                    fontSize: "0.8rem",
-                  }}
-                />
+                <div
+                  className={`add-cart-wrapper ${
+                    showScrollAnimation ? "scroll-animation" : ""
+                  }`}
+                  style={{ overflowX: "auto", minWidth: "150px" }}
+                >
+                  <AddCart
+                    onAddToCart={handleAddToCart}
+                    onQuantityChange={handleQuantityChange}
+                    buttonStyle={{
+                      backgroundColor: "#FFA500",
+                      color: "#FFFFFF",
+                      padding: "0",
+                      borderRadius: "0.25rem",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "background-color 0.3s ease",
+                      width: "50%",
+                    }}
+                    badgeStyle={{
+                      backgroundColor: "#4CAF50",
+                      fontSize: "0.8rem",
+                    }}
+                  />
+                </div>
               </Card.Body>
             </Card>
           )}

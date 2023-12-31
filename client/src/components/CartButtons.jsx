@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./AddCart.css";
+import "./CartButton.css";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 
@@ -43,7 +43,15 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
 
   const animateButton = () => {
     // Add animation or color change for button on increment/decrement
-    // Example: You can use CSS classes or inline styles to change the color
+    // Example: Change background color on click
+    const buttonElement = document.getElementById("add-to-cart-button");
+
+    if (buttonElement) {
+      buttonElement.style.backgroundColor = "#FF6347"; // Change to your desired color
+      setTimeout(() => {
+        buttonElement.style.backgroundColor = "#FFA500"; // Reset to the original color
+      }, 300); // Adjust the duration of the animation (in milliseconds)
+    }
   };
 
   const buttonStyle = {
@@ -89,13 +97,35 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
     <div className="container mt-3">
       <div
         className="p-3 add-cart-container"
-        style={{ backgroundColor: "#FFC777", display: "flex" }}
+        style={{
+          backgroundColor: "#FFC777",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "1rem",
+        }}
       >
         <div className="text-wrapper-40 m-1 d-flex justify-content-between align-items-center">
-          <button style={wishlistButtonStyle} onClick={addToWishlist}>
+          <button
+            style={{
+              ...wishlistButtonStyle,
+              margin: "0.2rem 0",
+              padding: "0.3rem 0.5rem",
+              fontSize: "0.9rem",
+            }}
+            onClick={addToWishlist}
+          >
             <i className="fas fa-heart"></i> Wishlist
           </button>
-          <button style={buttonStyle} onClick={handleAddToCart}>
+          <button
+            style={{
+              ...buttonStyle,
+              margin: "0.2rem 0",
+              padding: "0.3rem 0.5rem",
+              fontSize: "0.9rem",
+            }}
+            onClick={handleAddToCart}
+          >
             <i className="fas fa-cart-plus"></i> Add{" "}
             <span
               className="badge bg-secondary mx-1"
@@ -104,10 +134,26 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
               {cartQuantity}
             </span>
           </button>
-          <button style={buttonStyle} onClick={incrementCart}>
+          <button
+            style={{
+              ...buttonStyle,
+              margin: "0.2rem 0",
+              padding: "0.3rem 0.5rem",
+              fontSize: "0.9rem",
+            }}
+            onClick={incrementCart}
+          >
             <i className="fas fa-plus"></i>
           </button>
-          <button style={buttonStyle} onClick={decrementCart}>
+          <button
+            style={{
+              ...buttonStyle,
+              margin: "0.2rem 0",
+              padding: "0.3rem 0.5rem",
+              fontSize: "0.9rem",
+            }}
+            onClick={decrementCart}
+          >
             <i className="fas fa-minus"></i>
           </button>
         </div>
@@ -120,6 +166,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
 // Define PropTypes for the component
 AddCart.propTypes = {
   onAddToCart: PropTypes.func.isRequired,
+  onQuantityChange: PropTypes.func.isRequired,
 };
 
 export default AddCart;

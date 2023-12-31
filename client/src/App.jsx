@@ -20,7 +20,6 @@ import ShoppingCart from "./components/Cart/ShoppingCart";
 import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
-import GemGrid from "./components/Gemspage/GemGrid";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 
@@ -74,12 +73,11 @@ const App = () => {
           path="/contact"
           element={
             <Layout>
-              <Contact/>
+              <Contact />
             </Layout>
           }
         />
         <Route
-          
           path="/Gems"
           element={
             <Layout>
@@ -172,7 +170,7 @@ const App = () => {
        
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
-        <Route path="/admin-login" element={<AdminLoginForm />} />
+        <Route path="/adminlogin" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
       </Routes>
     </BrowserRouter>

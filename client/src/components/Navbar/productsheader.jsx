@@ -38,7 +38,7 @@ const Productheader = ({ onSelectProductType }) => {
         className="product-head-sub-section"
         onClick={() => handleProductClick("Jewelry")}
       >
-        Jewellery
+        Jewelry
       </div>
       <div
         className="product-head-sub-section"
