@@ -140,6 +140,60 @@ const Inventory = () => {
             </div>
 
             <div className="card p-4 mb-4">
+              <h2 className="mb-4">Current </h2>
+              <div className="table-responsive">
+                <table className="table mt-3">
+                  <thead>
+                    {" "}
+                    <tr>
+                      <th>Type</th>
+                      <th>Subtype</th>
+                      <th>Name</th>
+                      <th>Weight</th>
+                      <th>Shape</th>
+                      <th>Price</th>
+                      <th>Colour</th>
+                      <th>Value</th>
+                      <th>Image</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {inventoryData.map((item) => (
+                      <tr key={item.id}>
+                        {Object.keys(item).map((key) => (
+                          <td key={key}>
+                            {key === "image" ? (
+                              <img
+                                src={URL.createObjectURL(item[key])}
+                                alt="item"
+                                style={{
+                                  maxWidth: "50px",
+                                  maxHeight: "50px",
+                                }}
+                              />
+                            ) : (
+                              item[key]
+                            )}
+                          </td>
+                        ))}
+                        <td>
+                          <button
+                            className="btn btn-danger btn-sm"
+                            onClick={() => handleInventoryItem(item.id)}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="card p-4 mb-4">
               <h2 className="mb-4">Inventory Chart</h2>
               <InventoryChart />
             </div>

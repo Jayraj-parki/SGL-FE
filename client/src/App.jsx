@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/navbar";
 import Footer from "./components/Footer/footer";
 import Navmobile from "./components/Navbar/mobileview";
 import Home from "./components/Home/Home";
-// import GemGrid from "./components/Gemspage/GemGrid";
+import GemGrid from "./components/Gemspage/GemGrid";
 import Aboutus from "./components/About-us/aboutus";
 import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
@@ -77,11 +77,20 @@ const App = () => {
             </Layout>
           }
         />
+        {/* <Route path="/gem" element={<GemGrid />} /> */}
         <Route
           path="/aboutus"
           element={
             <Layout>
               <Aboutus />
+            </Layout>
+          }
+        />
+        <Route
+          path="/gems"
+          element={
+            <Layout>
+              <GemGrid />
             </Layout>
           }
         />

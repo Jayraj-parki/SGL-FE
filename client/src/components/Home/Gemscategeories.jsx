@@ -36,10 +36,10 @@ const GemstoneCategories = () => {
                   <img src={Gemtesting} alt="Gemtesting"/>
                   <p>Gem Testing </p>
               </div>
-              <div className="gems-cate-sub-section" onClick={()=>{navigate("/gems")}}>
+              {/* <div className="gems-cate-sub-section" onClick={()=>{navigate("/gems")}}>
                   <img src={Gemcutting} alt="Gemcutting"/>
                   <p>Gem Cutting</p>
-              </div>
+              </div> */}
            </div>
           
 

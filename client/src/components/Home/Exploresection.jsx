@@ -22,21 +22,9 @@ const ExploreSection = () => {
                 THE AWESOME</h1>
           </div>
           <div className="explore-routing-section">
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Earings} alt="Earings"/>
-                   <p>Earings</p>
-                </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Nosepin} alt="Nosepin"/>
-                   <p>Nosepin</p>
-                </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Mangalsutra} alt="Mangalsutra"/>
-                   <p>Mangalsutra</p>
-                </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Pendants} alt="Pendants"/>
-                   <p>Pendants</p>
+               <div className="explore-sub-section" onClick={()=>{navigate("/Jewelery")}}>
+                   <img src={RingsBands} alt="Rings & Bands"/>
+                   <p>RingsBands</p>
                 </div>
                 <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
                    <img src={Bracelet} alt="Bracelet"/>
@@ -46,10 +34,54 @@ const ExploreSection = () => {
                    <img src={Bangle} alt="Bangle"/>
                    <p>Bangle</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
+                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Earings} alt="Earings"/>
+                   <p>Earings</p>
+                </div>
+                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Mangalsutra} alt="Mangalsutra"/>
+                   <p>Mangalsutra</p>
+                </div>
+                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Nosepin} alt="Nosepin"/>
+                   <p>Nosepin</p>
+                </div>
+                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Pendants} alt="Pendants"/>
+                   <p>Pendants</p>
+                </div>
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Nosepin} alt="Nosepin"/>
+                   <p>Nosepin</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Earings} alt="Earings"/>
+                   <p>Earings</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Nosepin} alt="Nosepin"/>
+                   <p>Nosepin</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Mangalsutra} alt="Mangalsutra"/>
+                   <p>Mangalsutra</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Pendants} alt="Pendants"/>
+                   <p>Pendants</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Bracelet} alt="Bracelet"/>
+                   <p>Bracelet</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Bangle} alt="Bangle"/>
+                   <p>Bangle</p>
+                </div> */}
+                {/* <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
                    <img src={RingsBands} alt="Rings & Bands"/>
                    <p>RingsBands</p>
-                </div>
+                </div> */}
 
           </div> 
       </div>

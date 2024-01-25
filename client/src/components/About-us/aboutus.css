@@ -238,3 +238,180 @@
 .hidden{
     display: none;
 }
+
+/* Add this CSS in a file named aboutus.css */
+
+/* .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content-container {
+    text-align: left;
+  }
+  
+  .heading {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+    text-align: left;
+  }
+   */
+   /* Add this CSS in a file named aboutus.css */
+
+/* .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content-container {
+    text-align: left;
+  }
+  
+  .heading {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+    text-align: left;
+  }
+   */
+  /* Additional Styles for Mobile Devices */
+  /* @media screen and (max-width: 767px) {
+    .image {
+      border-radius: 0; 
+    }
+  
+    .heading {
+      font-size: 24px; 
+    }
+  
+    .description {
+      font-size: 14px; 
+    }
+  
+    .timeline {
+      font-size: 14px; 
+    }
+  }
+   */
+   /* Add this CSS in a file named aboutus.css */
+
+.container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .image-container {
+    margin-bottom: 20px;
+  }
+  
+  .image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .content-container {
+    text-align: left;
+  }
+  
+  .heading {
+    font-size: 28px;
+    color: #333;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+    text-align: left;
+  }
+  
+  /* Additional Styles for Mobile Devices */
+  @media screen and (max-width: 767px) {
+    .image {
+      border-radius: 0; /* No border radius for mobile devices */
+    }
+  
+    .heading {
+      font-size: 24px; /* Slightly reduce font size for headings on smaller screens */
+    }
+  
+    .description {
+      font-size: 14px; /* Reduce font size for better readability on smaller screens */
+    }
+  
+    .timeline {
+      font-size: 14px; /* Reduce font size for better readability on smaller screens */
+    }
+  }
+  
+  /* Additional Styles for Desktop Devices */
+  @media screen and (min-width: 768px) {
+    .container {
+      max-width: 800px; /* Limit the width of the container for better readability on larger screens */
+      margin: 0 auto; /* Center the container on larger screens */
+    }
+  
+    .image {
+      border-radius: 10px; /* Restore border radius for desktop devices */
+    }
+  }
+  

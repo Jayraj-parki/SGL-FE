@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Inventory from "./InventoryMain";
+import Inventoryall from "./Inventoryall.jsx";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
 import Queries from "./Queries";
@@ -33,6 +34,7 @@ const AdminTemplate = () => {
           }
         >
           <Route path="inventory" element={<Inventory />}/>
+          <Route path="inventoryall" element={<Inventoryall />}/>
           <Route path="blogs" element={<Blogs />} />
           <Route path="orders" element={<Orders />} />
           <Route path="queries" element={<Queries/>}/>

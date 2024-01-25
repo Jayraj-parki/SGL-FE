@@ -9,7 +9,7 @@ const Mainintro=(()=>{
         <>
             <div className="maininro-section">
                  <div className='maininro-content'>
-                    <h1>Since 2001</h1>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                    <h1>Since 1996</h1>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
                     <h2>in the industry</h2>
                     <p>Gemstone industry and its nationwide presence</p>
                     <button onClick={()=>{navigate("/aboutus")}}>Know more About Us</button>

@@ -79,43 +79,6 @@ const Inventory = () => {
     ));
   };
 
-  const renderallTableRows = () => {
-    return inventoryData.map((item) => (
-      <tr key={item.id}>
-        <td>{item.type}</td>
-        <td>{item.subtype}</td>
-        <td>{item.name}</td>
-        <td>{item.weight}</td>
-        <td>{item.shape}</td>
-        <td>{item.price}</td>
-        <td>{item.colour}</td>
-        <td>{item.value}</td>
-        <td>
-          {item.image ? (
-            <img
-              src={URL.createObjectURL(item.image)}
-              alt="item"
-              style={{
-                maxWidth: "50px",
-                maxHeight: "50px",
-              }}
-            />
-          ) : (
-            "No Image"
-          )}
-        </td>
-        <td>
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={() => handleInventoryItem(item.id)}
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
-    ));
-  };
-
   return (
     <div>
       {/* Navigation bar for smaller screens */}
@@ -191,33 +154,6 @@ const Inventory = () => {
                   </thead>
 
                   <tbody>{renderTableRows()}</tbody>
-                </table>
-              </div>
-            </div>
-
-            <div
-              className="card p-4 mb-4"
-              style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
-            >
-              <h2 className="mb-4">All Inventory</h2>
-              <div className="table-responsive">
-                <table className="table mt-3">
-                  <thead>
-                    <tr>
-                      <th>Type</th>
-                      <th>Subtype</th>
-                      <th>Name</th>
-                      <th>Weight</th>
-                      <th>Shape</th>
-                      <th>Price</th>
-                      <th>Colour</th>
-                      <th>Value</th>
-                      <th>Image</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>{renderallTableRows()}</tbody>
                 </table>
               </div>
             </div>

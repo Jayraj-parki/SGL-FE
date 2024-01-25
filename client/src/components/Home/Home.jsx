@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <Mainintro />
       <GemstoneCategories />
-      <Finddiamonds />
+      {/* <Finddiamonds /> */}
       <ExploreSection />
       <Shopbyme />
       <BlogPreview />
