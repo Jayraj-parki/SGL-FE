@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../Perals/PearlsHome.CSS";
+import "../../Perals/PearlsHome.css";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 
