@@ -24,6 +24,9 @@ import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 
 const Layout = ({ children, userData }) => (
+
+
+// const Layout = ({ children }) => (
   <>
     <Navbar userData={userData} />
     {children}
@@ -173,6 +176,8 @@ const App = () => {
         {/* Admin routes */}
         <Route path="/adminlogin" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
+       
+
       </Routes>
     </BrowserRouter>
   );

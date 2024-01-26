@@ -1,20 +1,20 @@
 // AdminTemplate.jsx
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import Inventory from "./InventoryMain";
-import Inventoryall from "./Inventoryall.jsx";
+import Inventory from "./Inventory";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
-import Queries from "./Queries";
+import Gems from "./Gems";
+import Beads from "./Beads";
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
   const isLoggedIn = true; // Replace with your authentication logic
 
   useEffect(() => {
-    // If the user is not logged in, redirect to /adminlogin
+    // If the user is not logged in, redirect to /admin-login
     if (!isLoggedIn) {
-      navigate("/adminlogin");
+      navigate("/admin-login");
     }
   }, [isLoggedIn, navigate]);
 
@@ -28,16 +28,16 @@ const AdminTemplate = () => {
             isLoggedIn ? (
               <Outlet />
             ) : (
-              // Redirect to /adminlogin if not logged in
-              <Navigate to="/adminlogin" />
+              // Redirect to /admin-login if not logged in
+              <Navigate to="/admin-login" />
             )
           }
         >
-          <Route path="inventory" element={<Inventory />}/>
-          <Route path="inventoryall" element={<Inventoryall />}/>
+          <Route path="inventory" element={<Inventory />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="orders" element={<Orders />} />
-          <Route path="queries" element={<Queries/>}/>
+          <Route path="gems" element={<Gems />} />
+        <Route path="beadss" element={<Beads />} />
         </Route>
       </Routes>
     </div>
