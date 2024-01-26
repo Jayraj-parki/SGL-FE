@@ -20,6 +20,8 @@ import JewelryMain from "./components/jewelry/jewelryMain";
 import ShoppingCart from "./components/Cart/Cart";
 import PearlsHome from "./components/Perals/PearlsHome";
 import AdminLoginForm from "./components/Admin/AdminLogin";
+
+
 const Layout = ({ children }) => (
   <>
     <Navbar />
@@ -151,6 +153,8 @@ const App = () => {
         {/* Admin routes */}
         <Route path="/admin-login" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
+       
+
       </Routes>
     </BrowserRouter>
   );

@@ -4,6 +4,8 @@ import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import Inventory from "./Inventory";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
+import Gems from "./Gems";
+import Beads from "./Beads";
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -34,6 +36,8 @@ const AdminTemplate = () => {
           <Route path="inventory" element={<Inventory />} />
           <Route path="blogs" element={<Blogs />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="/gems" element={<Gems />} />
+        <Route path="beadss" element={<Beads />} />
         </Route>
       </Routes>
     </div>

@@ -13,6 +13,9 @@ const InventoryForm = ({ onUpload }) => {
     price: 0,
     colour: "",
     value: "",
+    transparency:"",
+    hardness:"",
+    microscopicexamination:"",
     image: null,
   });
 
