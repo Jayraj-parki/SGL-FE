@@ -23,6 +23,8 @@ import Login from "./components/Home/Login";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
+import Adminhome from "./components/Adminhome/Adminhome.jsx"
+import Inventoryitem from "./components/Inventoryitem/Inventoryitem.jsx"
 
 const Layout = ({ children, userData }) => (
 
@@ -185,7 +187,8 @@ const App = () => {
         {/* Admin routes */}
         <Route path="/adminlogin" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
-       
+        {/* <Route path="/adminhome" element={<Adminhome />} />
+        <Route path="/inventoryitem" element={<Inventoryitem />} /> */}
 
       </Routes>
     </BrowserRouter>

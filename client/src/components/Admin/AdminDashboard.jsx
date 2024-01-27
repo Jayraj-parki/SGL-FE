@@ -10,6 +10,8 @@ import Pearls from "./Pearls";
 import Corals from "./Corals";
 import Jewellary from "./Jewellary";
 import Diamonds from "./Diamonds";
+import Adminhome from "../Adminhome/Adminhome";
+import Inventoryitem from "../Inventoryitem/Inventoryitem"
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -47,6 +49,9 @@ const AdminTemplate = () => {
           <Route path="/corals" element={<Corals />} />
           <Route path="/jewellary" element={<Jewellary />} />
           <Route path="/diamonds" element={<Diamonds />} />
+        <Route path="/beadss" element={<Beads />} />
+        <Route path="/adminhome" element={<Adminhome />} />
+        <Route path="/inventoryitem" element={<Inventoryitem />} />
         </Route>
       </Routes>
     </div>
