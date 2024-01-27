@@ -62,6 +62,7 @@ const ProductFullView = ({ selectedItem }) => {
 
   useEffect(() => {
     if (selectedItem) {
+      console.log(selectedItem,"Selected Item")
       if (selectedItem.image) {
         setSelectedImage(selectedItem.image);
       } else {
@@ -171,13 +172,57 @@ const ProductFullView = ({ selectedItem }) => {
               <Card.Body>
                 <div>
                   <div className="product-detail">
-                    <span className="detail-label">Name:</span>
-                    <span className="detail-value">{selectedItem.name}</span>
+                    <span className="detail-label">Name</span>
+                    <span className="detail-value" style={{paddingLeft:"25%"}}>: {selectedItem.name}</span>
                   </div>
                   <div className="product-detail">
-                    <span className="detail-label">Price:</span>
-                    <span className="detail-value">${calculatedPrice}</span>
+                    <span className="detail-label">Price</span>
+                    <span className="detail-value" style={{paddingLeft:"26%"}}>: ${calculatedPrice}</span>
                   </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Dimestions</span>
+                    <span className="detail-value" style={{paddingLeft:"18.4%"}}>: {selectedItem.dimenensions}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Weight</span>
+                    <span className="detail-value" style={{paddingLeft:"23.5%"}}>: {selectedItem.weight}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Colour</span>
+                    <span className="detail-value" style={{paddingLeft:"24%"}}>: {selectedItem.colour}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Subtype</span>
+                    <span className="detail-value" style={{paddingLeft:"22%"}}>: {selectedItem.subtype}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Units</span>
+                    <span className="detail-value" style={{paddingLeft:"26%"}}>: {selectedItem.units}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Value</span>
+                    <span className="detail-value" style={{paddingLeft:"25.5%"}}>: {selectedItem.value}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Shape</span>
+                    <span className="detail-value" style={{paddingLeft:"24%"}}>: {selectedItem.shape}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Trnasperency</span>
+                    <span className="detail-value" style={{paddingLeft:"15%"}}>: {selectedItem.transparency}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Hardness</span>
+                    <span className="detail-value" style={{paddingLeft:"20%"}}>: {selectedItem.hardness}</span>
+                  </div>
+                  <div className="product-detail">
+                    <span className="detail-label">Microscopic Examination</span>
+                    <span className="detail-value" style={{paddingLeft:"0.5%"}}>: {selectedItem.microscopicexamination}</span>
+                  </div>
+                  {/* <div className="product-detail">
+                    <span className="detail-label">Units:</span>
+                    <span className="detail-value">${selectedItem.units}</span>
+                  </div> */}
                 </div>
 
                 {/* Add your description here */}

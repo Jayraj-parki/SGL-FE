@@ -109,7 +109,15 @@ const ProductFullView = ({ selectedItem }) => {
                     className="mb-2 text-muted"
                     style={{ textAlign: "left" }}
                   >
-                    {selectedItem.price}
+                    {/* {selectedItem.price} */}
+                    {/* {selectedItem.dimenensions} */}
+                  </Card.Subtitle>
+                  <Card.Subtitle
+                    className="mb-2 text-muted"
+                    style={{ textAlign: "left" }}
+                  >
+                    {/* {selectedItem.} */}
+                    {selectedItem.dimenensions}
                   </Card.Subtitle>
                 </div>
 

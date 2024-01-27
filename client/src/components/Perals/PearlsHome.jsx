@@ -188,14 +188,14 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"60px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingRight:"20px",paddingTop:"20px",paddingBottom:"20px"}}>
+          <div className="" style={{padding:"0px",marginRight:"20px"}}>
+            <div style={{backgroundColor:"#FCE2CB",width:"100%",marginRight:"0px",paddingLeft:"10px",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
               <label style={{paddingRight:"30px"}}>
                 <input
                   type="radio"
                   value="South Sea"
-                  style={{paddingLeft:"10px"}}
+                  style={{paddingLeft:"10px",marginRight:"10px"}}
                   checked={selectedOption === 'South Sea'}
                   onChange={handleOptionChange}
                 />
@@ -209,7 +209,7 @@ const GemGrid = () => {
                   value="Kc Perals"
                   checked={selectedOption === 'Kc Perals'}
                   onChange={handleOptionChange}
-                  style={{marginRight:"px"}}
+                  style={{marginRight:"10px"}}
                 />KcPerals
               </label>
             </div>
@@ -218,7 +218,7 @@ const GemGrid = () => {
                 <input
                   type="radio"
                   value="Freshwater"
-                  style={{paddingLeft:"10px"}}
+                  style={{paddingLeft:"10px",marginRight:"10px"}}
                   checked={selectedOption === 'Freshwater'}
                   onChange={handleOptionChange}
                 />
@@ -232,7 +232,7 @@ const GemGrid = () => {
                   value="Cultured"
                   checked={selectedOption === 'Cultured'}
                   onChange={handleOptionChange}
-                  style={{marginRight:"0px"}}
+                  style={{marginRight:"10px"}}
                 />
                 Cultured
               </label>

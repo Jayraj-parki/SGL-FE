@@ -3,7 +3,7 @@ import ExploreSection from "./Exploresection";
 import Finddiamonds from "./Findgems";
 import GemstoneCategories from "./Gemscategeories";
 import Mainintro from "./mainintro";
-import Shopbyme from "./shopbyme";
+import Gemsgewelry from "./shopbyme";
 
 const Home = () => {
   return (
@@ -12,7 +12,7 @@ const Home = () => {
       <GemstoneCategories />
       {/* <Finddiamonds /> */}
       <ExploreSection />
-      <Shopbyme />
+      <Gemsgewelry />
       <BlogPreview />
     </>
   );

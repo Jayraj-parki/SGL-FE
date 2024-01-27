@@ -22,6 +22,7 @@ import AdminLoginForm from "./components/Admin/AdminLogin";
 import Login from "./components/Home/Login";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
+import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
 
 const Layout = ({ children, userData }) => (
 
@@ -152,6 +153,14 @@ const App = () => {
           element={
             <Layout>
               <JewelryMain />
+            </Layout>
+          }
+        />
+        <Route
+          path="/GemsJewelry"
+          element={
+            <Layout>
+              <GemsJewelry />
             </Layout>
           }
         />
