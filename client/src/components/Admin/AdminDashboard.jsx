@@ -42,7 +42,7 @@ const AdminTemplate = () => {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/gems" element={<Gems />} />
-          <Route path="/beadss" element={<Beads />} />
+          <Route path="/beads" element={<Beads />} />
           <Route path="/pearls" element={<Pearls />} />
           <Route path="/corals" element={<Corals />} />
           <Route path="/jewellary" element={<Jewellary />} />

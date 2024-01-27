@@ -59,7 +59,7 @@ const Diamonds = () => {
       formData.append("microscopicexamination", data.microscopicexamination);
       formData.append("image", data.image);
 
-      const response = await fetch("http://localhost:4000/postdiamonds", {
+      const response = await fetch("https://sgl-be.onrender.com/postdiamonds", {
         method: "POST",
         body: formData,
       });

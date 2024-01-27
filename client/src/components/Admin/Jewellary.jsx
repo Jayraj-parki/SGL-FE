@@ -58,7 +58,7 @@ const Jewellary = () => {
       // Assuming 'inventoryData' is an array to store the form data
       setInventoryData([...inventoryData, data]);
 
-      const response = await fetch("https://sgl-be.onrender.com/postbeads", {
+      const response = await fetch("https://sgl-be.onrender.com/postjewelry", {
         method: "POST",
         body: formData,
       });
