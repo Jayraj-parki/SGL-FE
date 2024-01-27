@@ -6,6 +6,10 @@ import Blogs from "./Blogs";
 import Orders from "./Orders";
 import Gems from "./Gems";
 import Beads from "./Beads";
+import Pearls from "./Pearls";
+import Corals from "./Corals";
+import Jewellary from "./Jewellary";
+import Diamonds from "./Diamonds";
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -33,11 +37,16 @@ const AdminTemplate = () => {
             )
           }
         >
+          
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/gems" element={<Gems />} />
-        <Route path="/beadss" element={<Beads />} />
+          <Route path="/beadss" element={<Beads />} />
+          <Route path="/pearls" element={<Pearls />} />
+          <Route path="/corals" element={<Corals />} />
+          <Route path="/jewellary" element={<Jewellary />} />
+          <Route path="/diamonds" element={<Diamonds />} />
         </Route>
       </Routes>
     </div>
