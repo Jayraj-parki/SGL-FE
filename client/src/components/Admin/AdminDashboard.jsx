@@ -1,7 +1,7 @@
 // AdminTemplate.jsx
 import React, { useEffect } from "react";
 import { Outlet, Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import Inventory from "./Inventory";
+// import Inventory from "./Inventory";
 import Blogs from "./Blogs";
 import Orders from "./Orders";
 import Gems from "./Gems";
@@ -33,11 +33,11 @@ const AdminTemplate = () => {
             )
           }
         >
-          <Route path="inventory" element={<Inventory />} />
-          <Route path="blogs" element={<Blogs />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="gems" element={<Gems />} />
-        <Route path="beadss" element={<Beads />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/gems" element={<Gems />} />
+        <Route path="/beadss" element={<Beads />} />
         </Route>
       </Routes>
     </div>
