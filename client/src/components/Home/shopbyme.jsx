@@ -16,52 +16,51 @@ const Shopbyme = (()=>{
    const navigate = useNavigate()
     return(
         <>
-                 <h1 className='diamonds-heading'>Diamonds</h1>
+                 <h1 className='diamonds-heading'>Gems Jewelry</h1>
             <div className="shopbyme-section">
                
                 <div className="sbm-heading-section">
-                      <h1>SHOP BY
-                      SHAPE</h1>
+                      <h1>Gems Jewelry</h1>
                 </div>
                 <div className="sbm-routing-section"  >
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}} > 
-                         <img src={Round} alt="Round"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}} > 
+                         <img src={Round} style={{height:"50%"}} alt="Round"/>
                          <p>Round</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Pear} alt="Pear"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Pear} style={{height:"50%"}} alt="Pear"/>
                          <p>Pear</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Princess} alt="Princess"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Princess} style={{height:"50%"}} alt="Princess"/>
                          <p>Princess</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Marquise} alt="Oval"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Marquise} style={{height:"50%"}} alt="Oval"/>
                          <p>Marquise</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Oval} alt=""/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Oval} style={{height:"50%"}} alt=""/>
                          <p>Oval</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Radiant} alt="Radiant"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Radiant} style={{height:"50%"}} alt="Radiant"/>
                          <p>Radiant</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Emerald} alt="Emerald"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Emerald} style={{height:"50%"}} alt="Emerald"/>
                          <p>Emerald</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Heart} alt="Heart"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Heart} style={{height:"50%"}} alt="Heart"/>
                          <p>Heart</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Cushion} alt="Cushion"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Cushion} style={{height:"50%"}} alt="Cushion"/>
                          <p>Cushion</p>
                       </div>
-                      <div className="sbm-sub-section" onClick={()=>{navigate("/gems")}}> 
-                         <img src={Asscher} alt="Asscher"/>
+                      <div className="sbm-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Gemsjewelry")}}> 
+                         <img src={Asscher} style={{height:"50%"}} alt="Asscher"/>
                          <p>Asscher</p>
                       </div>
                 </div>

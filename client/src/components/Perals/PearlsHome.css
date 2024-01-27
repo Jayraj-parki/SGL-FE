@@ -13,12 +13,18 @@
   margin: 1rem 0rem;
 }
 .gemsgrid-main-con{
-  width: 100%;
+  /* width: 100%; */
   height: auto;
-  display: grid;
-  grid-template-columns: 20% 80%;
-  margin: 1rem 0rem;
+  display: flex;
+  /* grid-template-columns: 20% 80%; */
+  margin: 1rem 0rem 0rem 1rem;
 }
+/* @media screen and (max-width:"450px"){
+  .gemsgrid-main-con{
+    display: flex;
+    flex-direction: column;
+  }
+} */
 .gemshome-container{
   width: 100%;
   height: auto;

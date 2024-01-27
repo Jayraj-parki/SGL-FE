@@ -58,6 +58,12 @@ const Productheader = ({ onSelectProductType }) => {
       >
         Corals
       </div>
+      <div
+        className="product-head-sub-section"
+        onClick={() => handleProductClick("Gemsjewelry")}
+      >
+        Gems Jewelry
+      </div>
     </div>
   );
 };

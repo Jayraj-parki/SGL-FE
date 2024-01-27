@@ -104,8 +104,8 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"60px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingRight:"40px",paddingTop:"20px",paddingBottom:"20px"}}>
+          <div className="" style={{padding:"0px"}}>
+            {/* <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingRight:"40px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
               <label style={{paddingRight:"70px"}}>
                 <input
@@ -213,7 +213,133 @@ const GemGrid = () => {
                 SemiPreciousStones
               </label>
             </div>
-            </div>
+            </div> */}
+            <div style={{ backgroundColor: "#FCE2CB", width: "100%", paddingRight: "10px",paddingLeft:"10px", paddingTop: "20px", paddingBottom: "20px" }}>
+  <ul style={{ listStyleType: "none", padding: 0 }}>
+    <li>
+      <label style={{ paddingRight: "70px" }}>
+        <input
+          type="radio"
+          value="Ruby"
+          style={{ paddingLeft: "10px",marginRight:"20px" }}
+          checked={selectedOption === 'Ruby'}
+          onChange={handleOptionChange}
+        />
+        Ruby
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "13px" }}>
+        <input
+          type="radio"
+          value="BlueSapphire"
+          checked={selectedOption === 'BlueSapphire'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        BlueSapphire
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "10px" }}>
+        <input
+          type="radio"
+          value="YellowSappire"
+          style={{ paddingLeft: "10px",marginRight:"20px" }}
+          checked={selectedOption === 'YellowSappire'}
+          onChange={handleOptionChange}
+        />
+        YellowSappire
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "60px" }}>
+        <input
+          type="radio"
+          value="Emrald"
+          checked={selectedOption === 'Emrald'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        Emrald
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "40px" }}>
+        <input
+          type="radio"
+          value="Hessonite"
+          checked={selectedOption === 'Hessonite'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        Hessonite
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "45px" }}>
+        <input
+          type="radio"
+          value="RedCoral"
+          checked={selectedOption === 'RedCoral'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        RedCoral
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "55px" }}>
+        <input
+          type="radio"
+          value="Mutyam"
+          checked={selectedOption === 'Mutyam'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        Mutyam
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "55px" }}>
+        <input
+          type="radio"
+          value="Mutyam"
+          checked={selectedOption === 'Mutyam'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        Mutyam
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "10px" }}>
+        <input
+          type="radio"
+          value="YellowSappire"
+          style={{ paddingLeft: "0px",marginRight:"20px" }}
+          checked={selectedOption === 'YellowSappire'}
+          onChange={handleOptionChange}
+        />
+        Semiprecious
+      </label>
+    </li>
+    
+    {/* <li>
+      <label style={{ paddingLeft: "0px" }}>
+        <input
+          type="radio"
+          value="SemiPreciousStones"
+          checked={selectedOption === 'SemiPreciousStones'}
+          onChange={handleOptionChange}
+          style={{ marginLeft: "20px" }}
+        />
+        SemiPrecious
+      </label>
+    </li> */}
+  </ul>
+</div>
+
           </div>
           <div className="perals-map-area">
             <div className="gemsmain-con">

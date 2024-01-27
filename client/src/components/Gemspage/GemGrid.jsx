@@ -282,9 +282,12 @@ const GemGrid = () => {
     const fetchBeads = async () => {
       try {
         const response = await fetch("https://sgl-be.onrender.com/getgems");
+        // console.log(response,"Response 285 line")
         if (response.ok) {
           const data = await response.json();
           setBeads(data);
+          // console.log(data,"from the data responsce")
+          // console.log(data,"response form data")
           setIsLoading(false);
         } else {
           const errorMessage = await response.text();
@@ -293,6 +296,7 @@ const GemGrid = () => {
           );
           setIsLoading(false);
         }
+        // console.log()
       } catch (error) {
         console.error("Error fetching Pearls:", error.message);
         setIsLoading(false);
@@ -337,6 +341,7 @@ const GemGrid = () => {
 
   return (
     <div className="pearlshome-container">
+      {console.log(beads,"data from backed")}
       {isLoading && (
         <div className="loading-container">
           <CircularProgress />
@@ -345,10 +350,11 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"60px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"80%",paddingRight:"20px"}}>
-            <div >
-              <label style={{paddingRight:"30px"}}>
+          <div className="" style={{padding:"0px",position:"relative"}}>
+            <div style={{backgroundColor:"#FCE2CB",width:"100%",marginRight:"0px"}}>
+            <ul style={{ listStyleType: "none", padding: "5px" }}>
+              <li>
+              <label style={{paddingRight:"35px"}}>
                 <input
                   type="radio"
                   value="Precious"
@@ -358,8 +364,8 @@ const GemGrid = () => {
                 />
                 Precious
               </label>
-            </div>
-            <div>
+              </li>
+              <li>
               <label style={{paddingLeft:"9px"}}>
                 <input
                   type="radio"
@@ -370,10 +376,11 @@ const GemGrid = () => {
                 />
                 SemiPrecious
               </label>
-            </div>
+              </li>
+            </ul>
             </div>
           </div>
-          <div className="perals-map-area">
+          <div className="perals-map-area" >
             <div className="gemsmain-con">
               {currentItems.map((item, index) => (
                 <div key={index}>
@@ -388,19 +395,41 @@ const GemGrid = () => {
                       alt="jewelry"
                       width="50%"
                       height="50%"
-                      className="beads-image"
+                      className="beads-image" style={{paddingRight:"1px"}}
                     />
                     <p className="pearlsname">{item.name}</p>
+
                     <h4 className="">{item.price}</h4>
                     <p>{item. dimenensions}</p>
                     {console.log(item.dimenensions,'hgfdfgkjrdhhfj')}
+                    {/* <h4 className="">{item.units}</h4> */}
                     <button className="buy-now-button">View Product</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{display:'flex',justifyContent:"end"}}>
+          {/* <div style={{display:'flex',justifyContent:"end"}}>
+          {filteredBeads.length > ITEMS_PER_PAGE && (
+            <div className="pagination">
+              <span onClick={goToFirstPage}>First</span>
+              {[...Array(totalPages).keys()].map((pageNumber) => (
+                <span
+                  key={pageNumber + 1}
+                  onClick={() => paginate(pageNumber + 1)}
+                  className={pageNumber + 1 === currentPage ? "active" : ""}
+                >
+                  {pageNumber + 1}
+                </span>
+              ))}
+              <span onClick={goToLastPage}>Last</span>
+            </div>
+          )}
+          </div> */}
+        </div>
+        
+      )}
+      <div style={{display:'flex',justifyContent:"end"}}>
           {filteredBeads.length > ITEMS_PER_PAGE && (
             <div className="pagination">
               <span onClick={goToFirstPage}>First</span>
@@ -417,8 +446,6 @@ const GemGrid = () => {
             </div>
           )}
           </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -16,38 +16,38 @@ const ExploreSection = () => {
    const navigate = useNavigate()
   return (
     <>
-      <div className="explore-section">
+      <div className="explore-section" style={{marginLeft:"20px"}}>
           <div className="explore-heading-sub-section">
              <h1>EXPLORE                              
                 THE AWESOME</h1>
           </div>
           <div className="explore-routing-section">
-               <div className="explore-sub-section" onClick={()=>{navigate("/Jewelery")}}>
-                   <img src={RingsBands} alt="Rings & Bands"/>
-                   <p>RingsBands</p>
+               <div className="explore-sub-section"style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelery")}}>
+                   <img src={RingsBands} style={{height:"70%",paddingBottom:"10px"}} alt="Rings & Bands"/>
+                   <p>Rings and Bands</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Bracelet} alt="Bracelet"/>
-                   <p>Bracelet</p>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Bracelet} style={{height:"70%"}} alt="Bracelet"/>
+                   <p>Bracelets</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/jewelery")}}>
-                   <img src={Bangle} alt="Bangle"/>
-                   <p>Bangle</p>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/jewelery")}}>
+                   <img src={Bangle} style={{height:"70%"}} alt="Bangle"/>
+                   <p>Bangles</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
-                   <img src={Earings} alt="Earings"/>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Earings} style={{height:"70%"}} alt="Earings"/>
                    <p>Earings</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
-                   <img src={Mangalsutra} alt="Mangalsutra"/>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Mangalsutra} style={{height:"70%"}} alt="Mangalsutra"/>
                    <p>Mangalsutra</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
-                   <img src={Nosepin} alt="Nosepin"/>
-                   <p>Nosepin</p>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Nosepin} style={{height:"70%"}} alt="Nosepin"/>
+                   <p>Nosepins</p>
                 </div>
-                <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>
-                   <img src={Pendants} alt="Pendants"/>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
+                   <img src={Pendants} style={{height:"70%"}} alt="Pendants"/>
                    <p>Pendants</p>
                 </div>
                 {/* <div className="explore-sub-section" onClick={()=>{navigate("/Jewelry")}}>

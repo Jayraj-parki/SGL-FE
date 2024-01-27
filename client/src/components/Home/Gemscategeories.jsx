@@ -13,7 +13,7 @@ import Gemcutting from './homeicons/Gem Cutting.png'
 const GemstoneCategories = () => {
     const navigate = useNavigate()
   return (
-    <div className="GEMS-CATEGORY">
+    <div className="GEMS-CATEGORY" style={{marginLeft:"20px"}}>
         <div className="gems-cate-section">
            <div className="gems-headding-sub-section">
                 <h1>GEMS 

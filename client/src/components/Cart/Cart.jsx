@@ -72,6 +72,7 @@ const ShoppingCart = () => {
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text">Category: {item.category}</p>
                     <p className="card-text">Price: ${item.price.toFixed(2)}</p>
+                    <p>njafnl</p>
                     <p className="card-text">Quantity: {item.quantity || 1}</p>
                     <div
                       className="btn-group"

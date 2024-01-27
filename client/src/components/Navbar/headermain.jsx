@@ -85,7 +85,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
       <div className="main-sub-nav">
         <img src={logo} alt="logo" />
       </div>
-      <div className="main-sub-nav" onClick={() => navigate("/contact")}>Contact us</div>
+      {/* <div className="main-sub-nav" onClick={() => navigate("/contact")}>Contact us</div> */}
       <div className="main-sub-nav" id="head-extra-class">
         <p>
           Search{" "}
