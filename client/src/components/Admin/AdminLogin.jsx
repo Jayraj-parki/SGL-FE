@@ -14,7 +14,7 @@ const AdminLoginForm = () => {
 
     // Check if the username and password are correct
     if (username === "admin" && password === "password") {
-      navigate("/admin/inventory");
+      navigate("/admin/adminhome");
     } else {
       // Handle incorrect username or password
       alert("Invalid username or password");

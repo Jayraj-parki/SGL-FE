@@ -69,8 +69,8 @@ const GemGrid = () => {
   const filteredBeads = beads.filter(item => {
     if (selectedOption === 'Precious') {
       return item.subtype === 'Precious';
-    } else if (selectedOption === 'Semi-precious') {
-      return item.subtype === 'Semi-precious';
+    } else if (selectedOption === 'Semi-Precious') {
+      return item.subtype === 'Semi-Precious';
     } else {
       return true; // Show all if no option is selected
     }
@@ -108,8 +108,8 @@ const GemGrid = () => {
               <label style={{paddingLeft:"9px"}}>
                 <input
                   type="radio"
-                  value="Semi-precious"
-                  checked={selectedOption === 'Semi-precious'}
+                  value="Semi-Precious"
+                  checked={selectedOption === 'Semi-Precious'}
                   onChange={handleOptionChange}
                   style={{marginRight:"10px"}}
                 />

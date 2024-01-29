@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import "./gems.css";
+import Swal from "sweetalert2";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 const Diamonds = () => {
+  const navigate =useNavigate()
   const [data, setData] = useState({
     name: "",
-    subtype: "",
+    // subtype: "",
     price: "",
     weight: "",
     colour: "",
@@ -44,7 +48,7 @@ const Diamonds = () => {
     try {
       const formData = new FormData();
       formData.append("name", data.name);
-      formData.append("subtype", data.subtype);
+      // formData.append("subtype", data.subtype);
       formData.append("price", data.price);
       formData.append("weight", data.weight);
       formData.append("colour", data.colour);
@@ -69,7 +73,7 @@ const Diamonds = () => {
         alert("Successfully added the data");
         setData({
           name: "",
-          subtype: "",
+          // subtype: "",
           price: "",
           weight: "",
           colour: "",
@@ -84,10 +88,22 @@ const Diamonds = () => {
           image: null,
           microscopicexamination: "",
         });
+        await Swal.fire({
+          icon: "success",
+          title: "Item added successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         console.error("Form submission failed. Status:", response.status);
+        throw new Error("Item addition failed")
       }
     } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
       console.error("An error occurred during form submission:", error);
     }
   };
@@ -101,16 +117,51 @@ const Diamonds = () => {
   const renderTableRows = () => {
     return inventoryData.map((item, index) => (
       <tr key={index}>
-        {/* ... (unchanged) */}
+        <td>{item.name}</td>
+        {/* <td>{item.subtype}</td> */}
+        <td>{item.weight}</td>
+        <td>{item.shape}</td>
+        <td>{item.price}</td>
+        <td>{item.colour}</td>
+        <td>{item.value}</td>
+        <td>{item.dimenensions}</td>
+        <td>{item.transparency}</td>
+        <td>{item.hardness}</td>
+        <td>{item.microscopicexamination}</td>
+        <td>
+          {item.image ? (
+            <img
+              src={URL.createObjectURL(item.image)}
+              alt="item"
+              style={{
+                maxWidth: "50px",
+                maxHeight: "50px",
+              }}
+            />
+          ) : (
+            "No Image"
+          )}
+        </td>
+        <td>
+          <button
+            className="btn btn-danger btn-sm"
+            onClick={() => handleDelete(index)}
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     ));
   };
 
   return (
     <div>
-      <form className="form-123">
-        <div className="card-123">
-          <h2>Diamonds</h2>
+      <ArrowBackIcon onClick={()=>navigate("/admin/inventoryitem")} style={{width:"100px",height:"50px",marginTop:"10px"}} />
+            <center>
+      <form className="form-123" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+        <div className="card-123" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+        <h2 style={{borderBottom:"2px",borderStyle:"solid",borderColor:"gold",borderTop:"none",borderRight:"none",borderLeft:"none"}}>Dimonds Inventory</h2>
+        <label htmlFor="name" className="form-label mb-0"> Name</label>
           <input
             type="text"
             name="name"
@@ -118,13 +169,17 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Name"
           />
-          <input
+                    {/* <label htmlFor="subtype" className="form-label mb-0 mt-2"> Subtype</label> */}
+
+          {/* <input
             type="text"
             name="subtype"
             value={data.subtype}
             onChange={handleChange}
             placeholder="Subtype"
-          />
+          /> */}
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Price</label>
+
           <input
             type="text"
             name="price"
@@ -132,6 +187,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Price"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Weight</label>
+
           <input
             type="text"
             name="weight"
@@ -139,6 +196,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Weight"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Colour</label>
+
           <input
             type="text"
             name="colour"
@@ -146,6 +205,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Colour"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Units</label>
+
           <input
             type="text"
             name="units"
@@ -153,6 +214,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Units"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Value</label>
+
           <input
             type="text"
             name="value"
@@ -160,6 +223,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Value"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Shape</label>
+
           <input
             type="text"
             name="shape"
@@ -167,6 +232,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Shape"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Size</label>
+
           <input
             type="text"
             name="size"
@@ -174,6 +241,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Size"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Clarity</label>
+
           <input
             type="text"
             name="clarity"
@@ -181,6 +250,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Clarity"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Dimensions</label>
+
           <input
             type="text"
             name="dimensions"
@@ -188,6 +259,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Dimensions"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Transperency</label>
+
           <input
             type="text"
             name="transparency"
@@ -195,6 +268,8 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Transparency"
           />
+                    <label htmlFor="subtype" className="form-label mb-0 mt-2"> Hardness</label>
+
          <input
           type="number"
            name="hardness"
@@ -202,6 +277,7 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Hardness"
           />
+          <label htmlFor="subtype" className="form-label mb-0 mt-2"> Microscopic Examination</label>
 
           <input
             type="text"
@@ -210,7 +286,21 @@ const Diamonds = () => {
             onChange={handleChange}
             placeholder="Microscopic Examination"
           />
-          <input type="file" onChange={handleImageChange} />
+          {/* <input type="file" onChange={handleImageChange} /> */}
+          <label htmlFor="weight" className="form-label mb-0 mt-4"> Upload File</label>
+          <div className="input-group">
+            <label className="input-group-text" htmlFor="fileInput">
+              Choose File
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="form-control"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </div>
 
           <button
             type="submit"
@@ -221,16 +311,43 @@ const Diamonds = () => {
           </button>
         </div>
       </form>
+      </center>
 
-      <div className="card p-4 mb-4">
+      {/* <div className="card p-4 mb-4">
         <h2 className="mb-4">Current Inventory</h2>
         <div className="table-responsive">
           <table className="table mt-3">
             <thead>
               <tr>
-                {/* ... (unchanged) */}
+                
               </tr>
             </thead>
+            <tbody>{renderTableRows()}</tbody>
+          </table>
+        </div>
+      </div> */}
+      <div className="card  p-4 mb-4 mt-3" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+        <h2 className="mb-2">Current Inventory</h2>
+        <div className="table-responsive" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",borderRadius:"7px" }}>
+          <table className="table mt-3">
+            <thead>
+              <tr>
+                <th>Name</th>
+                {/* <th>Subtype</th> */}
+                <th>Weight</th>
+                <th>Shape</th>
+                <th>Price</th>
+                <th>Colour</th>
+                <th>Value</th>
+                <th>Dimensions</th>
+                <th>Transparency</th>
+                <th>Hardness</th>
+                <th>Microscopic Examination</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
             <tbody>{renderTableRows()}</tbody>
           </table>
         </div>

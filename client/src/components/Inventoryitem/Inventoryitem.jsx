@@ -11,25 +11,29 @@ const Adminhome = () => {
         <h1>Admin Dashboard</h1>
         <div>
             <div className='con' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
+<<<<<<< HEAD
                 <div className='buti' onClick={()=>navigate("/admingems")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+=======
+                <div className='buti' onClick={()=>navigate("/admin/gems")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+>>>>>>> jagadeesh
                     
                     <div>
                         <h3 className='fon' >Gems</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/beadss")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon'>Beads</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/diamonds")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon'>Dimonds</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/jewellary")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon'>Jewelry</h3>
@@ -43,16 +47,16 @@ const Adminhome = () => {
                 <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
-                        <h3 className='fon'>Austrology Gems</h3>
+                        <h3 className='fon'>Austrology <br/>Gems</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/pearls")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon'>Perals</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/corals")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     <div style={{textAlign:"center"}}>
                         <h3 className='fon'>Corals</h3>
                     </div>
@@ -62,7 +66,7 @@ const Adminhome = () => {
                         {/* <FaShoppingCart style={{height:"30px",width:"30px"}} /> */}
                     {/* </div> */}
                     <div>
-                        <h3 className='fon'>Gems Jewelry</h3>
+                        <h3 className='fon'>Gems<br/>Jewelry</h3>
                     </div>
                 </div>
                 {/* <div className='but' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}}>
