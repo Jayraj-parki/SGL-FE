@@ -26,38 +26,7 @@ const Adminhome = () => {
                     <h1 className='fontco'>Orders</h1>
                 </div>
             </div>
-            {/* <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaList style={{height:"60px",width:"60px"}} />
-                </div>
-                <div>
-                    <h1>Blogs</h1>
-                </div>
-            </div>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaList style={{height:"60px",width:"60px"}} />
-                </div>
-                <div>
-                    <h1>Blogs</h1>
-                </div>
-            </div> */}
-            {/* <div style={{display:'flex',borderStyle:"solid",alignItems:"center"}}>
-                <div>
-                    <FaShoppingCart style={{height:"100px",width:"100px"}} />
-                </div>
-                <div>
-                    <h1>Inventory</h1>
-                </div>
-            </div>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center"}}>
-                <div>
-                    <FaShoppingCart style={{height:"100px",width:"100px"}} />
-                </div>
-                <div>
-                    <h1>Inventory</h1>
-                </div>
-            </div> */}
+            
         </div>
         <div style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
             <div onClick={()=>navigate("/admin/blogs")} style={{display:'flex',backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"10px"}} className='but'>

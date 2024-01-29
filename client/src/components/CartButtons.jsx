@@ -19,19 +19,19 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
   const incrementCart = () => {
     setCartQuantity(cartQuantity + 1);
     animateButton();
-    onQuantityChange(cartQuantity + 1); // Call the prop function with the updated quantity
+    onQuantityChange(cartQuantity + 1); 
   };
 
   const decrementCart = () => {
     if (cartQuantity > 0) {
       setCartQuantity(cartQuantity - 1);
       animateButton();
-      onQuantityChange(cartQuantity - 1); // Call the prop function with the updated quantity
+      onQuantityChange(cartQuantity - 1); 
     }
   };
 
   const handleAddToCart = () => {
-    // Trigger the callback to show the cart overlay
+   
     onAddToCart(cartQuantity);
     Swal.fire({
       icon: "success",
@@ -42,15 +42,14 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
   };
 
   const animateButton = () => {
-    // Add animation or color change for button on increment/decrement
-    // Example: Change background color on click
+   
     const buttonElement = document.getElementById("add-to-cart-button");
 
     if (buttonElement) {
-      buttonElement.style.backgroundColor = "#FF6347"; // Change to your desired color
+      buttonElement.style.backgroundColor = "#FF6347"; 
       setTimeout(() => {
-        buttonElement.style.backgroundColor = "#FFA500"; // Reset to the original color
-      }, 300); // Adjust the duration of the animation (in milliseconds)
+        buttonElement.style.backgroundColor = "#FFA500"; 
+      }, 300); 
     }
   };
 
@@ -163,7 +162,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
   );
 };
 
-// Define PropTypes for the component
+
 AddCart.propTypes = {
   onAddToCart: PropTypes.func.isRequired,
   onQuantityChange: PropTypes.func.isRequired,

@@ -16,11 +16,11 @@ const Mainheader = ({ selectedProductType, userData }) => {
   // Hook for programmatic navigation
   const navigate = useNavigate();
 
-  // Event handler to open the search bar
+  
   const startBlinking = () => {
     setIsProfileBlinking(true);
 
-    // Stop blinking after 3 seconds
+    
     setTimeout(() => {
       setIsProfileBlinking(false);
     }, 3000);
@@ -30,51 +30,27 @@ const Mainheader = ({ selectedProductType, userData }) => {
     setIsSearchBarOpen(true);
   };
 
-  // Event handler to close the search bar
+  
   const closeSearchBar = () => {
     setIsSearchBarOpen(false);
   };
 
-  // Event handler to toggle the profile popup
-  const toggleProfilePopup = () => {
-    setIsProfilePopupOpen(!isProfilePopupOpen);
-  };
-
+ 
   return (
     <div className="main-nav-section">
-      {/* Profile icon with click event to toggle the profile popup */}
-      <div className="main-sub-nav" onClick={toggleProfilePopup}>
+     
+      <div className="main-sub-nav" >
         <div
           className={`main-sub-nav ${isProfileBlinking ? "blinking" : ""}`}
-          onClick={toggleProfilePopup}
+          onClick={()=>navigate("/login")}
         >
           <img src={profile} alt="profile" className="profile" />
         </div>
       </div>
 
-      {/* Popup container for the Profile component */}
-      {isProfilePopupOpen && (
-        <div
-          className="profile-popup"
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            zIndex: 1000, // Adjust z-index as needed
-            maxWidth: "300px", // Adjust max-width as needed
-          }}
-        >
-          <Profile
-            onClose={() => setIsProfilePopupOpen(false)}
-            selectedProductType={selectedProductType}
-            userData={userData}
-            startBlinking={startBlinking}
-          />
-        </div>
-      )}
-
-      {/* Other menu items (replace with your actual menu items) */}
+      
+     
+     
       <div className="main-sub-nav" onClick={() => navigate("/")}>
         Home
       </div>
@@ -85,7 +61,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
       <div className="main-sub-nav">
         <img src={logo} alt="logo" />
       </div>
-      {/* <div className="main-sub-nav" onClick={() => navigate("/contact")}>Contact us</div> */}
+     
       <div className="main-sub-nav" id="head-extra-class">
         <p>
           Search{" "}
@@ -105,6 +81,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
       <div className="main-sub-nav" id="head-extra-class">
         <p>
           Wishlist{" "}
+
           <span onClick={() => navigate("/wishlist")}>
             <FaHeart className="icons" />
           </span>
@@ -123,7 +100,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
         </p>
       </div>
 
-      {/* Conditionally render SearchBarPopup */}
+     
       {isSearchBarOpen && (
         <SearchBarPopup
           selectedProductType={selectedProductType}

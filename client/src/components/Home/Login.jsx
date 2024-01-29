@@ -35,7 +35,7 @@ const Login = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://login-b4sh.onrender.com/login", {
+      const response = await fetch("https://sgl-be.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,44 +50,48 @@ const Login = ({ onLogin }) => {
 
       const responseData = await response.json();
 
-      // Store user data in state
+      
       setUserData(responseData.user);
 
-      // Store user data in sessionStorage immediately
+     
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
 
-      // Call the onLogin function with the user data
+      
       onLogin(responseData.user);
 
-      // Display success message using toastify
-      toast.success("Login successful!", {
-        onClose: () => {
-          // After the toast is closed, wait for 3 seconds and then navigate to '/'
-          setTimeout(() => {
-            navigate("/");
-          }, 3000);
-        },
-      });
+      
+      // toast.success("Login successful!", {
+      //   onClose: () => {
+          
+      //     setTimeout(() => {
+      //       navigate("/");
+      //     }, 3000);
+      //   },
+      // });
+      alert("Login Successful")
     } catch (error) {
       console.error("Error:", error);
+      alert("error login",error)
 
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-        // Handle network errors
+       
         console.error("Network error or failed to fetch:", error);
         toast.error("Network error or failed to fetch. Please try again.");
       } else {
-        // Log the entire response for debugging purposes
+        
         if (error.response) {
           console.error("Server Response:", error.response.data);
           console.error("Status Code:", error.response.status);
           console.error("Headers:", error.response.headers);
         } else if (error.request) {
-          console.error("No response received. Request:", error.request);
+          alert("No response received. Request:", error.request)
+          // console.error("No response received. Request:", error.request);
         } else {
-          console.error("Error setting up the request:", error.message);
+          alert("Error setting up the request:", error.message)
+          // console.error("Error setting up the request:", error.message);
         }
 
-        toast.error("Login failed. Please try again.");
+        // toast.error("Login failed. Please try again.");
       }
     }
   };

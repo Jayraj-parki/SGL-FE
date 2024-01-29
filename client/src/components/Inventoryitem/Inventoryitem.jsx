@@ -11,10 +11,10 @@ const Adminhome = () => {
         <h1>Admin Dashboard</h1>
         <div>
             <div className='con' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admingems")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
-                        <h3 className='fon'>Gems</h3>
+                        <h3 className='fon' >Gems</h3>
                     </div>
                 </div>
                 <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>

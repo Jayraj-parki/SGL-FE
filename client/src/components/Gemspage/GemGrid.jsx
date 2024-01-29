@@ -26,8 +26,7 @@ const GemGrid = () => {
         if (response.ok) {
           const data = await response.json();
           setBeads(data);
-          // console.log(data,"from the data responsce")
-          // console.log(data,"response form data")
+          
           setIsLoading(false);
         } else {
           const errorMessage = await response.text();
@@ -149,23 +148,7 @@ const GemGrid = () => {
               ))}
             </div>
           </div>
-          {/* <div style={{display:'flex',justifyContent:"end"}}>
-          {filteredBeads.length > ITEMS_PER_PAGE && (
-            <div className="pagination">
-              <span onClick={goToFirstPage}>First</span>
-              {[...Array(totalPages).keys()].map((pageNumber) => (
-                <span
-                  key={pageNumber + 1}
-                  onClick={() => paginate(pageNumber + 1)}
-                  className={pageNumber + 1 === currentPage ? "active" : ""}
-                >
-                  {pageNumber + 1}
-                </span>
-              ))}
-              <span onClick={goToLastPage}>Last</span>
-            </div>
-          )}
-          </div> */}
+          
         </div>
         
       )}

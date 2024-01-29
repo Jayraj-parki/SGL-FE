@@ -6,8 +6,10 @@ import CartSidebar from "../CartSideNav";
 import Swal from "sweetalert2";
 import "./ProductFullView.css";
 import zodiacStonesData from "./zodiacStonesData";
+import { useNavigate } from "react-router-dom";
 
 const ProductFullView = ({ selectedItem }) => {
+  const navigate = useNavigate();
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -101,7 +103,19 @@ const ProductFullView = ({ selectedItem }) => {
   };
 
   const handleAddToCart = () => {
-    if (!selectedItem) {
+    const userData = sessionStorage.getItem('userData');
+  
+    if (!userData) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Unable to add item to cart. Please login first ",
+      });
+      
+      // Redirect to the login page
+      window.location.href = '/login';
+      return;
+    } else if (!selectedItem) {
       // Display an error message if there is no selected item
       Swal.fire({
         icon: "error",
@@ -112,8 +126,7 @@ const ProductFullView = ({ selectedItem }) => {
       });
       return;
     }
-
-    // Display a success message if the item is added to the cart
+  
     Swal.fire({
       icon: "success",
       title: "Added to Cart!",
@@ -121,10 +134,11 @@ const ProductFullView = ({ selectedItem }) => {
       showConfirmButton: false,
       timer: 2000,
     });
-
+  
     // Open the cart sidebar
     setCartOpen(true);
   };
+  
 
   return (
     <div className="card" id="ProductViewContainer">

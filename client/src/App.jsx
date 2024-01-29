@@ -12,7 +12,6 @@ import DiamondsHome from "./components/Diamonds/Diamondspage/DiamondsHome";
 import Zodiachome from "./components/Astrology-demo/zodiacpage/zodiachome";
 import ProductDetails from "./components/Productfullview/ProductDetails";
 import Beadsmain from "./components/Beads/beadsmain";
-// import Beadssub from "./components/Beads/beadssubpage";
 import Coralmain from "./components/corals/coralsmainhome";
 import AdminTemplate from "./components/Admin/AdminDashboard";
 import JewelryMain from "./components/jewelry/jewelryMain";
@@ -23,8 +22,8 @@ import Login from "./components/Home/Login";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
-import Adminhome from "./components/Adminhome/Adminhome.jsx"
-import Inventoryitem from "./components/Inventoryitem/Inventoryitem.jsx"
+
+
 
 const Layout = ({ children, userData }) => (
 

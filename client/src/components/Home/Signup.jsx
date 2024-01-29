@@ -6,24 +6,34 @@ import "./Signup.css";
 
 const Signup = ({ onSignupSuccess }) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
+  
+
+    const [formData, setFormData] = useState({
     username: "",
-    whatsapp: "",
     email: "",
     password: "",
-    profileImage: null,
-    imageUrl: "",
+    whatsapp: "",
+    imageBase64: "",
   });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData((prevData) => ({ ...prevData, profileImage: file }));
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData((prevData) => ({ ...prevData, imageBase64: reader.result }));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,7 +44,7 @@ const Signup = ({ onSignupSuccess }) => {
 
       console.log("Submitting form...");
 
-      const response = await fetch("https://login-b4sh.onrender.com/signup", {
+      const response = await fetch("https://sgl-be.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,22 +63,23 @@ const Signup = ({ onSignupSuccess }) => {
       const responseData = await response.json();
       console.log("Response Data:", responseData);
 
-      // Store data in sessionStorage
       sessionStorage.setItem("user", JSON.stringify(responseData.user));
       sessionStorage.setItem("accessToken", responseData.accessToken);
       sessionStorage.setItem("requestToken", responseData.requestToken);
 
       console.log("Profile Data:", responseData);
 
-      // Handle response data as needed
-      toast.success("Signup successful");
+      
+      // toast.success("Signup successful");
+       alert("Signup successful")
 
-      // Call onSignupSuccess with false to close the signup form
+      
       onSignupSuccess(false);
 
-      // Navigate to the login page
+    
       navigate("/login");
     } catch (error) {
+      alert(`Error: ${error.message || "Unknown error"}`)
       console.error("Error:", error);
       toast.error(`Error: ${error.message || "Unknown error"}`);
     }
@@ -173,3 +184,6 @@ Signup.propTypes = {
 };
 
 export default Signup;
+
+ 
+
