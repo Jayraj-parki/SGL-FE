@@ -10,17 +10,17 @@ const Adminhome = () => {
     <div style={{textAlign:"center",height:"100vh"}}>
         <h1>Admin Dashboard</h1>
         <div className='cont1' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-            <div className='but' onClick={()=>navigate("/admin/inventoryitem")} style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+            <div className='but' onClick={()=>navigate("/admin/inventoryitem")} style={{display:'flex',justifyContent:"center",borderStyle:"solid",alignItems:"center",padding:"2px",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                 <div>
-                    <FaShoppingCart style={{height:"60px",width:"60px"}} />
+                    <FaShoppingCart style={{height:"40px",width:"40px"}} />
                 </div>
                 <div>
                     <h1 className='fontco'>Inventory</h1>
                 </div>
             </div>
-            <div onClick={()=>navigate("/admin/orders")} style={{display:'flex',backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"10px"}} className='but'>
+            <div onClick={()=>navigate("/admin/orders")} style={{display:'flex',justifyContent:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"2px"}} className='but'>
                 <div>
-                    <FaBox style={{height:"60px",width:"60px"}} />
+                    <FaBox style={{height:"40px",width:"40px"}} />
                 </div>
                 <div>
                     <h1 className='fontco'>Orders</h1>
@@ -60,17 +60,17 @@ const Adminhome = () => {
             </div> */}
         </div>
         <div style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-            <div onClick={()=>navigate("/admin/blogs")} style={{display:'flex',backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"10px"}} className='but'>
+            <div onClick={()=>navigate("/admin/blogs")} style={{display:'flex',justifyContent:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"2px"}} className='but'>
                 <div>
-                    <FaList style={{height:"60px",width:"60px"}} />
+                    <FaList style={{height:"40px",width:"40px"}} />
                 </div>
                 <div>
                     <h1 className='fontco'>Blogs</h1>
                 </div>
             </div>
-            <div onClick={()=>navigate("/admin/queries")} style={{display:'flex',backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"10px"}} className='but'>
+            <div onClick={()=>navigate("/admin/queries")} style={{display:'flex',justifyContent:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none",alignItems:"center",padding:"2px"}} className='but'>
                 <div>
-                    <FaComments style={{height:"60px",width:"60px"}} />
+                    <FaComments style={{height:"40px",width:"40px"}} />
                 </div>
                 <div>
                     <h1 className='fontco'>Queries</h1>
