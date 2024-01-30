@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import Signup from "./Signup"; // Assuming you have a Signup component
 import ForgotPassword from "./Forgotpassword";
 import "./Login.css";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -108,8 +111,8 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="container mt-5">
-      <div className="card mx-auto" style={{ maxWidth: "1200px" }}>
-        <div className="card-body">
+      <div className="card mx-auto" style={{ maxWidth: "1200px",margin:"20%" }}>
+        <div className="card-body" >
           <div className="text-center mb-3">
             {userData?.profileImage ? (
               <Avatar
@@ -122,7 +125,7 @@ const Login = ({ onLogin }) => {
               <FaUser size={100} style={{ color: "orange" }} />
             )}
           </div>
-          <h2 className="card-title text-center mb-4">
+          <h2 className="card-title text-center mb-3">
             {userData ? `Welcome, ${userData.username}!` : "Login or Sign Up"}
           </h2>
 
@@ -135,10 +138,11 @@ const Login = ({ onLogin }) => {
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label htmlFor="email" className="form-label">
+                {/* <label htmlFor="email" className="form-label">
                   Email
-                </label>
-                <input
+                </label> */}
+                <TextField id="standard-basic" value={formData.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
+                {/* <input
                   type="email"
                   id="email"
                   className="form-control"
@@ -147,13 +151,15 @@ const Login = ({ onLogin }) => {
                   onChange={handleChange}
                   placeholder="Enter your email"
                   required
-                />
+                /> */}
               </div>
+              
               <div className="mb-3">
-                <label htmlFor="password" className="form-label">
-                  Password
-                </label>
-                <input
+              <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="password" value={formData.password} onChange={handleChange} label="Password" variant="standard" />
+                {/* <label htmlFor="password" className="form-label"> */}
+                  {/* Password */}
+                {/* </label> */}
+                {/* <input
                   type="password"
                   id="password"
                   className="form-control"
@@ -162,7 +168,7 @@ const Login = ({ onLogin }) => {
                   onChange={handleChange}
                   placeholder="Enter your password"
                   required
-                />
+                /> */}
               </div>
               <button type="submit" className="btn btn-primary btn-block">
                 {showSignup ? "Sign Up" : "Login"}

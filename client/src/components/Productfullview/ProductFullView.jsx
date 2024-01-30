@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import "./ProductFullView.css";
 import zodiacStonesData from "./zodiacStonesData";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 
 const ProductFullView = ({ selectedItem }) => {
   const navigate = useNavigate();
@@ -102,20 +103,180 @@ const ProductFullView = ({ selectedItem }) => {
     setSelectedImage(imageUrl);
   };
 
-  const handleAddToCart = () => {
+  // const handleAddToCart = () => {
+  //   const userData = sessionStorage.getItem('userData');
+  
+  //   if (!userData) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Unable to add item to cart. Please login first ",
+  //     });
+      
+  //     // Redirect to the login page
+  //     window.location.href = '/login';
+  //     return;
+  //   } else if (!selectedItem) {
+  //     // Display an error message if there is no selected item
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Unable to add item to cart. Please select a valid item.",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //     });
+  //     return;
+  //   }
+  
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Added to Cart!",
+  //     text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
+  //     showConfirmButton: false,
+  //     timer: 2000,
+  //   });
+  
+  //   // Open the cart sidebar
+  //   setCartOpen(true);
+  // };
+  // const handleAddToCart = async () => {
+  //   const userData = sessionStorage.getItem('userData');
+  
+  //   if (!userData) {
+  //     // Redirect to the login page and wait for the user to log in
+  //     await Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Unable to add item to cart. Please login first ",
+  //     });
+  
+  //     // Redirect to the login page
+  //     window.location.href = '/login';
+  //     return;
+  //   }
+  
+  //   // User is logged in, proceed with adding item to the cart
+  //   try {
+  //     console.log("jla",selectedItem,selectedItem._id)
+  //     const response = await axios.post(`https://sgl-be.onrender.com/addToCart/${selectedItem._id}`, {
+  //       items: [{
+  //         itemId: selectedItem._id,
+  //         quantity,
+  //         calculatedPrice,
+  //       }],
+  //     }, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // 'Authorization': `Bearer ${userData}`, // Include any necessary authentication headers
+  //       },
+  //     });
+  //     console.log(response)
+  
+  //     if (response.status === 200) {
+  //       console.log("response ok")
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "Added to Cart!",
+  //         text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
+  //         showConfirmButton: false,
+  //         timer: 2000,
+  //       });
+  
+  //       // Open the cart sidebar
+  //       setCartOpen(true);
+  //     } else {
+  //       // Handle unsuccessful API response
+  //       console.error("Error adding item to cart. API response:", response);
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Error",
+  //         text: "Failed to add item to cart. Please try again later.",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding item to cart:", error);
+  //     // Handle error scenario
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "An unexpected error occurred. Please try again later.",
+  //     });
+  //   }
+  // };
+
+  // const handleAddToCart = async () => {
+  //   const userData = sessionStorage.getItem('userData');
+  
+  //   if (!userData) {
+  //     // Redirect to the login page and wait for the user to log in
+  //     await Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Unable to add item to cart. Please login first ",
+  //     });
+  
+  //     // Redirect to the login page
+  //     window.location.href = '/login';
+  //     return;
+  //   }
+  
+  //   if (!selectedItem) {
+  //     // Display an error message if there is no selected item
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "Unable to add item to cart. Please select a valid item.",
+  //       showConfirmButton: false,
+  //       timer: 3000,
+  //     });
+  //     return;
+  //   }
+  
+  //   // User is logged in and selectedItem is defined, proceed with adding item to the cart
+  //   try {
+  //     console.log("jla", selectedItem, selectedItem._id);
+  //     const response = await axios.post(`https://sgl-be.onrender.com/addToCart/${selectedItem._id}`, {
+  //       items: [{
+  //         selectedItem,
+  //         quantity,
+  //         calculatedPrice,
+  //       }],
+  //     }, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         // 'Authorization': `Bearer ${userData}`, // Include any necessary authentication headers
+  //       },
+  //     });
+  //     console.log(response);
+  
+  //     // rest of the code...
+  //   } catch (error) {
+  //     console.error("Error adding item to cart:", error);
+  //     // Handle error scenario
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Error",
+  //       text: "An unexpected error occurred. Please try again later.",
+  //     });
+  //   }
+  // };
+  const handleAddToCart = async () => {
     const userData = sessionStorage.getItem('userData');
   
     if (!userData) {
-      Swal.fire({
+      // Redirect to the login page and wait for the user to log in
+      await Swal.fire({
         icon: "error",
         title: "Error",
         text: "Unable to add item to cart. Please login first ",
       });
-      
+  
       // Redirect to the login page
       window.location.href = '/login';
       return;
-    } else if (!selectedItem) {
+    }
+  
+    if (!selectedItem) {
       // Display an error message if there is no selected item
       Swal.fire({
         icon: "error",
@@ -127,16 +288,50 @@ const ProductFullView = ({ selectedItem }) => {
       return;
     }
   
-    Swal.fire({
-      icon: "success",
-      title: "Added to Cart!",
-      text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
-      showConfirmButton: false,
-      timer: 2000,
-    });
+    // User is logged in and selectedItem is defined, proceed with adding item to the cart
+    try {
+      const response = await axios.post(
+        `https://sgl-be.onrender.com/addToCart/${selectedItem._id}`,
+        {
+          selectedItem,
+          quantity,
+          calculatedPrice,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${userData}`, // Include any necessary authentication headers
+          },
+        }
+      );
   
-    // Open the cart sidebar
-    setCartOpen(true);
+      if (response.status === 200) {
+        Swal.fire({
+          icon: "success",
+          title: "Added to Cart!",
+          text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+  
+        // Open the cart sidebar
+        setCartOpen(true);
+      } else {
+        console.error("Error adding item to cart. API response:", response);
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Failed to add item to cart. Please try again later.",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An unexpected error occurred. Please try again later.",
+      });
+    }
   };
   
 
@@ -187,51 +382,51 @@ const ProductFullView = ({ selectedItem }) => {
                 <div>
                   <div className="product-detail">
                     <span className="detail-label">Name</span>
-                    <span className="detail-value" style={{paddingLeft:"25%"}}>: {selectedItem.name}</span>
+                    <span className="detail-value" style={{paddingLeft:"150px"}}>: {selectedItem.name}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Price</span>
-                    <span className="detail-value" style={{paddingLeft:"26%"}}>: ${calculatedPrice}</span>
+                    <span className="detail-value" style={{paddingLeft:"156.5px"}}>: ${calculatedPrice}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Dimestions</span>
-                    <span className="detail-value" style={{paddingLeft:"18.4%"}}>: {selectedItem.dimenensions}</span>
+                    <span className="detail-value" style={{paddingLeft:"115px"}}>: {selectedItem.dimenensions}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Weight</span>
-                    <span className="detail-value" style={{paddingLeft:"23.5%"}}>: {selectedItem.weight}</span>
+                    <span className="detail-value" style={{paddingLeft:"143px"}}>: {selectedItem.weight}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Colour</span>
-                    <span className="detail-value" style={{paddingLeft:"24%"}}>: {selectedItem.colour}</span>
+                    <span className="detail-value" style={{paddingLeft:"146px"}}>: {selectedItem.colour}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Subtype</span>
-                    <span className="detail-value" style={{paddingLeft:"22%"}}>: {selectedItem.subtype}</span>
+                    <span className="detail-value" style={{paddingLeft:"134px"}}>: {selectedItem.subtype}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Units</span>
-                    <span className="detail-value" style={{paddingLeft:"26%"}}>: {selectedItem.units}</span>
+                    <span className="detail-value" style={{paddingLeft:"155px"}}>: {selectedItem.units}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Value</span>
-                    <span className="detail-value" style={{paddingLeft:"25.5%"}}>: {selectedItem.value}</span>
+                    <span className="detail-value" style={{paddingLeft:"151px"}}>: {selectedItem.value}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Shape</span>
-                    <span className="detail-value" style={{paddingLeft:"24%"}}>: {selectedItem.shape}</span>
+                    <span className="detail-value" style={{paddingLeft:"144px"}}>: {selectedItem.shape}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Trnasperency</span>
-                    <span className="detail-value" style={{paddingLeft:"15%"}}>: {selectedItem.transparency}</span>
+                    <span className="detail-value" style={{paddingLeft:"92px"}}>: {selectedItem.transparency}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Hardness</span>
-                    <span className="detail-value" style={{paddingLeft:"20%"}}>: {selectedItem.hardness}</span>
+                    <span className="detail-value" style={{paddingLeft:"120px"}}>: {selectedItem.hardness}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Microscopic Examination</span>
-                    <span className="detail-value" style={{paddingLeft:"0.5%"}}>: {selectedItem.microscopicexamination}</span>
+                    <span className="detail-value" style={{paddingLeft:"12px"}}>: {selectedItem.microscopicexamination}</span>
                   </div>
                   {/* <div className="product-detail">
                     <span className="detail-label">Units:</span>
@@ -249,6 +444,7 @@ const ProductFullView = ({ selectedItem }) => {
                   <AddCart
                     onAddToCart={handleAddToCart}
                     onQuantityChange={handleQuantityChange}
+                    isCartOpen
                     buttonStyle={{
                       backgroundColor: "#FFA500",
                       color: "#FFFFFF",

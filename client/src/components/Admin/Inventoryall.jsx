@@ -119,9 +119,9 @@ const Inventory = () => {
         }}
       >
         <div className="row">
-          {/* <div className="col-md-4">
+          <div className="col-md-4">
             <AdminSideNav />
-          </div> */}
+          </div>
           <div
             className="col-md-8 order-md-2 ms-auto me-1"
             style={{

@@ -101,7 +101,8 @@ const CartSidebar = ({
     left: "0",
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(255, 165, 0, 0.7)", // Semi-translucent orange background
+    // backgroundColor: "rgba(255, 165, 0, 0.7)", // Semi-translucent orange background
+    backdropFilter: "blur(3px)",
     zIndex: "999", // Higher zIndex than the sidebar
     display: isOpen ? "block" : "none", // Show the overlay only when the sidebar is open
   };

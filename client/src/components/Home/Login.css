@@ -86,3 +86,10 @@ label {
 .visible {
   color: #00f; /* Change the color as needed */
 }
+
+
+.inp{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}

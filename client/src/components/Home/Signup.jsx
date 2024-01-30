@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import "./Signup.css";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
 
 const Signup = ({ onSignupSuccess }) => {
   const navigate = useNavigate();
@@ -86,11 +90,13 @@ const Signup = ({ onSignupSuccess }) => {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="mt-5">
       <h2 className="text-center mb-4">Signup</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">
+        <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="username" type="text" value={formData.username} onChange={handleChange} label="Username" variant="standard" />
+
+          {/* <label htmlFor="username" className="form-label">
             Username
           </label>
           <input
@@ -102,10 +108,12 @@ const Signup = ({ onSignupSuccess }) => {
             onChange={handleChange}
             placeholder="Enter your username"
             required
-          />
+          /> */}
         </div>
         <div className="mb-3">
-          <label htmlFor="whatsapp" className="form-label">
+        <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="whatsapp" type="text" value={formData.whatsapp} onChange={handleChange} label="Whatsapp" variant="standard" />
+
+          {/* <label htmlFor="whatsapp" className="form-label">
             Whatsapp
           </label>
           <input
@@ -117,10 +125,12 @@ const Signup = ({ onSignupSuccess }) => {
             onChange={handleChange}
             placeholder="Enter your Whatsapp number"
             required
-          />
+          /> */}
         </div>
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
+        <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="email" type="text" value={formData.email} onChange={handleChange} label="Email" variant="standard" />
+
+          {/* <label htmlFor="email" className="form-label">
             Email
           </label>
           <input
@@ -132,10 +142,12 @@ const Signup = ({ onSignupSuccess }) => {
             onChange={handleChange}
             placeholder="Enter your email"
             required
-          />
+          /> */}
         </div>
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">
+        <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="password" value={formData.password} onChange={handleChange} label="Password" variant="standard" />
+
+          {/* <label htmlFor="password" className="form-label">
             Password
           </label>
           <input
@@ -147,10 +159,24 @@ const Signup = ({ onSignupSuccess }) => {
             onChange={handleChange}
             placeholder="Enter your password"
             required
-          />
+          /> */}
         </div>
         <div className="mb-3">
-          <label htmlFor="profileImage" className="form-label">
+        <div className="input-group" style={{width:"250px"}}>
+            <label className="input-group-text" htmlFor="profileImage">
+              Profile Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="profileImage"
+              id="profileImage"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </div>
+          
+          {/* <label htmlFor="profileImage" className="form-label">
             Profile Image
           </label>
           <input
@@ -159,9 +185,23 @@ const Signup = ({ onSignupSuccess }) => {
             accept="image/*"
             className="form-control"
             name="profileImage"
+            style={{width:"250px"}}
             onChange={handleImageChange}
-          />
+          /> */}
         </div>
+        {/* <div className="input-group">
+            <label className="input-group-text" htmlFor="profileImage">
+              Profile Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              className="profileImage"
+              id="profileImage"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </div> */}
         {formData.imageUrl && (
           <div className="mb-3">
             <img

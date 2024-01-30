@@ -202,9 +202,9 @@ const Orders = () => {
 
       <div id="OrdersWindow" className="container mt-3">
         <div className="row">
-          <div className="col-lg-3 mb-0">
+          {/* <div className="col-lg-3 mb-0">
             <AdminSideNav />
-          </div>
+          </div> */}
           <div
             className="col-lg-9 shadow p-4 mb-5 bg-white rounded w-lg-100"
             style={{

@@ -113,9 +113,9 @@ const Blogs = () => {
       <div className="admin-content-grid">
         <div className="admin-content">
           <div className="blogs-layout">
-            <div className="admin-sidenav">
+            {/* <div className="admin-sidenav">
               <AdminSideNav />
-            </div>
+            </div> */}
 
             <div
               className="blog-container border-0 col-md-6 col-lg-8 col-xl-8 col-sm-6 ms-auto me-2"

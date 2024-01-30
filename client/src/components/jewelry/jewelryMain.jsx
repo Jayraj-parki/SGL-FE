@@ -196,8 +196,8 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"0px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingLeft:"20px",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
+          <div className="mm" >
+            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
               <label style={{paddingRight:"70px"}}>
                 <input

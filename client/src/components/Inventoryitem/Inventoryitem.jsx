@@ -11,7 +11,7 @@ const Adminhome = () => {
         <h1>Admin Dashboard</h1>
         <div>
             <div className='con' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-                <div className='buti' onClick={()=>navigate("/admin/gems")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/admingems")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon' >Gems</h3>
@@ -40,7 +40,7 @@ const Adminhome = () => {
                 
             </div>
             <div className='con' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
+                <div className='buti' onClick={()=>navigate("/admin/austrology")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     
                     <div>
                         <h3 className='fon'>Austrology <br/>Gems</h3>
@@ -57,114 +57,17 @@ const Adminhome = () => {
                         <h3 className='fon'>Corals</h3>
                     </div>
                 </div>
-                <div className='buti' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
-                    {/* <div> */}
-                        {/* <FaShoppingCart style={{height:"30px",width:"30px"}} /> */}
-                    {/* </div> */}
+                <div className='buti' onClick={()=>navigate("/admin/gemsjewelry")} style={{display:'flex',justifyContent:"center",height:"100px",borderStyle:"solid",alignItems:"center",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                     <div>
                         <h3 className='fon'>Gems<br/>Jewelry</h3>
                     </div>
                 </div>
-                {/* <div className='but' onClick={()=>navigate("/inventoryitem")} style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}}>
-                    <div>
-                        <FaShoppingCart style={{height:"30px",width:"30px"}} />
-                    </div>
-                    <div>
-                        <h5>Inventory</h5>
-                    </div>
-                </div>
-                <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                    <div>
-                        <FaBox style={{height:"30px",width:"30px"}} />
-                    </div>
-                    <div>
-                        <h5>Orders</h5>
-                    </div>
-                </div>
-                <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                    <div>
-                        <FaBox style={{height:"30px",width:"30px"}} />
-                    </div>
-                    <div>
-                        <h5>Orders</h5>
-                    </div>
-                </div>
-                <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                    <div>
-                        <FaBox style={{height:"30px",width:"30px"}} />
-                    </div>
-                    <div>
-                        <h5>Orders</h5>
-                    </div>
-                </div> */}
-                {/* <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                    <div>
-                        <FaList style={{height:"60px",width:"60px"}} />
-                    </div>
-                    <div>
-                        <h1>Blogs</h1>
-                    </div>
-                </div>
-                <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                    <div>
-                        <FaList style={{height:"60px",width:"60px"}} />
-                    </div>
-                    <div>
-                        <h1>Blogs</h1>
-                    </div>
-                </div> */}
-                {/* <div style={{display:'flex',borderStyle:"solid",alignItems:"center"}}>
-                    <div>
-                        <FaShoppingCart style={{height:"100px",width:"100px"}} />
-                    </div>
-                    <div>
-                        <h1>Inventory</h1>
-                    </div>
-                </div>
-                <div style={{display:'flex',borderStyle:"solid",alignItems:"center"}}>
-                    <div>
-                        <FaShoppingCart style={{height:"100px",width:"100px"}} />
-                    </div>
-                    <div>
-                        <h1>Inventory</h1>
-                    </div>
-                </div> */}
+                
+                
+                
             </div>
         </div>
-        {/* <div style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaList style={{height:"30px",width:"30px"}} />
-                </div>
-                <div>
-                    <h1>Blogs</h1>
-                </div>
-            </div>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaComments style={{height:"30px",width:"30px"}} />
-                </div>
-                <div>
-                    <h1>Inventory</h1>
-                </div>
-            </div>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaComments style={{height:"30px",width:"30px"}} />
-                </div>
-                <div>
-                    <h3>Inventory</h3>
-                </div>
-            </div>
-            <div style={{display:'flex',borderStyle:"solid",alignItems:"center",padding:"10px"}} className='but'>
-                <div>
-                    <FaComments style={{height:"30px",width:"30px"}} />
-                </div>
-                <div>
-                    <h1>Inventory</h1>
-                </div>
-            </div>
-        </div> */}
+        
     </div>
   )
 }
