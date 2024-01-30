@@ -8,7 +8,7 @@ const Pearls = () => {
   const navigate =useNavigate()
   const [data, setData] = useState({
     name: "",
-    subtype: "Precious",
+    subtype: "SouthSea",
     price: "",
     weight: "",
     units: "Carat",
@@ -73,7 +73,7 @@ const Pearls = () => {
         alert("Successfully added the data");
         setData({
           name: "",
-          subtype: "Precious",
+          subtype: "SouthSea",
           price: "",
           weight: "",
           units: "Carat",
@@ -177,8 +177,10 @@ const Pearls = () => {
             value={data.subtype}
             onChange={handleChange}
           >
-            <option value="Precious">Precious</option>
-            <option value="Semi-Precious">Semi-Precious</option>
+            <option value="SouthSea">SouthSea</option>
+            <option value="KcPerals">KcPerals</option>
+            <option value="Freshwater">Freshwater</option>
+            <option value="Cultured">Cultured</option>
           </select>
           <label htmlFor="weight" className="form-label  mt-4"> Weight</label>
 

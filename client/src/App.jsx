@@ -22,6 +22,7 @@ import Login from "./components/Home/Login";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
+import Wishlist from "./components/Wishlist/Wishlist.jsx"
 
 
 
@@ -181,7 +182,14 @@ const App = () => {
             </Layout>
           }
         />
-       
+       <Route
+          path="/wishlist"
+          element={
+            <Layout>
+              <Wishlist />
+            </Layout>
+          }
+        />
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
         <Route path="/adminlogin" element={<AdminLoginForm />} />

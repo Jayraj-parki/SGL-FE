@@ -9,7 +9,7 @@ const Corals = () => {
   const navigate =useNavigate()
   const [data, setData] = useState({
     name: "",
-    subtype: "Precious",
+    // subtype: "Precious",
     price: "",
     weight: "",
     units: "Carat",
@@ -46,7 +46,7 @@ const Corals = () => {
 
     try {
       const formData = new FormData();
-      formData.append("subtype", data.subtype);
+      // formData.append("subtype", data.subtype);
       formData.append("name", data.name);
       formData.append("weight", data.weight);
       formData.append("units", data.units);
@@ -74,7 +74,7 @@ const Corals = () => {
         alert("Successfully added the data");
         setData({
           name: "",
-          subtype: "Precious",
+          // subtype: "Precious",
           price: "",
           weight: "",
           units: "Carat",
@@ -118,7 +118,7 @@ const Corals = () => {
     return inventoryData.map((item, index) => (
       <tr key={index}>
         <td>{item.name}</td>
-        <td>{item.subtype}</td>
+        {/* <td>{item.subtype}</td> */}
         <td>{item.weight}</td>
         <td>{item.shape}</td>
         <td>{item.price}</td>
@@ -170,9 +170,9 @@ const Corals = () => {
             className="input"
             placeholder="Name"
           />
-          <label htmlFor="subtype" className="form-label mb-0 mt-2"> Subtype</label>
+          {/* <label htmlFor="subtype" className="form-label mb-0 mt-2"> Subtype</label> */}
 
-          <select
+          {/* <select
             style={{ width: "100%", height: "45px", borderRadius: "5px" }}
             name="subtype"
             value={data.subtype}
@@ -180,7 +180,7 @@ const Corals = () => {
           >
             <option value="Precious">Precious</option>
             <option value="Semi-Precious">Semi-Precious</option>
-          </select>
+          </select> */}
           <label htmlFor="subtype" className="form-label mb-0 mt-2"> Weight</label>
 
           <input
@@ -320,7 +320,7 @@ const Corals = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Subtype</th>
+                {/* <th>Subtype</th> */}
                 <th>Weight</th>
                 <th>Shape</th>
                 <th>Price</th>

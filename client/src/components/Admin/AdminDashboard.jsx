@@ -12,6 +12,8 @@ import Jewellary from "./Jewellary";
 import Diamonds from "./Diamonds";
 import Adminhome from "../Adminhome/Adminhome";
 import Inventoryitem from "../Inventoryitem/Inventoryitem"
+import Austrology from "./Austrology"
+import Gemsjewelry from "./Gemsjewlry"
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -48,6 +50,8 @@ const AdminTemplate = () => {
           <Route path="/pearls" element={<Pearls />} />
           <Route path="/corals" element={<Corals />} />
           <Route path="/jewellary" element={<Jewellary />} />
+          <Route path="/austrology" element={<Austrology />} />
+          <Route path="/gemsjewelry" element={<Gemsjewelry />} />
           <Route path="/diamonds" element={<Diamonds />} />
         <Route path="/beadss" element={<Beads />} />
         <Route path="/adminhome" element={<Adminhome />} />

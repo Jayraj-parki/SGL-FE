@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CartButton.css";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
 
-const AddCart = ({ onAddToCart, onQuantityChange }) => {
+const AddCart = ({ onAddToCart, onQuantityChange,isCartOpen }) => {
+  console.log(isCartOpen)
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const storedUserData = sessionStorage.getItem("userData");
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
   const addToWishlist = () => {
     // Add your logic for adding to the wishlist here
     Swal.fire({
@@ -30,16 +38,40 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
     }
   };
 
-  const handleAddToCart = () => {
+  // const handleAddToCart = () => {
    
-    onAddToCart(cartQuantity);
-    Swal.fire({
-      icon: "success",
-      title: "Added to Cart!",
-      showConfirmButton: false,
-      timer: 1500,
-    });
+  //   onAddToCart(cartQuantity);
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Added to Cart!",
+  //     showConfirmButton: false,
+  //     timer: 1500,
+  //   });
+  // };
+
+  const handleAddToCart = () => {
+    // Check if user data is available in session storage
+    if (userData) {
+      onAddToCart(cartQuantity);
+      Swal.fire({
+        icon: "success",
+        title: "Added to Cart!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      // Handle the case where user is not found in session storage
+      Swal.fire({
+        icon: "error",
+        title: "Login First",
+        text: "Unable to add item to cart. Please login first ",
+      });
+
+      // Redirect to the login page
+      window.location.href = "/login";
+    }
   };
+
 
   const animateButton = () => {
    
@@ -62,7 +94,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
     marginRight: "0.5rem", // Adjust as needed
     cursor: "pointer", // Change cursor on hover
     fontSize: "1rem", // Font size for better readability
-    transition: "background-color 0.3s, transform 0.3s", // Add smooth transitions
+    // transition: "background-color 0.3s, transform 0.3s", // Add smooth transitions
     display: "inline-flex", // Ensures constant button size regardless of content
     alignItems: "center", // Center content vertically
   };
@@ -166,6 +198,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
 AddCart.propTypes = {
   onAddToCart: PropTypes.func.isRequired,
   onQuantityChange: PropTypes.func.isRequired,
+  isCartOpen:PropTypes.func.isRequired
 };
 
 export default AddCart;

@@ -180,3 +180,11 @@ h4{
   pointer-events: none;
   opacity: 0.5;
 }
+.mm{
+  margin-right: 5%;
+}
+@media screen and (max-width:400px) {
+  .mm{
+    margin-right: 0px;
+  }
+}

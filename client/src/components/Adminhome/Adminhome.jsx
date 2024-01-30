@@ -12,7 +12,7 @@ const Adminhome = () => {
         <div className='cont1' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
             <div className='but' onClick={()=>navigate("/admin/inventoryitem")} style={{display:'flex',justifyContent:"center",borderStyle:"solid",alignItems:"center",padding:"2px",backgroundColor:"#F4821F",borderRadius:"6px",border:"none"}}>
                 <div>
-                    <FaShoppingCart style={{height:"40px",width:"40px"}} />
+                    <FaShoppingCart style={{height:"40px",width:"40px",paddingLeft:"10px"}} />
                 </div>
                 <div>
                     <h1 className='fontco'>Inventory</h1>

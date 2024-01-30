@@ -20,7 +20,7 @@ const GemGrid = () => {
   useEffect(() => {
     const fetchBeads = async () => {
       try {
-        const response = await fetch("https://sgl-be.onrender.com/getjewelry");
+        const response = await fetch("https://sgl-be.onrender.com/getastrologygems");
         if (response.ok) {
           const data = await response.json();
           setBeads(data);
@@ -62,31 +62,31 @@ const GemGrid = () => {
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
 
   const filteredBeads = beads.filter(item => {
-    if (selectedOption === 'Ruby') {
-      return item.subtype === 'Ruby';
+    if (selectedOption === 'YellowSappire') {
+      return item.subtype === 'YellowSappire';
     } else if (selectedOption === 'BlueSapphire') {
       return item.subtype === 'BlueSapphire';
     }
-    else if (selectedOption === 'YellowSappire') {
-      return item.subtype === 'YellowSappire';
+    else if (selectedOption === 'Emerald') {
+      return item.subtype === 'Emerald';
     }
-    else if (selectedOption === 'Emrald') {
-      return item.subtype === 'Emrald';
+    else if (selectedOption === 'Ruby') {
+      return item.subtype === 'Ruby';
     }
-    else if (selectedOption === 'Hessonite') {
-      return item.subtype === 'Hessonite';
+    else if (selectedOption === 'Opal') {
+      return item.subtype === 'Opal';
+    }
+    else if (selectedOption === 'Pearl') {
+      return item.subtype === 'Pearl';
     }
     else if (selectedOption === 'RedCoral') {
       return item.subtype === 'RedCoral';
     }
-    else if (selectedOption === 'Mutyam') {
-      return item.subtype === 'Mutyam';
+    else if (selectedOption === 'Hessonite') {
+      return item.subtype === 'Hessonite';
     }
-    else if (selectedOption === 'SemiPreciousStones') {
-      return item.subtype === 'SemiPreciousStones';
-    }
-    else if (selectedOption === 'Mutyam') {
-      return item.subtype === 'Mutyam';
+    else if (selectedOption === 'Hessonite') {
+      return item.subtype === 'Hessonite';
     } else {
       return true; 
     }
@@ -104,18 +104,18 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"0px"}}>
+          <div className="mm">
             {/* <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingRight:"40px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
               <label style={{paddingRight:"70px"}}>
                 <input
                   type="radio"
-                  value="Ruby"
+                  value="YellowSappire"
                   style={{paddingLeft:"10px"}}
-                  checked={selectedOption === 'Ruby'}
+                  checked={selectedOption === 'YellowSappire'}
                   onChange={handleOptionChange}
                 />
-                Ruby
+                YellowSappire
               </label>
             </div>
             <div>
@@ -145,36 +145,36 @@ const GemGrid = () => {
               <label style={{paddingRight:"60px"}}>
                 <input
                   type="radio"
-                  value="Emrald"
-                  checked={selectedOption === 'Emrald'}
+                  value="Ruby"
+                  checked={selectedOption === 'Ruby'}
                   onChange={handleOptionChange}
                   style={{marginRight:"0px"}}
                 />
-                Emrald
+                Ruby
               </label>
             </div>
             <div>
               <label style={{paddingRight:"40px"}}>
                 <input
                   type="radio"
-                  value="Hessonite"
-                  checked={selectedOption === 'Hessonite'}
+                  value="Opal"
+                  checked={selectedOption === 'Opal'}
                   onChange={handleOptionChange}
                   style={{marginRight:"0px"}}
                 />
-                Hessonite
+                Opal
               </label>
             </div>
             <div>
               <label style={{paddingRight:"45px"}}>
                 <input
                   type="radio"
-                  value="RedCoral"
-                  checked={selectedOption === 'RedCoral'}
+                  value="Pearl"
+                  checked={selectedOption === 'Pearl'}
                   onChange={handleOptionChange}
                   style={{marginRight:"0px"}}
                 />
-                RedCoral
+                Pearl
               </label>
             </div>
             <div>
@@ -205,27 +205,27 @@ const GemGrid = () => {
               <label style={{paddingLeft:"7px"}}>
                 <input
                   type="radio"
-                  value="SemiPreciousStones"
-                  checked={selectedOption === 'SemiPreciousStones'}
+                  value="Hessonite"
+                  checked={selectedOption === 'Hessonite'}
                   onChange={handleOptionChange}
                   style={{marginRight:"7px"}}
                 />
-                SemiPreciousStones
+                Hessonite
               </label>
             </div>
             </div> */}
-            <div style={{ backgroundColor: "#FCE2CB", width: "100%", paddingRight: "10px",paddingLeft:"10px", paddingTop: "20px", paddingBottom: "20px" }}>
+            <div style={{ backgroundColor: "#FCE2CB", width: "90%",marginTop:"30px", paddingRight: "10px",paddingLeft:"10px", paddingTop: "20px", paddingBottom: "20px" }}>
   <ul style={{ listStyleType: "none", padding: 0 }}>
     <li>
-      <label style={{ paddingRight: "70px" }}>
+      <label style={{ paddingRight: "10px" }}>
         <input
           type="radio"
-          value="Ruby"
+          value="YellowSappire"
           style={{ paddingLeft: "10px",marginRight:"20px" }}
-          checked={selectedOption === 'Ruby'}
+          checked={selectedOption === 'YellowSappire'}
           onChange={handleOptionChange}
         />
-        Ruby
+        YellowSappire
       </label>
     </li>
     <li>
@@ -241,43 +241,55 @@ const GemGrid = () => {
       </label>
     </li>
     <li>
-      <label style={{ paddingRight: "10px" }}>
+      <label style={{ paddingRight: "48px" }}>
         <input
           type="radio"
-          value="YellowSappire"
+          value="Emerald"
           style={{ paddingLeft: "10px",marginRight:"20px" }}
-          checked={selectedOption === 'YellowSappire'}
+          checked={selectedOption === 'Emerald'}
           onChange={handleOptionChange}
         />
-        YellowSappire
+        Emerald
       </label>
     </li>
     <li>
-      <label style={{ paddingRight: "60px" }}>
+      <label style={{ paddingRight: "80px" }}>
         <input
           type="radio"
-          value="Emrald"
-          checked={selectedOption === 'Emrald'}
+          value="Ruby"
+          checked={selectedOption === 'Ruby'}
           onChange={handleOptionChange}
           style={{ marginRight: "20px" }}
         />
-        Emrald
+        Ruby
       </label>
     </li>
     <li>
-      <label style={{ paddingRight: "40px" }}>
+      <label style={{ paddingRight: "75px" }}>
         <input
           type="radio"
-          value="Hessonite"
-          checked={selectedOption === 'Hessonite'}
+          value="Opal"
+          checked={selectedOption === 'Opal'}
           onChange={handleOptionChange}
           style={{ marginRight: "20px" }}
         />
-        Hessonite
+        Opal
       </label>
     </li>
     <li>
-      <label style={{ paddingRight: "45px" }}>
+      <label style={{ paddingRight: "70px" }}>
+        <input
+          type="radio"
+          value="Pearl"
+          checked={selectedOption === 'Pearl'}
+          onChange={handleOptionChange}
+          style={{ marginRight: "20px" }}
+        />
+        Pearl
+      </label>
+    </li>
+    <li>
+      <label style={{ paddingRight: "55px" }}>
         <input
           type="radio"
           value="RedCoral"
@@ -292,44 +304,21 @@ const GemGrid = () => {
       <label style={{ paddingRight: "55px" }}>
         <input
           type="radio"
-          value="Mutyam"
-          checked={selectedOption === 'Mutyam'}
+          value="Hessonite"
+          checked={selectedOption === 'Hessonite'}
           onChange={handleOptionChange}
           style={{ marginRight: "20px" }}
         />
-        Mutyam
+        Hessonite
       </label>
     </li>
-    <li>
-      <label style={{ paddingRight: "55px" }}>
-        <input
-          type="radio"
-          value="Mutyam"
-          checked={selectedOption === 'Mutyam'}
-          onChange={handleOptionChange}
-          style={{ marginRight: "20px" }}
-        />
-        Mutyam
-      </label>
-    </li>
-    <li>
-      <label style={{ paddingRight: "10px" }}>
-        <input
-          type="radio"
-          value="YellowSappire"
-          style={{ paddingLeft: "0px",marginRight:"20px" }}
-          checked={selectedOption === 'YellowSappire'}
-          onChange={handleOptionChange}
-        />
-        Semiprecious
-      </label>
-    </li>
+    
     
     {/* <li>
       <label style={{ paddingLeft: "0px" }}>
         <input
           type="radio"
-          value="SemiPreciousStones"
+          value="Hessonite"
           checked={selectedOption === 'SemiPreciousStones'}
           onChange={handleOptionChange}
           style={{ marginLeft: "20px" }}

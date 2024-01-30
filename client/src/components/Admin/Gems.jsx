@@ -69,7 +69,7 @@ const Gems = () => {
       });
 
       if (response.ok) {
-        console.log("Form submitted successfully!");
+        console.log("Form submitted successfully!",response);
         // Clear the form after submission
         alert("Successfully added the data");
         setData({
@@ -108,11 +108,45 @@ const Gems = () => {
     }
   };
 
-  const handleDelete = (index) => {
-    const updatedInventory = [...inventoryData];
-    updatedInventory.splice(index, 1);
-    setInventoryData(updatedInventory);
+  // const handleDelete = (index) => {
+  //   const updatedInventory = [...inventoryData];
+  //   updatedInventory.splice(index, 1);
+  //   setInventoryData(updatedInventory);
+  // };
+
+  const handleDelete = async (index, gemId) => {
+    try {
+      const response = await fetch(`https://sgl-be.onrender.com/deletegems/${gemId}`, {
+        method: "DELETE",
+      });
+  
+      if (response.ok) {
+        // Remove the deleted item from the local state
+        const updatedInventory = [...inventoryData];
+        updatedInventory.splice(index, 1);
+        setInventoryData(updatedInventory);
+  
+        console.log("Gem deleted successfully!");
+        await Swal.fire({
+          icon: "success",
+          title: "Gem deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        console.error("Gem deletion failed. Status:", response.status);
+        throw new Error("Gem deletion failed");
+      }
+    } catch (error) {
+      console.error("An error occurred during gem deletion:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    }
   };
+  
 
   const renderTableRows = () => {
     return inventoryData.map((item, index) => (
@@ -145,7 +179,7 @@ const Gems = () => {
         <td>
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(index)}
+            onClick={() => handleDelete(index, item._id)}
           >
             Delete
           </button>

@@ -99,10 +99,10 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"0px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingLeft:"20px",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
+          <div className="" style={{marginRight:"5%"}}>
+            <div style={{backgroundColor:"#FCE2CB",width:"100%",paddingLeft:"0px",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
-              <label style={{paddingRight:"70px"}}>
+              <label style={{paddingRight:"67px"}}>
                 <input
                   type="radio"
                   value="Rings"
@@ -114,7 +114,7 @@ const GemGrid = () => {
               </label>
             </div>
             <div>
-              <label style={{paddingRight:"45px"}}>
+              <label style={{paddingRight:"40px"}}>
                 <input
                   type="radio"
                   value="Pendants"
@@ -125,7 +125,7 @@ const GemGrid = () => {
               </label>
             </div>
             <div >
-              <label style={{paddingRight:"55px"}}>
+              <label style={{paddingRight:"50px"}}>
                 <input
                   type="radio"
                   value="Nosepin"
@@ -137,7 +137,7 @@ const GemGrid = () => {
               </label>
             </div>
             <div>
-              <label style={{paddingRight:"60px"}}>
+              <label style={{paddingRight:"55px"}}>
                 <input
                   type="radio"
                   value="Earings"
@@ -149,7 +149,7 @@ const GemGrid = () => {
               </label>
             </div>
             <div>
-              <label style={{paddingRight:"80px"}}>
+              <label style={{paddingRight:"77px"}}>
                 <input
                   type="radio"
                   value="Gold"

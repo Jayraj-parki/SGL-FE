@@ -1,146 +1,331 @@
-import React from "react";
-import "./AddCart.css"; // Include your CSS file
+// import React from "react";
+// import "./AddCart.css"; // Include your CSS file
+// import Swal from "sweetalert2";
+
+// import cartData from "./Cart.json";
+
+// class ShoppingCart extends React.Component {
+//   state = {
+//     showPayment: false,
+//     cartItems: cartData,
+//   };
+
+//   handleProceedToCheckout = () => {
+//     const totalAmount = this.calculateTotal();
+//     this.setState({ showPayment: true });
+//     this.onPaymentSuccess(totalAmount);
+//   };
+
+//   async componentDidMount() {
+//     try {
+//       const response = await fetch("https://sgl-be.onrender.com/getdiamonds");
+//       const data = await response.json();
+
+//       // Assuming the API response is an array of items
+//       this.setState({ cartItems: data });
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//     }
+//   }
+
+//   onPaymentSuccess = (totalAmount) => {
+//     console.log("Payment successful! Total amount:", totalAmount);
+//   };
+
+//   addItem = (itemId) => {
+//     const updatedCart = this.state.cartItems.map((item) =>
+//       item.id === itemId
+//         ? { ...item, quantity: (item.quantity || 1) + 1 }
+//         : item
+//     );
+//     this.setState({ cartItems: updatedCart });
+//     this.showSuccessMessage("Item added to the cart!");
+//   };
+
+//   decreaseItem = (itemId) => {
+//     const updatedCart = this.state.cartItems.map((item) =>
+//       item.id === itemId
+//         ? { ...item, quantity: Math.max((item.quantity || 1) - 1, 1) }
+//         : item
+//     );
+//     this.setState({ cartItems: updatedCart });
+//     this.showSuccessMessage("Quantity decreased!");
+//   };
+
+//   deleteItem = (itemId) => {
+//     const updatedCart = this.state.cartItems.filter(
+//       (item) => item.id !== itemId
+//     );
+//     this.setState({ cartItems: updatedCart });
+//     this.showSuccessMessage("Item removed from the cart!");
+//   };
+
+//   showSuccessMessage = (message) => {
+//     Swal.fire({
+//       icon: "success",
+//       title: "Success!",
+//       text: message,
+//       timer: 1500,
+//       showConfirmButton: false,
+//     });
+//   };
+
+//   calculateTotal = () => {
+//     return this.state.cartItems
+//       .reduce((total, item) => total + item.price * (item.quantity || 1), 0)
+//       .toFixed(2);
+//   };
+
+//   totalItems = this.state.cartItems.reduce(
+//     (total, item) => total + (item.quantity || 1),
+//     0
+//   );
+
+//   render() {
+//     return (
+//       <div id="shoppingBag" className="container shopping-cart">
+//         <h2 className="mb-4 text-center">Shopping Cart</h2>
+
+//         <div className="cart-items-grid">
+//           {this.state.cartItems.map((item) => (
+//             <div className="cart-item" key={item.id}>
+//               <div className="cart-item-image">
+//                 <img src={item.image} alt={item.name} style={{height:"200px",width:"200px"}} />
+//               </div>
+//               <div className="cart-item-details">
+//                 <h5 className="cart-item-name">{item.name}</h5>
+//                 <p className="cart-item-category">Category: {item.category}</p>
+//                 <p className="cart-item-price">${item.price.toFixed(2)}</p>
+//                 <div className="cart-item-actions">
+//                   <button
+//                     onClick={() => this.addItem(item.id)}
+//                     className="btn btn-success"
+//                   >
+//                     +
+//                   </button>
+//                   <span className="quantity">{item.quantity || 1}</span>
+//                   <button
+//                     onClick={() => this.decreaseItem(item.id)}
+//                     className="btn btn-warning"
+//                   >
+//                     -
+//                   </button>
+//                   <button
+//                     onClick={() => this.deleteItem(item.id)}
+//                     className="btn btn-danger"
+//                   >
+//                     Remove
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+
+//         <div className="cart-summary bg-light p-3 rounded">
+//           <div className="order-summary">
+//             <h4 className="text-primary">Order Summary</h4>
+//             <p className="font-weight-bold">Total Items: {this.totalItems}</p>
+//             <p className="font-weight-bold">
+//               Total Cost: ${this.calculateTotal()}
+//             </p>
+//             <p>Shipping: Free</p>
+//             <p>Estimated Tax: ${(this.calculateTotal() * 0.1).toFixed(2)}</p>
+//           </div>
+
+//           <div className="invoice-block">
+//             <hr />
+//             <p className="font-weight-bold" style={{textAlign:"end",paddingRight:"35px"}}>
+//               Grand Total: $
+//               {(
+//                 parseFloat(this.calculateTotal()) +
+//                 parseFloat(this.calculateTotal()) * 0.1
+//               ).toFixed(2)}
+//             </p>
+//             <div style={{textAlign:"end"}}>
+//             <button
+//               className="btn btn-primary" style={{width:"200px",paddingBottom:"30px"}}
+//               onClick={() => this.handleProceedToCheckout()}
+//             >
+//               Proceed to Checkout
+//             </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default ShoppingCart;
+
+
+import React, { useEffect, useState } from "react";
+import "./AddCart.css";
 import Swal from "sweetalert2";
 
-import cartData from "./Cart.json";
+const ShoppingCart = () => {
+  const [showPayment, setShowPayment] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [grandTotal, setGrandTotal] = useState(0);
 
-class ShoppingCart extends React.Component {
-  state = {
-    showPayment: false,
-    cartItems: cartData,
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getdiamonds");
+        const data = await response.json();
+        const updatedData = data.map((item) => ({ ...item, quantity: 1 }));
+        setCartItems(updatedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Recalculate grandTotal whenever cartItems change
+    const totalCost = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
+    setGrandTotal(parseFloat(totalCost) + parseFloat(totalCost) * 0.1);
+  }, [cartItems]);
+
+  const updateQuantity = (index, newQuantity) => {
+    const updatedCart = [...cartItems];
+    updatedCart[index] = { ...updatedCart[index], quantity: newQuantity };
+    setCartItems(updatedCart);
   };
 
-  handleProceedToCheckout = () => {
-    const totalAmount = this.calculateTotal();
-    this.setState({ showPayment: true });
-    this.onPaymentSuccess(totalAmount);
+  const addItem = (index) => {
+    const item = cartItems[index];
+    if (item) {
+      const newQuantity = (item.quantity || 0) + 1;
+      updateQuantity(index, newQuantity);
+    }
   };
 
-  onPaymentSuccess = (totalAmount) => {
-    console.log("Payment successful! Total amount:", totalAmount);
+  const decreaseItem = (index) => {
+    const item = cartItems[index];
+    if (item) {
+      const newQuantity = Math.max((item.quantity || 1) - 1, 1);
+      updateQuantity(index, newQuantity);
+    }
   };
 
-  addItem = (itemId) => {
-    const updatedCart = this.state.cartItems.map((item) =>
-      item.id === itemId
-        ? { ...item, quantity: (item.quantity || 1) + 1 }
-        : item
-    );
-    this.setState({ cartItems: updatedCart });
-    this.showSuccessMessage("Item added to the cart!");
+  const deleteItem = (index) => {
+    const updatedCart = [...cartItems];
+    updatedCart.splice(index, 1);
+    setCartItems(updatedCart);
   };
 
-  decreaseItem = (itemId) => {
-    const updatedCart = this.state.cartItems.map((item) =>
-      item.id === itemId
-        ? { ...item, quantity: Math.max((item.quantity || 1) - 1, 1) }
-        : item
-    );
-    this.setState({ cartItems: updatedCart });
-    this.showSuccessMessage("Quantity decreased!");
+  const handleProceedToCheckout = () => {
+    const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    const totalCost = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
+    const shipping = 0; // Assuming shipping is free based on your code
+    const grandTotal = parseFloat(totalCost) + parseFloat(totalCost) * 0.1;
+
+    const orderDetails = {
+      totalItems,
+      totalCost,
+      shipping,
+      grandTotal,
+    };
+  
+    postUserOrder(orderDetails);
   };
 
-  deleteItem = (itemId) => {
-    const updatedCart = this.state.cartItems.filter(
-      (item) => item.id !== itemId
-    );
-    this.setState({ cartItems: updatedCart });
-    this.showSuccessMessage("Item removed from the cart!");
+  const postUserOrder = async (orderDetails) => {
+    try {
+      const response = await fetch("https://sgl-be.onrender.com/postuserorder", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderDetails),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Order placed successfully:", responseData);
+        alert("Order successfully")
+        // You can handle success, show a confirmation message, or navigate to a success page
+      } else {
+        console.error("Failed to place order. Server returned:", response.status, response.statusText);
+        // Handle the error, show an error message, or take appropriate action
+      }
+    } catch (error) {
+      console.error("Error posting user order:", error);
+      // Handle the error, show an error message, or take appropriate action
+    }
   };
 
-  showSuccessMessage = (message) => {
-    Swal.fire({
-      icon: "success",
-      title: "Success!",
-      text: message,
-      timer: 1500,
-      showConfirmButton: false,
-    });
+  const calculateTotal = () => {
+    return cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
   };
 
-  calculateTotal = () => {
-    return this.state.cartItems
-      .reduce((total, item) => total + item.price * (item.quantity || 1), 0)
-      .toFixed(2);
-  };
+  const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
 
-  totalItems = this.state.cartItems.reduce(
-    (total, item) => total + (item.quantity || 1),
-    0
-  );
+  return (
+    <div id="shoppingBag" className="container shopping-cart">
+      <h2 className="mb-4 text-center">Shopping Cart</h2>
 
-  render() {
-    return (
-      <div id="shoppingBag" className="container shopping-cart">
-        <h2 className="mb-4 text-center">Shopping Cart</h2>
-
-        <div className="cart-items-grid">
-          {this.state.cartItems.map((item) => (
-            <div className="cart-item" key={item.id}>
-              <div className="cart-item-image">
-                <img src={item.image} alt={item.name} />
-              </div>
-              <div className="cart-item-details">
-                <h5 className="cart-item-name">{item.name}</h5>
-                <p className="cart-item-category">Category: {item.category}</p>
-                <p className="cart-item-price">${item.price.toFixed(2)}</p>
-                <div className="cart-item-actions">
-                  <button
-                    onClick={() => this.addItem(item.id)}
-                    className="btn btn-success"
-                  >
-                    +
-                  </button>
-                  <span className="quantity">{item.quantity || 1}</span>
-                  <button
-                    onClick={() => this.decreaseItem(item.id)}
-                    className="btn btn-warning"
-                  >
-                    -
-                  </button>
-                  <button
-                    onClick={() => this.deleteItem(item.id)}
-                    className="btn btn-danger"
-                  >
-                    Remove
-                  </button>
-                </div>
+      <div className="cart-items-grid">
+        {cartItems.map((item, index) => (
+          <div className="cart-item" key={item.id}>
+            <div className="cart-item-image">
+              <img
+                src={`data:image/png;base64,${item.image}`}
+                alt={item.name}
+                style={{ height: "200px", width: "200px" }}
+              />
+            </div>
+            <div className="cart-item-details">
+              <h5 className="cart-item-name">{item.name}</h5>
+              <p className="cart-item-category">Category: {item.subtype}</p>
+              <p className="cart-item-price">${item.price.toFixed(2)}</p>
+              <div className="cart-item-actions">
+                <button onClick={() => addItem(index)} className="btn btn-success">
+                  +
+                </button>
+                <span className="quantity">{item.quantity || 1}</span>
+                <button onClick={() => decreaseItem(index)} className="btn btn-warning">
+                  -
+                </button>
+                <button onClick={() => deleteItem(index)} className="btn btn-danger">
+                  Remove
+                </button>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
+      <div className="cart-summary bg-light p-3 rounded">
+        <div className="order-summary">
+          <h4 className="text-primary">Order Summary</h4>
+          <p className="font-weight-bold">Total Items: {totalItems}</p>
+          <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>
+          <p>Shipping: Free</p>
+          <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p>
         </div>
 
-        <div className="cart-summary bg-light p-3 rounded">
-          <div className="order-summary">
-            <h4 className="text-primary">Order Summary</h4>
-            <p className="font-weight-bold">Total Items: {this.totalItems}</p>
-            <p className="font-weight-bold">
-              Total Cost: ${this.calculateTotal()}
-            </p>
-            <p>Shipping: Free</p>
-            <p>Estimated Tax: ${(this.calculateTotal() * 0.1).toFixed(2)}</p>
-          </div>
-
-          <div className="invoice-block">
-            <hr />
-            <p className="font-weight-bold">
-              Grand Total: $
-              {(
-                parseFloat(this.calculateTotal()) +
-                parseFloat(this.calculateTotal()) * 0.1
-              ).toFixed(2)}
-            </p>
+        <div className="invoice-block">
+          <hr />
+          <p className="font-weight-bold" style={{ textAlign: "end", paddingRight: "35px" }}>
+            Grand Total: ${grandTotal.toFixed(2)}
+          </p>
+          <div style={{ textAlign: "end" }}>
             <button
-              className="btn btn-primary btn-block mt-3"
-              onClick={() => this.handleProceedToCheckout()}
+              className="btn btn-primary"
+              style={{ width: "200px", paddingBottom: "30px" }}
+              onClick={() => handleProceedToCheckout()}
             >
               Proceed to Checkout
             </button>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default ShoppingCart;
