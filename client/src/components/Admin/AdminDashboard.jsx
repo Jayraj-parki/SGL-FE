@@ -14,6 +14,7 @@ import Adminhome from "../Adminhome/Adminhome";
 import Inventoryitem from "../Inventoryitem/Inventoryitem"
 import Austrology from "./Austrology"
 import Gemsjewelry from "./Gemsjewlry"
+import Quires from "./Queries.jsx"
 
 const AdminTemplate = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const AdminTemplate = () => {
             )
           }
         >
-          
+          <Route path="*" element={<Quires/>}/>
           <Route path="/inventory" element={<Inventory />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/orders" element={<Orders />} />

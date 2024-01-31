@@ -411,7 +411,7 @@ const Wishlist = () => {
               <button style={{backgroundColor:"red",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => deleteItem(index)} className="btn btn-danger">
                 Remove
               </button>
-              <button style={{marginBottom:"10px",backgroundColor:"green",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => deleteItem(index)} className="btn btn-danger">
+              <button style={{backgroundColor:"green",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => deleteItem(index)} className="btn btn-danger">
                 Add to Cart
               </button>
               </div>

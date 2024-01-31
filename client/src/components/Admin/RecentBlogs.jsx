@@ -14,7 +14,7 @@ const RecentBlogs = ({ blogs, title, subtitle, content, file }) => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await fetch("http://localhost:4000/getblogs");
+      const response = await fetch("https://sgl-be.onrender.com/getblogs");
       if (response.ok) {
         const data = await response.json();
         setAllBlogs(data);
@@ -41,7 +41,7 @@ const RecentBlogs = ({ blogs, title, subtitle, content, file }) => {
     if (result.isConfirmed) {
       try {
         const response = await fetch(
-          `http://localhost:4000/deleteblogs/${blogId}`,
+          `https://sgl-be.onrender.com/deleteblogs/${blogId}`,
           {
             method: "DELETE",
           }

@@ -20,7 +20,7 @@ const GemGrid = () => {
   useEffect(() => {
     const fetchBeads = async () => {
       try {
-        const response = await fetch("https://sgl-be.onrender.com/getjewelry");
+        const response = await fetch("https://sgl-be.onrender.com/getgemjewellary");
         if (response.ok) {
           const data = await response.json();
           setBeads(data);

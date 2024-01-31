@@ -291,7 +291,7 @@ const ProductFullView = ({ selectedItem }) => {
     // User is logged in and selectedItem is defined, proceed with adding item to the cart
     try {
       const response = await axios.post(
-        `https://sgl-be.onrender.com/addToCart/${selectedItem._id}`,
+        `https://sgl-be.onrender.com/addToCart/`,
         {
           selectedItem,
           quantity,
@@ -382,39 +382,39 @@ const ProductFullView = ({ selectedItem }) => {
                 <div>
                   <div className="product-detail">
                     <span className="detail-label">Name</span>
-                    <span className="detail-value" style={{paddingLeft:"150px"}}>: {selectedItem.name}</span>
+                    <span className="detail-value" style={{paddingLeft:"146.5px"}}>: {selectedItem.name}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Price</span>
-                    <span className="detail-value" style={{paddingLeft:"156.5px"}}>: ${calculatedPrice}</span>
+                    <span className="detail-value" style={{paddingLeft:"153px"}}>: ${calculatedPrice}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Dimestions</span>
-                    <span className="detail-value" style={{paddingLeft:"115px"}}>: {selectedItem.dimenensions}</span>
+                    <span className="detail-value" style={{paddingLeft:"110px"}}>: {selectedItem.dimenensions}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Weight</span>
-                    <span className="detail-value" style={{paddingLeft:"143px"}}>: {selectedItem.weight}</span>
+                    <span className="detail-value" style={{paddingLeft:"140px"}}>: {selectedItem.weight}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Colour</span>
-                    <span className="detail-value" style={{paddingLeft:"146px"}}>: {selectedItem.colour}</span>
+                    <span className="detail-value" style={{paddingLeft:"142px"}}>: {selectedItem.colour}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Subtype</span>
-                    <span className="detail-value" style={{paddingLeft:"134px"}}>: {selectedItem.subtype}</span>
+                    <span className="detail-value" style={{paddingLeft:"130.5px"}}>: {selectedItem.subtype}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Units</span>
-                    <span className="detail-value" style={{paddingLeft:"155px"}}>: {selectedItem.units}</span>
+                    <span className="detail-value" style={{paddingLeft:"153px"}}>: {selectedItem.units}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Value</span>
-                    <span className="detail-value" style={{paddingLeft:"151px"}}>: {selectedItem.value}</span>
+                    <span className="detail-value" style={{paddingLeft:"149.5px"}}>: {selectedItem.value}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Shape</span>
-                    <span className="detail-value" style={{paddingLeft:"144px"}}>: {selectedItem.shape}</span>
+                    <span className="detail-value" style={{paddingLeft:"143px"}}>: {selectedItem.shape}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Trnasperency</span>
@@ -422,7 +422,7 @@ const ProductFullView = ({ selectedItem }) => {
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Hardness</span>
-                    <span className="detail-value" style={{paddingLeft:"120px"}}>: {selectedItem.hardness}</span>
+                    <span className="detail-value" style={{paddingLeft:"121px"}}>: {selectedItem.hardness}</span>
                   </div>
                   <div className="product-detail">
                     <span className="detail-label">Microscopic Examination</span>
@@ -466,7 +466,7 @@ const ProductFullView = ({ selectedItem }) => {
           )}
         </Col>
       </Row>
-      {isCartOpen && (
+      {/* {isCartOpen && (
         <CartSidebar
           isOpen={isCartOpen}
           onClose={() => setCartOpen(false)}
@@ -474,7 +474,7 @@ const ProductFullView = ({ selectedItem }) => {
           quantity={quantity}
           itemData={selectedItem}
         />
-      )}
+      )} */}
     </div>
   );
 };

@@ -59,7 +59,7 @@ const AdminLoginForm = () => {
                 required
                 style={{ marginRight: "1px", marginLeft: "2px" }}
               />
-              <button
+              {/* <button
                 className="toggle-password-icon bg-white"
                 onClick={togglePasswordVisibility}
                 style={{
@@ -81,7 +81,7 @@ const AdminLoginForm = () => {
                 ) : (
                   <FaEye style={{ fontSize: "0.8em" }} />
                 )}
-              </button>
+              </button> */}
             </label>
             <button
               type="submit"

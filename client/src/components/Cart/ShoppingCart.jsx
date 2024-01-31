@@ -219,16 +219,28 @@ const ShoppingCart = () => {
   };
 
   const handleProceedToCheckout = () => {
+    const userdata = JSON.parse(sessionStorage.getItem("userData"));
+    const username=userdata.username
+    // console.log(username,"usernamnlnnj")
+    const address="need to give"
+    // console.log(userdata.username,"username")
+    // console.log(userdata,"jnallj")
     const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
     const shipping = 0; // Assuming shipping is free based on your code
     const grandTotal = parseFloat(totalCost) + parseFloat(totalCost) * 0.1;
+    const date = new Date().toLocaleDateString();
+    const status="Initializing"
 
     const orderDetails = {
       totalItems,
       totalCost,
       shipping,
       grandTotal,
+      username,
+      date,
+      address,
+      status
     };
   
     postUserOrder(orderDetails);

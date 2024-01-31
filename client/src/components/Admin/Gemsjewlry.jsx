@@ -511,7 +511,7 @@ const Jewellary = () => {
             <center>
       <form className="form-123" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
         <div className="card-123" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
-        <h2 style={{borderBottom:"2px",borderStyle:"solid",borderColor:"gold",borderTop:"none",borderRight:"none",borderLeft:"none"}}>Jewelry Inventory</h2>
+        <h2 style={{borderBottom:"2px",borderStyle:"solid",borderColor:"gold",borderTop:"none",borderRight:"none",borderLeft:"none"}}>Gem Jewelry Inventory</h2>
         <label htmlFor="name" className="form-label mb-0"> Name</label>
           <input
             type="text"
