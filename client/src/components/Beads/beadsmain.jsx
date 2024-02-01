@@ -1,101 +1,7 @@
-// import React, { useEffect, useState } from "react";
-// import "../Perals/PearlsHome.css";
-// import { useNavigate } from "react-router-dom";
-// import CircularProgress from "@mui/material/CircularProgress";
-// import Beadssidebar from "../Filterssidebar/beadssidebar";
-
-// const Beadsmain = () => {
-//   const navigate = useNavigate();
-//   const [selectedItem, setSelectedItem] = useState(null);
-//   const [beads, setBeads] = useState([]);
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   useEffect(() => {
-//     const fetchBeads = async () => {
-//       try {
-//         const response = await fetch("https://sgl-be.onrender.com/getbeads");
-//         if (response.ok) {
-//           const data = await response.json();
-//           setBeads(data);
-//           setIsLoading(false);
-//         } else {
-//           const errorMessage = await response.text();
-//           console.error(
-//             `Failed to fetch beads. Server response: ${errorMessage}`
-//           );
-//           setIsLoading(false);
-//         }
-//       } catch (error) {
-//         console.error("Error fetching Pearls:", error.message);
-//         setIsLoading(false);
-//       }
-//     };
-
-//     fetchBeads();
-//   }, []);
-
-//   const handleViewDetails = (clickedItem) => {
-//     // Set the selected item in the component state
-//     setSelectedItem(clickedItem);
-
-//     // Store selected item data in session storage, including the image
-//     sessionStorage.setItem("selectedItem", JSON.stringify(clickedItem));
-
-//     // Redirect to the "/diamondscart" route
-//     navigate("/diamondscart");
-//   };
-
-//   return (
-//     <div className="pearlshome-container">
-//       {isLoading && (
-//         <div className="loading-container">
-//           <CircularProgress />
-//         </div>
-//       )}
-
-//       {!isLoading && (
-//         <div className="peralshome-main-con">
-//           <div className="perals-side-nav">
-//             <Beadssidebar />
-//           </div>
-//           <div className="perals-map-area">
-//             <div className="beadsmain-con">
-//               {beads.map((item, index) => (
-//                 <div key={index}>
-//                   <div
-//                     className={`beads-box ${
-//                       selectedItem === item ? "selected" : ""
-//                     }`}
-//                     onClick={() => handleViewDetails(item)}
-//                   >
-//                     <img
-//                       src={`data:image/png;base64,${item.image}`}
-//                       alt="jewelry"
-//                       width="50%"
-//                       height="50%"
-//                       className="beads-image"
-//                     />
-//                     <p className="pearlsname">{item.name}</p>
-//                     <h4 className="">{item.price}</h4>
-//                     <button className="buy-now-button">View Product</button>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Beadsmain;
-
-
 import React, { useEffect, useState } from "react";
-import "../Perals/PearlsHome.css";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -141,6 +47,19 @@ const GemGrid = () => {
     navigate("/diamondscart");
   };
 
+  const addToCart = async (item) => {
+    try {
+      // Assuming `item` has the correct structure with productId and quantity
+      await axios.post("http://localhost:4000/addToCart", { productId: item.productId, quantity: 1 });
+  
+      // Optionally, you can handle success or update the UI
+      console.log("Item added to cart successfully!");
+    } catch (error) {
+      console.error("Error adding to cart:", error.message);
+    }
+  };
+  
+
   const totalPages = Math.ceil(beads.length / ITEMS_PER_PAGE);
 
   const paginate = (pageNumber) => {
@@ -156,7 +75,7 @@ const GemGrid = () => {
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
 
   // Filter gemstones based on selected option
-  const filteredBeads = beads.filter(item => {
+  const filteredBeads = beads.filter((item) => {
     if (selectedOption === 'Precious') {
       return item.subtype === 'Precious';
     } else if (selectedOption === 'Semi-precious') {
@@ -178,58 +97,6 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="remaincont">
-          {/* <div className="" style={{padding:"60px"}}>
-            <div style={{backgroundColor:"#FCE2CB",width:"80%",paddingRight:"20px"}}>
-            <div >
-              <label style={{paddingRight:"30px"}}>
-                <input
-                  type="radio"
-                  value="Precious"
-                  style={{paddingLeft:"10px"}}
-                  checked={selectedOption === 'Precious'}
-                  onChange={handleOptionChange}
-                />
-                Precious
-              </label>
-            </div>
-            <div>
-              <label style={{paddingLeft:"9px"}}>
-                <input
-                  type="radio"
-                  value="Semi-precious"
-                  checked={selectedOption === 'Semi-precious'}
-                  onChange={handleOptionChange}
-                  style={{marginRight:"10px"}}
-                />
-                SemiPrecious
-              </label>
-            </div>
-            <div >
-              <label style={{paddingRight:"30px"}}>
-                <input
-                  type="radio"
-                  value="Precious"
-                  style={{paddingLeft:"10px"}}
-                  checked={selectedOption === 'Precious'}
-                  onChange={handleOptionChange}
-                />
-                Precious
-              </label>
-            </div>
-            <div>
-              <label style={{paddingLeft:"9px"}}>
-                <input
-                  type="radio"
-                  value="Semi-precious"
-                  checked={selectedOption === 'Semi-precious'}
-                  onChange={handleOptionChange}
-                  style={{marginRight:"10px"}}
-                />
-                SemiPrecious
-              </label>
-            </div>
-            </div>
-          </div> */}
           <div className="perals-map-area">
             <div className="gemsmain-con">
               {currentItems.map((item, index) => (
@@ -238,9 +105,9 @@ const GemGrid = () => {
                     className={`beads-box ${
                       selectedItem === item ? "selected" : ""
                     }`}
-                    onClick={() => handleViewDetails(item)}
                   >
                     <img
+                      onClick={() => handleViewDetails(item)}
                       src={`data:image/png;base64,${item.image}`}
                       alt="jewelry"
                       width="50%"
@@ -249,28 +116,34 @@ const GemGrid = () => {
                     />
                     <p className="pearlsname">{item.name}</p>
                     <h4 className="">{item.price}</h4>
-                    <button className="buy-now-button">View Product</button>
+                    <button
+                      onClick={() => handleViewDetails(item)}
+                      className="buy-now-button"
+                    >
+                      View Product
+                    </button>
+                    <button onClick={() => addToCart(item)}>Add to cart</button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{display:'flex',justifyContent:"end"}}>
-          {filteredBeads.length > ITEMS_PER_PAGE && (
-            <div className="pagination">
-              <span onClick={goToFirstPage}>First</span>
-              {[...Array(totalPages).keys()].map((pageNumber) => (
-                <span
-                  key={pageNumber + 1}
-                  onClick={() => paginate(pageNumber + 1)}
-                  className={pageNumber + 1 === currentPage ? "active" : ""}
-                >
-                  {pageNumber + 1}
-                </span>
-              ))}
-              <span onClick={goToLastPage}>Last</span>
-            </div>
-          )}
+          <div style={{ display: "flex", justifyContent: "end" }}>
+            {filteredBeads.length > ITEMS_PER_PAGE && (
+              <div className="pagination">
+                <span onClick={goToFirstPage}>First</span>
+                {[...Array(totalPages).keys()].map((pageNumber) => (
+                  <span
+                    key={pageNumber + 1}
+                    onClick={() => paginate(pageNumber + 1)}
+                    className={pageNumber + 1 === currentPage ? "active" : ""}
+                  >
+                    {pageNumber + 1}
+                  </span>
+                ))}
+                <span onClick={goToLastPage}>Last</span>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -279,4 +152,3 @@ const GemGrid = () => {
 };
 
 export default GemGrid;
-

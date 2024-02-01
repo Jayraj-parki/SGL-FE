@@ -5,9 +5,10 @@ import Avatar from "react-avatar";
 import { FaUser } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import Signup from "./Signup"; // Assuming you have a Signup component
+import Signup from "./Signup"; 
 import ForgotPassword from "./Forgotpassword";
 import "./Login.css";
+
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -25,10 +26,10 @@ const Login = ({ onLogin }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
   const handleSignupSuccess = (data) => {
-    // Handle the signup success data if needed
+    
     console.log("Signup Success Data:", data);
 
-    // Close the signup form
+    
     setShowSignup(false);
   };
   const handleSubmit = async (e) => {
@@ -60,15 +61,8 @@ const Login = ({ onLogin }) => {
       onLogin(responseData.user);
 
       
-      // toast.success("Login successful!", {
-      //   onClose: () => {
-          
-      //     setTimeout(() => {
-      //       navigate("/");
-      //     }, 3000);
-      //   },
-      // });
       alert("Login Successful")
+      navigate("/")
     } catch (error) {
       console.error("Error:", error);
       alert("error login",error)
@@ -105,6 +99,16 @@ const Login = ({ onLogin }) => {
     setShowForgotPassword(true);
     setShowSignup(false);
   };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('userData');
+    onLogout();
+    navigate("/")
+    alert("Logout successful");
+  };
+  
+
+  
 
   return (
     <div className="container mt-5">
@@ -197,6 +201,7 @@ const Login = ({ onLogin }) => {
           )}
         </div>
       </div>
+      <button onClick={handleLogout}>logout</button>
     </div>
   );
 };

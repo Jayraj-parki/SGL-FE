@@ -6,10 +6,8 @@ import CartSidebar from "../CartSideNav";
 import Swal from "sweetalert2";
 import "./ProductFullView.css";
 import zodiacStonesData from "./zodiacStonesData";
-import { useNavigate } from "react-router-dom";
 
 const ProductFullView = ({ selectedItem }) => {
-  const navigate = useNavigate();
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -18,71 +16,64 @@ const ProductFullView = ({ selectedItem }) => {
   const [showScrollAnimation, setShowScrollAnimation] = useState(true);
 
   const handleQuantityChange = (newQuantity) => {
-    setQuantity(newQuantity);
+    setQuantity((prevQuantity) => newQuantity);
     updateCalculatedPrice(newQuantity);
+  };
+
+  const updateCalculatedPrice = (newQuantity) => {
+    if (selectedItem) {
+      setCalculatedPrice((prevPrice) => {
+        const itemPrice = parseFloat(selectedItem.price);
+        let totalPrice;
+
+        if (newQuantity > 0) {
+          totalPrice = (newQuantity * itemPrice).toFixed(2);
+        } else if (newQuantity < 0) {
+          totalPrice = (itemPrice / Math.abs(newQuantity)).toFixed(2);
+        } else {
+          totalPrice = 0;
+        }
+
+        return totalPrice;
+      });
+    }
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
 
-      // Check if the scroll position is greater than a certain threshold
       const shouldShowScrollAnimation = scrollPosition < 100;
 
-      // Update the state to control the scroll animation
       setShowScrollAnimation(shouldShowScrollAnimation);
     };
 
-    // Attach the scroll event listener when the component mounts
     window.addEventListener("scroll", handleScroll);
 
-    // Detach the scroll event listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const updateCalculatedPrice = (newQuantity) => {
-    if (selectedItem) {
-      const itemPrice = parseFloat(selectedItem.price);
-
-      // Calculate total price based on quantity
-      let totalPrice;
-      if (newQuantity > 0) {
-        totalPrice = (newQuantity * itemPrice).toFixed(2);
-      } else if (newQuantity < 0) {
-        // Divide the price by the absolute quantity if it's less than 0
-        totalPrice = (itemPrice / Math.abs(newQuantity)).toFixed(2);
-      } else {
-        // Quantity is 0
-        totalPrice = 0;
-      }
-
-      setCalculatedPrice(totalPrice);
-    }
-  };
-
   useEffect(() => {
     if (selectedItem) {
-      console.log(selectedItem,"Selected Item")
       if (selectedItem.image) {
         setSelectedImage(selectedItem.image);
       } else {
-        // Find the zodiac stone in the imported data (case-insensitive)
         const stone = zodiacStonesData.find(
           (stone) =>
             stone.name.toLowerCase() === selectedItem.name.toLowerCase()
         );
 
         if (stone) {
-          setMatchingStone(stone); // Set matchingStone if found
+          setMatchingStone(stone);
           setSelectedImage(stone.image);
         } else {
-          // Display a warning message if the item is not a zodiac stone and has no image
           Swal.fire({
             icon: "warning",
             title: "No Image",
-            text: "The selected item is not a zodiac stone and has no image.",
+            text:
+              "The selected item is not a zodiac stone and has no image.",
             showConfirmButton: false,
             timer: 3000,
           });
@@ -102,41 +93,67 @@ const ProductFullView = ({ selectedItem }) => {
     setSelectedImage(imageUrl);
   };
 
-  const handleAddToCart = () => {
-    const userData = sessionStorage.getItem('userData');
+  const handleAddToCart = async () => {
+    try {
+      if (!selectedItem) {
+        console.error("Error: No selected item");
+        return;
+      }
   
-    if (!userData) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Unable to add item to cart. Please login first ",
+      const userId = sessionStorage.getItem("userData") ? JSON.parse(sessionStorage.getItem("userData"))._id : null;
+  
+      if (!userId) {
+        console.error("Error: No userId found in session storage");
+        return;
+      }
+  
+      console.log("Adding to cart:", selectedItem);
+  
+      const response = await fetch(`http://localhost:4000/addToCart/${selectedItem._id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          itemId: selectedItem._id,
+          quantity: quantity,
+        }),
       });
-      
-      // Redirect to the login page
-      window.location.href = '/login';
-      return;
-    } else if (!selectedItem) {
-      // Display an error message if there is no selected item
+  
+      console.log(response.status);  // Log the HTTP status code
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Unknown error");
+      }
+  
+      // Assuming that you receive some data from the server after adding to the cart
+      const responseData = await response.json();
+  
+      // Display a success message if the item is added to the cart
+      Swal.fire({
+        icon: "success",
+        title: "Added to Cart!",
+        text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+  
+      // Open the cart sidebar
+      setCartOpen(true);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+  
+      // Display an error message if there's an issue adding to the cart
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Unable to add item to cart. Please select a valid item.",
+        text: "Unable to add item to cart. Please try again.",
         showConfirmButton: false,
         timer: 3000,
       });
-      return;
     }
-  
-    Swal.fire({
-      icon: "success",
-      title: "Added to Cart!",
-      text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
-      showConfirmButton: false,
-      timer: 2000,
-    });
-  
-    // Open the cart sidebar
-    setCartOpen(true);
   };
   
 
@@ -233,10 +250,7 @@ const ProductFullView = ({ selectedItem }) => {
                     <span className="detail-label">Microscopic Examination</span>
                     <span className="detail-value" style={{paddingLeft:"0.5%"}}>: {selectedItem.microscopicexamination}</span>
                   </div>
-                  {/* <div className="product-detail">
-                    <span className="detail-label">Units:</span>
-                    <span className="detail-value">${selectedItem.units}</span>
-                  </div> */}
+                  
                 </div>
 
                 {/* Add your description here */}
