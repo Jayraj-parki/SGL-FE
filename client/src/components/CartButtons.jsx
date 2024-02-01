@@ -226,7 +226,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
   //       formData.append("units", selectedItem.units);
   //       formData.append("value", selectedItem.value);
   //       formData.append("shape", selectedItem.shape);
-  //       formData.append("dimensions", selectedItem.dimenensions);
+  //       formData.append("dimenensions", selectedItem.dimenensions);
   //       formData.append("transparency", selectedItem.transparency);
   //       formData.append("hardness", selectedItem.hardness);
   //       formData.append("microscopicexamination", selectedItem.microscopicexamination);
@@ -313,7 +313,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
   //       formData.append("units", selectedItem.units);
   //       formData.append("value", selectedItem.value);
   //       formData.append("shape", selectedItem.shape);
-  //       formData.append("dimensions", selectedItem.dimenensions); // Fix the spelling here
+  //       formData.append("dimenensions", selectedItem.dimenensions); // Fix the spelling here
   //       formData.append("transparency", selectedItem.transparency);
   //       formData.append("hardness", selectedItem.hardness);
   //       formData.append("microscopicexamination", selectedItem.microscopicexamination);
@@ -438,7 +438,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
 // formData.append("units", selectedItem.units);
 // formData.append("value", selectedItem.value);
 // formData.append("shape", selectedItem.shape);
-// formData.append("dimensions", selectedItem.dimenensions); // Check spelling
+// formData.append("dimenensions", selectedItem.dimenensions); // Check spelling
 // formData.append("transparency", selectedItem.transparency);
 // formData.append("hardness", selectedItem.hardness);
 // formData.append("microscopicexamination", selectedItem.microscopicexamination);

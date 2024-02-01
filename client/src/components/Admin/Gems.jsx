@@ -251,7 +251,7 @@ const Gems = () => {
   //       <td>{da.price}</td>
   //       <td>{da.colour}</td>
   //       <td>{da.value}</td>
-  //       <td>{da.dimensions}</td>
+  //       <td>{da.dimenensions}</td>
   //       <td>{da.transparency}</td>
   //       <td>{da.hardness}</td>
   //       <td>{da.microscopicexamination}</td>
@@ -369,7 +369,7 @@ const Gems = () => {
             className="input"
             placeholder="Value"
           />
-<label htmlFor="weight" className="form-label mb-0 mt-4"> Dimensions</label>
+<label htmlFor="weight" className="form-label mb-0 mt-4"> dimenensions</label>
 
           <input
             type="text"
@@ -453,7 +453,7 @@ const Gems = () => {
                 <th>Price</th>
                 <th>Colour</th>
                 <th>Value</th>
-                <th>Dimensions</th>
+                <th>dimenensions</th>
                 <th>Transparency</th>
                 <th>Hardness</th>
                 <th>Microscopic Examination</th>
@@ -479,7 +479,7 @@ const Gems = () => {
                 <th>Price</th>
                 <th>Colour</th>
                 <th>Value</th>
-                <th>Dimensions</th>
+                <th>dimenensions</th>
                 <th>Transparency</th>
                 <th>Hardness</th>
                 <th>Microscopic Examination</th>
@@ -774,7 +774,7 @@ export default Gems;
 //             className="input"
 //             placeholder="Value"
 //           />
-// <label htmlFor="weight" className="form-label mb-0 mt-4"> Dimensions</label>
+// <label htmlFor="weight" className="form-label mb-0 mt-4"> dimenensions</label>
 //           <input
 //             type="text"
 //             name="dimenensions"
@@ -855,7 +855,7 @@ export default Gems;
 //                 <th>Price</th>
 //                 <th>Colour</th>
 //                 <th>Value</th>
-//                 <th>Dimensions</th>
+//                 <th>dimenensions</th>
 //                 <th>Transparency</th>
 //                 <th>Hardness</th>
 //                 <th>Microscopic Examination</th>

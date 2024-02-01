@@ -246,7 +246,7 @@
 //             className="input"
 //             placeholder="Value"
 //           />
-//           <label htmlFor="subtype" className="form-label mb-0 mt-2"> Dimensions</label>
+//           <label htmlFor="subtype" className="form-label mb-0 mt-2"> dimenensions</label>
 
 //           <input
 //             type="text"
@@ -331,7 +331,7 @@
 //                 <th>Price</th>
 //                 <th>Colour</th>
 //                 <th>Value</th>
-//                 <th>Dimensions</th>
+//                 <th>dimenensions</th>
 //                 <th>Transparency</th>
 //                 <th>Hardness</th>
 //                 <th>Microscopic Examination</th>
@@ -646,7 +646,7 @@ const Jewellary = () => {
             className="input"
             placeholder="Value"
           />
-          <label htmlFor="subtype" className="form-label mb-0 mt-2"> Dimensions</label>
+          <label htmlFor="subtype" className="form-label mb-0 mt-2"> dimenensions</label>
 
           <input
             type="text"
@@ -731,7 +731,7 @@ const Jewellary = () => {
                 <th>Price</th>
                 <th>Colour</th>
                 <th>Value</th>
-                <th>Dimensions</th>
+                <th>dimenensions</th>
                 <th>Transparency</th>
                 <th>Hardness</th>
                 <th>Microscopic Examination</th>
