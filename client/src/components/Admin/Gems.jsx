@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./gems.css";
 import Swal from "sweetalert2";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -24,6 +24,23 @@ const Gems = () => {
   });
 
   const [inventoryData, setInventoryData] = useState([]);
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getgems");
+        if (response.ok) {
+          const inventory = await response.json();
+          setInventoryData(inventory);
+        } else {
+          console.error("Failed to fetch inventory. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("An error occurred during fetch:", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,10 +126,41 @@ const Gems = () => {
     }
   };
 
-  const handleDelete = (index) => {
-    const updatedInventory = [...inventoryData];
-    updatedInventory.splice(index, 1);
-    setInventoryData(updatedInventory);
+  // const handleDelete = (index) => {
+  //   const updatedInventory = [...inventoryData];
+  //   updatedInventory.splice(index, 1);
+  //   setInventoryData(updatedInventory);
+  // };
+
+  const handleDelete = async (id, index) => {
+    try {
+      const response = await fetch(`https://sgl-be.onrender.com/deletegems/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Item deleted successfully!");
+        const updatedInventory = [...inventoryData];
+        updatedInventory.splice(index, 1);
+        setInventoryData(updatedInventory);
+        await Swal.fire({
+          icon: "success",
+          title: "Item deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        console.error("Item deletion failed. Status:", response.status);
+        throw new Error("Item deletion failed");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+      console.error("An error occurred during item deletion:", error);
+    }
   };
 
   // const handleDelete = async (index, gemId) => {
@@ -166,7 +214,7 @@ const Gems = () => {
         <td>
           {item.image ? (
             <img
-              src={URL.createObjectURL(item.image)}
+              src={`data:image/png;base64,${item.image}`}
               alt="item"
               style={{
                 maxWidth: "50px",
@@ -180,7 +228,7 @@ const Gems = () => {
         <td>
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(index, item._id)}
+            onClick={() => handleDelete( item._id,index)}
           >
             Delete
           </button>
@@ -188,6 +236,50 @@ const Gems = () => {
       </tr>
     ));
   };
+  const da=inventoryData.slice(-1)[0]
+  console.log(da,"lat")
+  // const renderTableRowslast = () => {
+  //   // const lastItem = inventoryData[-1];
+  //   // console.log(inventoryData)
+  
+  //   return (
+  //     <tr key={da._id}>
+  //       <td>{da.name}</td>
+  //       <td>{da.subtype}</td>
+  //       <td>{da.weight}</td>
+  //       <td>{da.shape}</td>
+  //       <td>{da.price}</td>
+  //       <td>{da.colour}</td>
+  //       <td>{da.value}</td>
+  //       <td>{da.dimensions}</td>
+  //       <td>{da.transparency}</td>
+  //       <td>{da.hardness}</td>
+  //       <td>{da.microscopicexamination}</td>
+  //       <td>
+  //         {da.image ? (
+  //           <img
+  //             src={`data:image/png;base64,${da.image}`}
+  //             alt="item"
+  //             style={{
+  //               maxWidth: "50px",
+  //               maxHeight: "50px",
+  //             }}
+  //           />
+  //         ) : (
+  //           "No Image"
+  //         )}
+  //       </td>
+  //       <td>
+  //         <button
+  //           className="btn btn-danger btn-sm"
+  //           onClick={() => handleDelete(da._id)}
+  //         >
+  //           Delete
+  //         </button>
+  //       </td>
+  //     </tr>
+  //   );
+  // };
 
   return (
     <div>
@@ -348,7 +440,7 @@ const Gems = () => {
       </form>
       </center>
 
-      <div className="card  p-4 mb-4 mt-3" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+      {/* <div className="card  p-4 mb-4 mt-3" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
         <h2 className="mb-2">Current Inventory</h2>
         <div className="table-responsive" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",borderRadius:"7px" }}>
           <table className="table mt-3">
@@ -370,6 +462,31 @@ const Gems = () => {
               </tr>
             </thead>
 
+            <tbody></tbody>
+          </table>
+        </div>
+      </div> */}
+      <div className="card  p-4 mb-4 mt-3" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
+        <h2 className="mb-2">All Inventory</h2>
+        <div className="table-responsive" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)", borderRadius: "7px" }}>
+          <table className="table mt-3">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Subtype</th>
+                <th>Weight</th>
+                <th>Shape</th>
+                <th>Price</th>
+                <th>Colour</th>
+                <th>Value</th>
+                <th>Dimensions</th>
+                <th>Transparency</th>
+                <th>Hardness</th>
+                <th>Microscopic Examination</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
             <tbody>{renderTableRows()}</tbody>
           </table>
         </div>

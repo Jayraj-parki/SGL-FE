@@ -89,7 +89,7 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"0px",position:"relative"}}>
+          <div className="" style={{padding:"0px",position:"relative",marginRight:"5%"}}>
             <div style={{backgroundColor:"#FCE2CB",width:"100%",marginRight:"0px"}}>
             <ul style={{ listStyleType: "none", padding: "5px" }}>
               <li>

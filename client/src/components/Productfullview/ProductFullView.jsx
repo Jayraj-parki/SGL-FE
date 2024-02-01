@@ -276,62 +276,62 @@ const ProductFullView = ({ selectedItem }) => {
       return;
     }
   
-    if (!selectedItem) {
-      // Display an error message if there is no selected item
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Unable to add item to cart. Please select a valid item.",
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      return;
-    }
+    // if (!selectedItem) {
+    //   // Display an error message if there is no selected item
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "Unable to add item to cart. Please select a valid item.",
+    //     showConfirmButton: false,
+    //     timer: 3000,
+    //   });
+    //   return;
+    // }
   
-    // User is logged in and selectedItem is defined, proceed with adding item to the cart
-    try {
-      const response = await axios.post(
-        `https://sgl-be.onrender.com/addToCart/`,
-        {
-          selectedItem,
-          quantity,
-          calculatedPrice,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${userData}`, // Include any necessary authentication headers
-          },
-        }
-      );
+    // // User is logged in and selectedItem is defined, proceed with adding item to the cart
+    // try {
+    //   const response = await axios.post(
+    //     `https://sgl-be.onrender.com/addToCart/`,
+    //     {
+    //       selectedItem,
+    //       quantity,
+    //       calculatedPrice,
+    //     },
+    //     {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         // 'Authorization': `Bearer ${userData}`, // Include any necessary authentication headers
+    //       },
+    //     }
+    //   );
   
-      if (response.status === 200) {
-        Swal.fire({
-          icon: "success",
-          title: "Added to Cart!",
-          text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
-          showConfirmButton: false,
-          timer: 2000,
-        });
+    //   if (response.status === 200) {
+    //     Swal.fire({
+    //       icon: "success",
+    //       title: "Added to Cart!",
+    //       text: `${quantity} ${selectedItem.name}(s) added to your cart. Total Price: $${calculatedPrice}`,
+    //       showConfirmButton: false,
+    //       timer: 2000,
+    //     });
   
-        // Open the cart sidebar
-        setCartOpen(true);
-      } else {
-        console.error("Error adding item to cart. API response:", response);
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Failed to add item to cart. Please try again later.",
-        });
-      }
-    } catch (error) {
-      console.error("Error adding item to cart:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "An unexpected error occurred. Please try again later.",
-      });
-    }
+    //     // Open the cart sidebar
+    //     setCartOpen(true);
+    //   } else {
+    //     console.error("Error adding item to cart. API response:", response);
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Error",
+    //       text: "Failed to add item to cart. Please try again later.",
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.error("Error adding item to cart:", error);
+    //   Swal.fire({
+    //     icon: "error",
+    //     title: "Error",
+    //     text: "An unexpected error occurred. Please try again later.",
+    //   });
+    // }
   };
   
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./gems.css";
 import Swal from "sweetalert2";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -23,6 +23,24 @@ const Jewellary = () => {
   });
 
   const [inventoryData, setInventoryData] = useState([]);
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getastrologygems");
+        if (response.ok) {
+          const inventory = await response.json();
+          setInventoryData(inventory);
+        } else {
+          console.error("Failed to fetch inventory. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("An error occurred during fetch:", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -107,10 +125,40 @@ const Jewellary = () => {
     }
   };
 
-  const handleDelete = (index) => {
-    const updatedInventory = [...inventoryData];
-    updatedInventory.splice(index, 1);
-    setInventoryData(updatedInventory);
+  // const handleDelete = (index) => {
+  //   const updatedInventory = [...inventoryData];
+  //   updatedInventory.splice(index, 1);
+  //   setInventoryData(updatedInventory);
+  // };
+  const handleDelete = async (id, index) => {
+    try {
+      const response = await fetch(`https://sgl-be.onrender.com/deleteastrologygems/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Item deleted successfully!");
+        const updatedInventory = [...inventoryData];
+        updatedInventory.splice(index, 1);
+        setInventoryData(updatedInventory);
+        await Swal.fire({
+          icon: "success",
+          title: "Item deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        console.error("Item deletion failed. Status:", response.status);
+        throw new Error("Item deletion failed");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+      console.error("An error occurred during item deletion:", error);
+    }
   };
 
   const renderTableRows = () => {
@@ -130,7 +178,7 @@ const Jewellary = () => {
         <td>
           {item.image ? (
             <img
-              src={URL.createObjectURL(item.image)}
+              src={`data:image/png;base64,${item.image}`}
               alt="item"
               style={{
                 maxWidth: "50px",
@@ -144,7 +192,7 @@ const Jewellary = () => {
         <td>
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(index)}
+            onClick={() => handleDelete(item._id,index)}
           >
             Delete
           </button>

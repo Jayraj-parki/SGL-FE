@@ -172,9 +172,13 @@ const ShoppingCart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://sgl-be.onrender.com/getdiamonds");
+        const user= JSON.parse(sessionStorage.getItem("userData"))
+        console.log(user)
+        const response = await fetch("https://sgl-be.onrender.com/getallcart");
         const data = await response.json();
-        const updatedData = data.map((item) => ({ ...item, quantity: 1 }));
+        const userCartItems = data.cartItems.filter(item => item.userIds === user._id);
+        // const data = await response.json();
+        const updatedData = userCartItems.map((item) => ({ ...item, quantity: 1 }));
         setCartItems(updatedData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -294,7 +298,9 @@ const ShoppingCart = () => {
             <div className="cart-item-details">
               <h5 className="cart-item-name">{item.name}</h5>
               <p className="cart-item-category">Category: {item.subtype}</p>
-              <p className="cart-item-price">${item.price.toFixed(2)}</p>
+              {/* <p className="cart-item-price">${item.price.toFixed(2)}</p> */}
+              <p className="cart-item-price">${item.price}</p>
+
               <div className="cart-item-actions">
                 <button onClick={() => addItem(index)} className="btn btn-success">
                   +
@@ -317,7 +323,7 @@ const ShoppingCart = () => {
           <p className="font-weight-bold">Total Items: {totalItems}</p>
           <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>
           <p>Shipping: Free</p>
-          <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p>
+          {/* <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p> */}
         </div>
 
         <div className="invoice-block">

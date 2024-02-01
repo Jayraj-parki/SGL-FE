@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./gems.css";
 import backarrow from './backarrow.png'
 import { FaSignOutAlt } from "react-icons/fa";
@@ -26,6 +26,24 @@ const Beads = () => {
   });
 
   const [inventoryData, setInventoryData] = useState([]);
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const response = await fetch("https://sgl-be.onrender.com/getbeads");
+        if (response.ok) {
+          const inventory = await response.json();
+          setInventoryData(inventory);
+        } else {
+          console.error("Failed to fetch inventory. Status:", response.status);
+        }
+      } catch (error) {
+        console.error("An error occurred during fetch:", error);
+      }
+    };
+
+    fetchInventory();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -109,10 +127,41 @@ const Beads = () => {
     }
   };
 
-  const handleDelete = (index) => {
-    const updatedInventory = [...inventoryData];
-    updatedInventory.splice(index, 1);
-    setInventoryData(updatedInventory);
+  // const handleDelete = (index) => {
+  //   const updatedInventory = [...inventoryData];
+  //   updatedInventory.splice(index, 1);
+  //   setInventoryData(updatedInventory);
+  // };
+
+  const handleDelete = async (id, index) => {
+    try {
+      const response = await fetch(`https://sgl-be.onrender.com/deletebeads/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        console.log("Item deleted successfully!");
+        const updatedInventory = [...inventoryData];
+        updatedInventory.splice(index, 1);
+        setInventoryData(updatedInventory);
+        await Swal.fire({
+          icon: "success",
+          title: "Item deleted successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        console.error("Item deletion failed. Status:", response.status);
+        throw new Error("Item deletion failed");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+      console.error("An error occurred during item deletion:", error);
+    }
   };
 
   const renderTableRows = () => {
@@ -132,7 +181,7 @@ const Beads = () => {
         <td>
           {item.image ? (
             <img
-              src={URL.createObjectURL(item.image)}
+              src={`data:image/png;base64,${item.image}`}
               alt="item"
               style={{
                 maxWidth: "50px",
@@ -146,7 +195,7 @@ const Beads = () => {
         <td>
           <button
             className="btn btn-danger btn-sm"
-            onClick={() => handleDelete(index)}
+            onClick={() => handleDelete( item._id,index)}
           >
             Delete
           </button>
@@ -343,7 +392,7 @@ const Beads = () => {
       </center>
 
       <div className="card  p-4 mb-4 mt-3" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
-        <h2 className="mb-2">Current Inventory</h2>
+        <h2 className="mb-2">All Inventory</h2>
         <div className="table-responsive" style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",borderRadius:"7px" }}>
           <table className="table mt-1 mr-5">
             <thead>
