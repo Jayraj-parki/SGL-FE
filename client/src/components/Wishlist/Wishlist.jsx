@@ -9,9 +9,12 @@ const Wishlist = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const user= JSON.parse(sessionStorage.getItem("userData"))
+        console.log(user)
         const response = await fetch('https://sgl-be.onrender.com/getwhishlist');
         const data = await response.json();
-        setWishlistItems(data.whishlist);
+        const userCartItems = data.whishlist.filter(item => item.userIds === user._id);
+        setWishlistItems(userCartItems);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -74,10 +77,36 @@ const Wishlist = () => {
     }
   };
 
-  const deleteItem = (index) => {
-    const updatedWishlist = wishlistItems.filter((item, i) => i !== index);
-    setWishlistItems(updatedWishlist);
-    // showSuccessMessage("Item removed from the wishlist!");
+  // const deleteItem = (index) => {
+  //   const updatedWishlist = wishlistItems.filter((item, i) => i !== index);
+  //   setWishlistItems(updatedWishlist);
+  //   // showSuccessMessage("Item removed from the wishlist!");
+  // };
+  const deleteItem = async (index, itemId) => {
+    try {
+      // Make a request to the delete API endpoint
+      const response = await fetch(`https://sgl-be.onrender.com/deletewhishlist/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (response.ok) {
+        // If deletion on the server is successful, update the local state
+        const updatedCart = [...wishlistItems];
+        updatedCart.splice(index, 1);
+        setWishlistItems(updatedCart);
+  
+        console.log("Item deleted successfully");
+      } else {
+        console.error("Failed to delete item. Server returned:", response.status, response.statusText);
+        // If deletion on the server fails, you may want to revert the local state or handle it accordingly
+      }
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      // Handle the error, show an error message, or take appropriate action
+    }
   };
 
   return (
@@ -114,7 +143,7 @@ const Wishlist = () => {
                 </button>
               </div>
               <div style={{marginRight:"0px",display:"flex",marginBottom:"0px"}}>
-              <button style={{backgroundColor:"red",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => deleteItem(index)} className="btn btn-danger">
+              <button style={{backgroundColor:"red",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => deleteItem(index,item._id)} className="btn btn-danger">
                 Remove
               </button>
               <button style={{backgroundColor:"green",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => addtocart(index)} className="btn btn-danger">

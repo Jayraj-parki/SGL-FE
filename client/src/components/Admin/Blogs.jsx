@@ -6,6 +6,8 @@ import { FaSignOutAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 import RecentBlogs from "./RecentBlogs";
+import HomeIcon from '@mui/icons-material/Home';
+
 
 const Blogs = () => {
   const navigate = useNavigate();
@@ -92,6 +94,8 @@ const Blogs = () => {
           className="container d-flex justify-content-center align-items-center text-center"
           style={{ marginLeft: "auto", marginRight: "auto" }}
         >
+                <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
+
           <h1
             className="admin-dashboard ms-4 ms-sm-3 mx-auto"
             style={{ maxWidth: "fit-content" }}

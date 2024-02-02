@@ -6,8 +6,10 @@ import "./headermain.css";
 import logo from "./Nav-images/logo.png";
 import profile from "./Nav-images/Frame 75.png";
 import SearchBarPopup from "./SearchBarPopup";
+import Profile from "../Home/Profile";
 
-import { Badge, Stack } from "@mui/material";
+import Badge from '@mui/material/Badge';
+import Stack from '@mui/material/Stack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Mainheader = ({ selectedProductType, userData,children }) => {
@@ -78,32 +80,49 @@ const Mainheader = ({ selectedProductType, userData,children }) => {
         <p>
           Blogs{" "}
           <span onClick={() => navigate("/blog")}>
-            <FaHeart className="icons" />
+            {/* <FaHeart className="icons" /> */}
           </span>
         </p>
       </div>
-      <div className="main-sub-nav" id="head-extra-class">
-        <p>
+      <div className="main-sub-nav" id="head-extra-class" onClick={() => navigate("/wishlist")} >
+        {/* <p>
           Wishlist{" "}
 
           <span onClick={() => navigate("/wishlist")}>
             <FaHeart className="icons" />
           </span>
-        </p>
+        </p> */}
+        <Stack style={{paddingBottom:"15px"}}  >
+      <Badge badgeContent={4} color="secondary"  >
+        <FaHeart style={{height:"20px",width:"20px"}} color="action" />
+      </Badge>
+     
+    </Stack>
       </div>
-      <div
+      <div style={{paddingTop:"10px"}}
         className="main-sub-nav"
         id="head-extra-class"
         onClick={() => navigate("/cart")}
       >
-       
-       <Stack>
-  <Badge badgeContent={parseInt(totalItems)} color="secondary">
-    <ShoppingCartIcon color="action" />
-  </Badge>
-</Stack>
+        {/* <p>
+          My cart{" "}
+          <span>
+            <FaShoppingBag className="icons" />
+          </span>
+        </p> */}
 
 
+        <p>
+      
+    <Stack  >
+      <Badge badgeContent={4} color="secondary">
+        <ShoppingCartIcon color="action" />
+      </Badge>
+     
+    </Stack>
+  
+
+        </p>
       </div>
    
      

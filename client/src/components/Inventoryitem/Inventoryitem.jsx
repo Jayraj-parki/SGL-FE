@@ -2,12 +2,15 @@ import React from 'react'
 import "./Inventoryitem.css"
 import { useNavigate } from 'react-router-dom';
 import { FaComments, FaShoppingCart, FaList, FaBox } from "react-icons/fa";
+import HomeIcon from '@mui/icons-material/Home';
 
 
 const Adminhome = () => {
     const navigate =useNavigate()
   return (
+    <div><HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
     <div style={{textAlign:"center",height:"100vh"}}>
+        
         <h1>Admin Dashboard</h1>
         <div>
             <div className='con' style={{height:"30vh",display:"flex",justifyContent:"space-evenly",alignItems:"center",flexWrap:"wrap"}}>
@@ -68,6 +71,7 @@ const Adminhome = () => {
             </div>
         </div>
         
+    </div>
     </div>
   )
 }

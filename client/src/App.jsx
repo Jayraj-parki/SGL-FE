@@ -197,6 +197,15 @@ const App = () => {
           }
         />
         <Route path="/head/:totalItems" element={<Mainheader />} />
+        <Route
+          path="/orderhistory"
+          element={
+            <Layout>
+              <Orderhistory />
+            </Layout>
+          }
+        />
+        
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
         <Route path="/adminlogin" element={<AdminLoginForm />} />

@@ -323,7 +323,7 @@ const Beads = () => {
             className="input"
             placeholder="Value"
           />
-<label htmlFor="weight" className="form-label mb-0 mt-4"> Dimensions</label>
+<label htmlFor="weight" className="form-label mb-0 mt-4"> dimenensions</label>
           <input
             type="text"
             name="dimenensions"
@@ -404,7 +404,7 @@ const Beads = () => {
                 <th>Price</th>
                 <th>Colour</th>
                 <th>Value</th>
-                <th>Dimensions</th>
+                <th>dimenensions</th>
                 <th>Transparency</th>
                 <th>Hardness</th>
                 <th>Microscopic Examination</th>
