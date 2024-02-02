@@ -22,6 +22,9 @@ import Login from "./components/Home/Login";
 import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
+import Wishlist from "./components/Wishlist/Wishlist.jsx"
+import Mainheader from "./components/Navbar/headermain.jsx";
+
 
 
 
@@ -169,10 +172,13 @@ const App = () => {
           path="/cart"
           element={
             <Layout>
+              
               <ShoppingCart />
             </Layout>
           }
         />
+
+    
          <Route
           path="/blog"
           element={
@@ -181,14 +187,23 @@ const App = () => {
             </Layout>
           }
         />
-       
+       <Route
+          path="/wishlist"
+          element={
+            <Layout>
+              <Wishlist />
+            </Layout>
+            
+          }
+        />
+        <Route path="/head/:totalItems" element={<Mainheader />} />
         {/* Route for the Login component without Layout */}
         {/* Admin routes */}
         <Route path="/adminlogin" element={<AdminLoginForm />} />
         <Route path="/admin/*" element={<AdminTemplate />} />
         {/* <Route path="/adminhome" element={<Adminhome />} />
         <Route path="/inventoryitem" element={<Inventoryitem />} /> */}
-
+         
       </Routes>
     </BrowserRouter>
   );

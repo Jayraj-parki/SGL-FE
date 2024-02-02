@@ -81,10 +81,7 @@ const CartSidebar = ({
   };
 
   const calculateTotal = () => {
-    // Replace with actual total calculation based on the item price and quantity
-    const itemPrice = itemData.price; // Access the price from the passed itemData
-
-    // Display a notification using SweetAlert2 for total calculation
+    const itemPrice = itemData.price; 
     Swal.fire({
       icon: "info",
       title: "Calculating Total...",
@@ -101,9 +98,9 @@ const CartSidebar = ({
     left: "0",
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(255, 165, 0, 0.7)", // Semi-translucent orange background
-    zIndex: "999", // Higher zIndex than the sidebar
-    display: isOpen ? "block" : "none", // Show the overlay only when the sidebar is open
+    backdropFilter: "blur(3px)",
+    zIndex: "999", 
+    display: isOpen ? "block" : "none", 
   };
 
   const sidebarStyle = {
@@ -111,7 +108,7 @@ const CartSidebar = ({
     height: "100%",
     position: "fixed",
     top: "0",
-    right: isOpen ? "0" : "-300px", // Adjust the width accordingly
+    right: isOpen ? "0" : "-300px", 
     backgroundColor: "#FFFFFF",
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     transition: "right 0.3s ease-in-out",
@@ -120,7 +117,7 @@ const CartSidebar = ({
   };
 
   const closeButtonStyle = {
-    color: "#FFA500", // Orange color
+    color: "#FFA500", 
     padding: "0.5rem",
     marginBottom: "10px",
     width: "2em",

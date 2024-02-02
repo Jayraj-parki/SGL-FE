@@ -161,10 +161,10 @@ const GemGrid = () => {
 
   // Filter gemstones based on selected option
   const filteredBeads = beads.filter(item => {
-    if (selectedOption === 'South Sea') {
-      return item.subtype === 'South Sea';
-    } else if (selectedOption === 'Kc Perals') {
-      return item.subtype === 'Kc Perals';
+    if (selectedOption === 'SouthSea') {
+      return item.subtype === 'SouthSea';
+    } else if (selectedOption === 'KcPerals') {
+      return item.subtype === 'KcPerals';
     }
     else if (selectedOption === 'Freshwater') {
       return item.subtype === 'Freshwater';
@@ -188,15 +188,15 @@ const GemGrid = () => {
 
       {!isLoading && (
         <div className="gemsgrid-main-con">
-          <div className="" style={{padding:"0px",marginRight:"20px"}}>
+          <div className="" style={{padding:"0px",marginRight:"5%"}}>
             <div style={{backgroundColor:"#FCE2CB",width:"100%",marginRight:"0px",paddingLeft:"10px",paddingRight:"0px",paddingTop:"20px",paddingBottom:"20px"}}>
             <div >
               <label style={{paddingRight:"30px"}}>
                 <input
                   type="radio"
-                  value="South Sea"
+                  value="SouthSea"
                   style={{paddingLeft:"10px",marginRight:"10px"}}
-                  checked={selectedOption === 'South Sea'}
+                  checked={selectedOption === 'SouthSea'}
                   onChange={handleOptionChange}
                 />
                 SouthSea
@@ -206,8 +206,8 @@ const GemGrid = () => {
               <label style={{paddingRight:"35px"}}>
                 <input
                   type="radio"
-                  value="Kc Perals"
-                  checked={selectedOption === 'Kc Perals'}
+                  value="KcPerals"
+                  checked={selectedOption === 'KcPerals'}
                   onChange={handleOptionChange}
                   style={{marginRight:"10px"}}
                 />KcPerals

@@ -22,15 +22,15 @@ const ExploreSection = () => {
                 THE AWESOME</h1>
           </div>
           <div className="explore-routing-section">
-               <div className="explore-sub-section"style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelery")}}>
+               <div className="explore-sub-section"style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
                    <img src={RingsBands} style={{height:"70%",paddingBottom:"10px"}} alt="Rings & Bands"/>
                    <p>Rings and Bands</p>
                 </div>
-                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/jewelery")}}>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
                    <img src={Bracelet} style={{height:"70%"}} alt="Bracelet"/>
                    <p>Bracelets</p>
                 </div>
-                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/jewelery")}}>
+                <div className="explore-sub-section" style={{textAlign:"center"}} onClick={()=>{navigate("/Jewelry")}}>
                    <img src={Bangle} style={{height:"70%"}} alt="Bangle"/>
                    <p>Bangles</p>
                 </div>

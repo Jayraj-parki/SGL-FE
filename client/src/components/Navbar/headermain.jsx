@@ -1,21 +1,25 @@
 import { useState } from "react";
 import { FaSearch, FaHeart, FaShoppingBag } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./headermain.css";
 import logo from "./Nav-images/logo.png";
 import profile from "./Nav-images/Frame 75.png";
 import SearchBarPopup from "./SearchBarPopup";
-import Profile from "../Home/Profile";
 
-const Mainheader = ({ selectedProductType, userData }) => {
+import { Badge, Stack } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const Mainheader = ({ selectedProductType, userData,children }) => {
   // State for managing the search bar and profile popup
   const [isSearchBarOpen, setIsSearchBarOpen] = useState(false);
   const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
   const [isProfileBlinking, setIsProfileBlinking] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
   // Hook for programmatic navigation
   const navigate = useNavigate();
 
+  const location=useLocation()
   
   const startBlinking = () => {
     setIsProfileBlinking(true);
@@ -92,14 +96,16 @@ const Mainheader = ({ selectedProductType, userData }) => {
         id="head-extra-class"
         onClick={() => navigate("/cart")}
       >
-        <p>
-          My cart{" "}
-          <span>
-            <FaShoppingBag className="icons" />
-          </span>
-        </p>
-      </div>
+       
+       <Stack>
+  <Badge badgeContent={parseInt(totalItems)} color="secondary">
+    <ShoppingCartIcon color="action" />
+  </Badge>
+</Stack>
 
+
+      </div>
+   
      
       {isSearchBarOpen && (
         <SearchBarPopup
@@ -114,6 +120,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
 Mainheader.propTypes = {
   selectedProductType: PropTypes.string.isRequired,
   userData: PropTypes.object, // Adjust the prop type based on your user data structure
+  
 };
 
 export default Mainheader;

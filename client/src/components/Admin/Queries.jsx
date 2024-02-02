@@ -27,14 +27,14 @@ const Queries=(()=>{
 
     return(
         <>  
-           <AdminSideNav/>
+           {/* <AdminSideNav/> */}
            <nav
                 className="navbar navbar-expand-lg navbar-light bg-light"
                 style={{ marginTop: 0 }}
             >
                 <div
                 className="container d-flex justify-content-center align-items-center text-center"
-                style={{ marginLeft: "auto", marginRight: "auto" }}
+                style={{ marginRight: "auto" }}
                 >
                 <h1
                     className="admin-dashboard ms-4 ms-sm-3 mx-auto"
@@ -59,7 +59,7 @@ const Queries=(()=>{
                  {error && <p>{error}</p>}
                     <ul>
                         {products.map((product) => (
-                        <li key={product.id}>{product.title}</li>
+                        <li style={{textAlign:"start"}} key={product.id}>{product.title}</li>
                         // Render other product information as needed
                         ))}
                     </ul>

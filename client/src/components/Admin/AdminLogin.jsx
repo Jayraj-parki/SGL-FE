@@ -14,7 +14,7 @@ const AdminLoginForm = () => {
 
     // Check if the username and password are correct
     if (username === "admin" && password === "password") {
-      navigate("/admin/inventory");
+      navigate("/admin/adminhome");
     } else {
       // Handle incorrect username or password
       alert("Invalid username or password");
@@ -59,7 +59,7 @@ const AdminLoginForm = () => {
                 required
                 style={{ marginRight: "1px", marginLeft: "2px" }}
               />
-              <button
+              {/* <button
                 className="toggle-password-icon bg-white"
                 onClick={togglePasswordVisibility}
                 style={{
@@ -81,7 +81,7 @@ const AdminLoginForm = () => {
                 ) : (
                   <FaEye style={{ fontSize: "0.8em" }} />
                 )}
-              </button>
+              </button> */}
             </label>
             <button
               type="submit"
