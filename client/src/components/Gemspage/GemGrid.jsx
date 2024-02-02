@@ -139,7 +139,7 @@ const GemGrid = () => {
                     <p className="pearlsname">{item.name}</p>
 
                     <h4 className="">{item.price}</h4>
-                    <p>{item. dimenensions}</p>
+                    {/* <p>{item. dimenensions}</p> */}
                     {console.log(item.dimenensions,'hgfdfgkjrdhhfj')}
                     {/* <h4 className="">{item.units}</h4> */}
                     <button className="buy-now-button">View Product</button>

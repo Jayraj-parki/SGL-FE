@@ -91,7 +91,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
           </span>
         </p> */}
         <Stack style={{paddingBottom:"15px"}}  >
-      <Badge badgeContent={4} color="secondary">
+      <Badge badgeContent={4} color="secondary"  >
         <FaHeart style={{height:"20px",width:"20px"}} color="action" />
       </Badge>
      

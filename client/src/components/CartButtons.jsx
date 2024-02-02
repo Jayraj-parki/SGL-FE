@@ -570,7 +570,7 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
             }}
             onClick={addToWishlist}
           >
-            <i className="fas fa-heart"></i> Wishlist
+            <i className="fas fa-heart"></i> 
           </button>
 
           <button

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./AddCart.css";
 import Swal from "sweetalert2";
 import CircularProgress from "@mui/material/CircularProgress";
+import { useNavigate } from "react-router-dom";
 
 
 const ShoppingCart = () => {
+  const navigate=useNavigate()
   const [showPayment, setShowPayment] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [grandTotal, setGrandTotal] = useState(0);
@@ -22,7 +24,7 @@ const ShoppingCart = () => {
         const data = await response.json();
         const userCartItems = data.cartItems.filter(item => item.userIds === user._id);
         // const data = await response.json();
-        const updatedData = userCartItems.map((item) => ({ ...item, quantity: 1 }));
+        const updatedData = userCartItems.map((item) => ({ ...item }));
         setCartItems(updatedData);
         if (response.ok) {
           // const data = await response.json();
@@ -163,7 +165,10 @@ const ShoppingCart = () => {
 
   return (
     <div id="shoppingBag" className="container shopping-cart">
-      <h2 className="mb-4 text-center">Shopping Cart</h2>
+      <div style={{textAlign:"center",display:'flex',justifyContent:"space-between",alignItems:"flex-end"}}>
+        <h2 className=" text-center">Shopping Cart</h2>
+        <h2 style={{textAlign:"end"}} onClick={()=>navigate("/orderhistory")} >Order History</h2>
+      </div>
       {isLoading && (
         <div className="loading-container">
           <CircularProgress />
@@ -222,8 +227,8 @@ const ShoppingCart = () => {
           <div style={{ textAlign: "end" }}>
           
             <button
-              className="btn btn-primary"
-              style={{ width: "200px", paddingBottom: "30px" }}
+              className="btn"
+              style={{ width: "200px", paddingBottom: "30px",backgroundColor:"rgba(244, 130, 31, 1)",color:"white" }}
               onClick={() => handleProceedToCheckout()}
             >
               {loading?"Please Wait":"Proceed to Checkout"}

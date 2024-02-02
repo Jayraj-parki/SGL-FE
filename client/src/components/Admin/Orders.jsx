@@ -7,6 +7,8 @@ import OrderEditForm from "./OrderEditForm";
 import { Modal } from "react-bootstrap";
 import AdminSideNav from "./AdminSide";
 import "./Orders-styles.css";
+import HomeIcon from '@mui/icons-material/Home';
+
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -259,6 +261,8 @@ const Orders = () => {
 
   return (
     <div className="orders-page">
+                      <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
+
       <Modal show={isEditFormVisible} onHide={handleCancelEditForm} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit Order</Modal.Title>
