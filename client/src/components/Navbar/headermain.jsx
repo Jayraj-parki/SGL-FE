@@ -40,7 +40,7 @@ const Mainheader = ({ selectedProductType,  children }) => {
   };
 
   const userData1 = sessionStorage.getItem("userData");
-
+//this is to handleCartClick
   const handleCartClick = () => {
     if (!userData1) {
       alert("Please login to unlock the website features.");
