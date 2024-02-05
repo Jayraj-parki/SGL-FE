@@ -41,7 +41,7 @@ const Layout = ({ children, userData }) => (
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   userData: PropTypes.object, // Add the prop type for userData
-};
+}
 const App = () => {
   const [userData, setUserData] = useState(null);
 

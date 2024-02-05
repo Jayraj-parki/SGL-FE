@@ -29,9 +29,11 @@ const Orderhistory = () => {
           try {
             const user= JSON.parse(sessionStorage.getItem("userData"))
             console.log(user)
-            const response = await fetch("https://sgl-be.onrender.com/getallcart");
+            const response = await fetch("https://sgl-be.onrender.com/getuserorder");
             const data = await response.json();
-            const userCartItems = data.cartItems.filter(item => item.userIds === user._id);
+            // const userCartItems = data.cartItems.filter(item => item.userID === user._id);
+            const userCartItems = data.filter(item => item.userID === user._id);
+
             // const data = await response.json();
             const updatedData = userCartItems.map((item) => ({ ...item}));
             setCartItems(updatedData);
@@ -69,27 +71,28 @@ const Orderhistory = () => {
       <table border="1" style={{width:"90%",marginBottom:"20px",paddingBottom:"20px",textAlign:"center"}}>
         <thead style={{textAlign:'center'}}>
           <tr>
-            <th >Name</th>
-            <th>Status</th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th >Total Items</th>
+            <th>Total Cost</th>
+            <th>Address</th>
+            {/* <th>Stta</th> */}
             <th>Date</th>
-            <th>Image</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           {cartItems.map(item => (
             <tr key={item._id}>
-              <td>{item.name}</td>
-              <td>Need to fetch</td>
-              <td>{item.price}</td>
-              <td>{item.quantity}</td>
-              <td>Need to fetch from backend</td>
-              <td><img
-                src={`data:image/png;base64,${item.image}`}
-                alt={item.name}
+              <td>{item.totalItems}</td>
+              <td>{item.grandTotal}</td>
+              <td>{item.address}</td>
+              {/* <td>{item.totalItems}</td> */}
+              <td>{item.date}</td>
+              <td>{item.status}</td>
+              {/* <td><img
+                src={`data:image/png;base64,${item.username}`}
+                alt={item.username}
                 style={{ height: "50px", width: "50px" }}
-              /></td>
+              /></td> */}
               {/* Add more cells based on your data structure */}
             </tr>
           ))}

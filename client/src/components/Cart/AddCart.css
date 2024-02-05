@@ -127,8 +127,12 @@
   border: 1px solid #ced4da;
 }
 
-.btn-success:hover,
-.btn-warning:hover,
+.btn-success:hover{
+  background-color: rgb(32, 240, 4);
+}
+.btn-warning:hover{
+  background-color: rgb(196, 92, 28);
+}
 .btn-danger:hover {
-  background-color: #f8f9fa;
+  background-color: rgb(240, 39, 4);
 }
