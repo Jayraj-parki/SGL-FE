@@ -9,11 +9,14 @@ const ShoppingCart = () => {
   const navigate=useNavigate()
   const [showPayment, setShowPayment] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [addres,setAddress]=useState("")
   const [grandTotal, setGrandTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  
+  const changeadd=(e)=>{
+    setAddress(e.target.value)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -104,8 +107,9 @@ const ShoppingCart = () => {
   const handleProceedToCheckout = () => {
     const userdata = JSON.parse(sessionStorage.getItem("userData"));
     const username=userdata.email
+    const userID=userdata._id
     // console.log(username,"usernamnlnnj")
-    const address="need to give"
+    const address=addres
     // console.log(userdata.username,"username")
     // console.log(userdata,"jnallj")
     const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
@@ -123,7 +127,8 @@ const ShoppingCart = () => {
       username,
       date,
       address,
-      status
+      status,
+      userID
     };
   
     postUserOrder(orderDetails);
@@ -131,6 +136,7 @@ const ShoppingCart = () => {
 
   const postUserOrder = async (orderDetails) => {
     setLoading(true);
+    console.log(orderDetails)
     try {
       const response = await fetch("https://sgl-be.onrender.com/postuserorder", {
         method: "POST",
@@ -215,12 +221,14 @@ const ShoppingCart = () => {
           <p className="font-weight-bold">Total Items: {totalItems}</p>
           <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>
           <p>Shipping: Free</p>
+          <input type="text" value={addres} onChange={changeadd} />
           {/* <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p> */}
         </div>
 
         <div className="invoice-block">
           <hr />
           <p className="font-weight-bold" style={{ textAlign: "end", paddingRight: "35px" }}>
+            <p>{addres}</p>
             Grand Total: ${grandTotal.toFixed(2)}
           </p>
           

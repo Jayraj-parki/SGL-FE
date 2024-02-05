@@ -11,9 +11,11 @@ import "./Login.css";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import Swal from "sweetalert2";
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,6 +37,7 @@ const Login = ({ onLogin }) => {
     setShowSignup(false);
   };
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     try {
       const response = await fetch("https://sgl-be.onrender.com/login", {
@@ -53,10 +56,22 @@ const Login = ({ onLogin }) => {
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
       onLogin(responseData.user);
       navigate("/")
-      alert("Login Successful")
+      // alert("Login Successful")
+      await Swal.fire({
+        icon: "success",
+        title: "Login successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     } catch (error) {
+      setLoading(false)
       console.error("Error:", error);
       navigate("/login")
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Give correct email and Password Details!",
+      });
       // alert("error login",error)
 
       // if (error instanceof TypeError && error.message === "Failed to fetch") {
@@ -183,40 +198,15 @@ const Login = ({ onLogin }) => {
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                {/* <label htmlFor="email" className="form-label">
-                  Email
-                </label> */}
                 <TextField id="standard-basic" value={formData.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
-                {/* <input
-                  type="email"
-                  id="email"
-                  className="form-control"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  required
-                /> */}
               </div>
               
               <div className="mb-3">
               <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="password" value={formData.password} onChange={handleChange} label="Password" variant="standard" />
-                {/* <label htmlFor="password" className="form-label"> */}
-                  {/* Password */}
-                {/* </label> */}
-                {/* <input
-                  type="password"
-                  id="password"
-                  className="form-control"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter your password"
-                  required
-                /> */}
               </div>
-              <button type="submit" className="btn btn-primary btn-block">
-                {showSignup ? "Sign Up" : "Login"}
+              <button type="submit" style={{paddingBottom:"30px"}} className="btn btn-primary btn-block">
+                {/* {showSignup ? "Sign Up" : "Login"} */}
+                {loading? "Please Wait":"Login"}
               </button>
             </form>
           )}
