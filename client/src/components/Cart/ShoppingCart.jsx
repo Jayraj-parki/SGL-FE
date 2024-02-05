@@ -168,7 +168,7 @@ const ShoppingCart = () => {
     <div id="shoppingBag" className="container shopping-cart">
       <div style={{textAlign:"center",display:'flex',justifyContent:"space-between",alignItems:"flex-end"}}>
         <h2 className=" text-center">Shopping Cart</h2>
-        <h2 style={{textAlign:"end"}} onClick={()=>navigate("/orderhistory")} >Order History</h2>
+        <h4 style={{textAlign:"end",padding:"10px",margin:"20px",borderRadius:"7px",cursor:"pointer",backgroundColor:"rgba(244, 130, 31, 1)"}} onClick={()=>navigate("/orderhistory")} >Order History</h4>
       </div>
       {isLoading && (
         <div className="loading-container">

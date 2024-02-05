@@ -21,8 +21,31 @@ const Mainheader = ({ selectedProductType,  children }) => {
   // Hook for programmatic navigation
   const navigate = useNavigate();
 
-  const location = useLocation();
+  const userData1 = sessionStorage.getItem("userData");
 
+  const handleCartClick = () => {
+    if (!userData1) {
+      alert("Please login to unlock the website features.");
+    } else {
+      navigate("/cart").then(() => {
+        console.log("Unlocking website features...");
+        startBlinking(); // or any other function you want to call
+      });
+    }
+  };
+
+  const wish=()=>{
+    if (!userData1) {
+      alert("Please login to unlock the website features.");
+    } else {
+      navigate("/cart").then(() => {
+        console.log("Unlocking website features...");
+        startBlinking(); // or any other function you want to call
+      });
+    }
+  }
+
+  
   const startBlinking = () => {
     setIsProfileBlinking(true);
 
@@ -92,11 +115,8 @@ const Mainheader = ({ selectedProductType,  children }) => {
           </span>
         </p>
       </div>
-      <div
-        className="main-sub-nav"
-        id="head-extra-class"
-        onClick={() => navigate("/wishlist")}
-      >
+      <div className="main-sub-nav" id="head-extra-class" onClick={wish} >
+        {/* () => navigate("/wishlist") */}
         {/* <p>
           Wishlist{" "}
 

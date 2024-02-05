@@ -66,10 +66,11 @@ const Orderhistory = () => {
       )}
       {!isLoading && (
       <center>
-      <table border="1" style={{width:"90%",textAlign:"center"}}>
+      <table border="1" style={{width:"90%",marginBottom:"20px",paddingBottom:"20px",textAlign:"center"}}>
         <thead style={{textAlign:'center'}}>
           <tr>
             <th >Name</th>
+            <th>Status</th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Date</th>
@@ -80,6 +81,7 @@ const Orderhistory = () => {
           {cartItems.map(item => (
             <tr key={item._id}>
               <td>{item.name}</td>
+              <td>Need to fetch</td>
               <td>{item.price}</td>
               <td>{item.quantity}</td>
               <td>Need to fetch from backend</td>

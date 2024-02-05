@@ -37,7 +37,6 @@ const Login = ({ onLogin }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("https://sgl-be.onrender.com/login", {
         method: "POST",
@@ -46,50 +45,42 @@ const Login = ({ onLogin }) => {
         },
         body: JSON.stringify(formData),
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Unknown error");
       }
-
       const responseData = await response.json();
-
-      
       setUserData(responseData.user);
-
-     
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
-
-      
       onLogin(responseData.user);
-
-      
+      navigate("/")
       alert("Login Successful")
       navigate("/")
     } catch (error) {
       console.error("Error:", error);
-      alert("error login",error)
+      navigate("/login")
+      // alert("error login",error)
 
-      if (error instanceof TypeError && error.message === "Failed to fetch") {
+      // if (error instanceof TypeError && error.message === "Failed to fetch") {
        
-        console.error("Network error or failed to fetch:", error);
-        toast.error("Network error or failed to fetch. Please try again.");
-      } else {
+      //   console.error("Network error or failed to fetch:", error);
+      //   toast.error("Network error or failed to fetch. Please try again.");
+      // } else {
         
-        if (error.response) {
-          console.error("Server Response:", error.response.data);
-          console.error("Status Code:", error.response.status);
-          console.error("Headers:", error.response.headers);
-        } else if (error.request) {
-          alert("No response received. Request:", error.request)
-          // console.error("No response received. Request:", error.request);
-        } else {
-          alert("Error setting up the request:", error.message)
-          // console.error("Error setting up the request:", error.message);
-        }
+      //   if (error.response) {
+      //     console.error("Server Response:", error.response.data);
+      //     console.error("Status Code:", error.response.status);
+      //     console.error("Headers:", error.response.headers);
+      //   } else if (error.request) {
+      //     alert("No response received. Request:", error.request)
+      //     // console.error("No response received. Request:", error.request);
+      //   } else {
+      //     alert("Error setting up the request:", error.message)
+      //     // console.error("Error setting up the request:", error.message);
+      //   }
 
-        // toast.error("Login failed. Please try again.");
-      }
+      //   // toast.error("Login failed. Please try again.");
+      // }
     }
   };
 
@@ -103,17 +94,69 @@ const Login = ({ onLogin }) => {
     setShowSignup(false);
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('userData');
-    onLogout();
-    navigate("/")
-    alert("Logout successful");
-  };
-  
-
+  const useD=JSON.parse(sessionStorage.getItem("userData"))
+  const logout=()=>{
+    sessionStorage.removeItem("userData");
+  }
   
 
   return (
+    useD ? (<div className="container mt-5">
+      <h1>Jogined</h1>
+    <div className="card mx-auto" style={{ maxWidth: "1200px",margin:"20%" }}>
+      <div className="card-body" >
+        <div className="text-center mb-3">
+          {userData?.profileImage ? (
+            <Avatar
+              name={useD.username}
+              size="100"
+              round
+              src={userData.profileImage}
+            />
+          ) : (
+            <FaUser size={100} style={{ color: "orange" }} />
+          )}
+        </div>
+        <h2 className="card-title text-center mb-3">
+          {useD ? `Welcome, ${useD.username}!` : "Login or Sign Up"}
+        </h2>
+
+        {showSignup || showForgotPassword ? (
+          showForgotPassword ? (
+            <ForgotPassword />
+          ) : (
+            <Signup onSignupSuccess={handleSignupSuccess} />
+          )
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              
+              <TextField id="standard-basic" value={useD.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
+            </div>
+            
+            <div className="mb-3">
+            <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="text" value={useD.username} onChange={handleChange} label="Password" variant="standard" />
+              
+            </div>
+            <div className="mb-3">
+            <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="text" value={useD.whatsapp} onChange={handleChange} label="Password" variant="standard" />
+              
+            </div>
+            <button type="submit" className="btn btn-primary btn-block mb-4">
+              {useD ? "Save" : "Login"}
+            </button>
+            <button type="submit" className="btn btn-primary btn-block" onClick={logout}>
+              Logout
+            </button>
+          </form>
+        )}
+
+        
+
+        
+      </div>
+    </div>
+  </div>) :(
     <div className="container mt-5">
       <div className="card mx-auto" style={{ maxWidth: "1200px",margin:"20%" }}>
         <div className="card-body" >
@@ -209,6 +252,7 @@ const Login = ({ onLogin }) => {
       </div>
       <button onClick={handleLogout}>logout</button>
     </div>
+    )
   );
 };
 
