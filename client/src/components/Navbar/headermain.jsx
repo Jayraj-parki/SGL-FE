@@ -21,24 +21,24 @@ const Mainheader = ({ selectedProductType,  children }) => {
   // Hook for programmatic navigation
   const navigate = useNavigate();
 
-  const userData1 = sessionStorage.getItem("userData");
+  // const userData1 = sessionStorage.getItem("userData");
 
-  const handleCartClick = () => {
-    if (!userData1) {
-      alert("Please login to unlock the website features.");
-    } else {
-      navigate("/cart").then(() => {
-        console.log("Unlocking website features...");
-        startBlinking(); // or any other function you want to call
-      });
-    }
-  };
+  // const handleCartClick = () => {
+  //   if (!userData1) {
+  //     alert("Please login to unlock the website features.");
+  //   } else {
+  //     navigate("/cart").then(() => {
+  //       console.log("Unlocking website features...");
+  //       startBlinking(); // or any other function you want to call
+  //     });
+  //   }
+  // };
 
   const wish=()=>{
     if (!userData1) {
       alert("Please login to unlock the website features.");
     } else {
-      navigate("/cart").then(() => {
+      navigate("/whishlist").then(() => {
         console.log("Unlocking website features...");
         startBlinking(); // or any other function you want to call
       });
