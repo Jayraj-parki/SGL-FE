@@ -25,6 +25,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
   const handleCartClick = () => {
     if (!userData1) {
       alert("Please login to unlock the website features.");
+      navigate("/login")
     } else {
       navigate("/cart").then(() => {
         console.log("Unlocking website features...");
@@ -36,6 +37,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
   const wish=()=>{
     if (!userData1) {
       alert("Please login to unlock the website features.");
+      navigate("/login")
     } else {
       navigate("/cart").then(() => {
         console.log("Unlocking website features...");
