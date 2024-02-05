@@ -24,6 +24,7 @@ import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
 import Wishlist from "./components/Wishlist/Wishlist.jsx"
 import Mainheader from "./components/Navbar/headermain.jsx";
+import Orderhistory from "./components/Orderhistory/Orderhistory.jsx";
 
 
 
