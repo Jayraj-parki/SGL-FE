@@ -23,9 +23,7 @@ import Contact from "./components/contact/contact";
 import Blog from "./components/Blogs/blogs";
 import GemsJewelry from "./components/Gemsjewelry/Gemsjewelry.jsx"
 import Wishlist from "./components/Wishlist/Wishlist.jsx"
-import Mainheader from "./components/Navbar/headermain.jsx";
-import Orderhistory from "./components/Orderhistory/Orderhistory.jsx";
-
+import Orderhistory from "./components/Orderhistory/Orderhistory.jsx"
 
 
 
@@ -173,13 +171,10 @@ const App = () => {
           path="/cart"
           element={
             <Layout>
-              
               <ShoppingCart />
             </Layout>
           }
         />
-
-    
          <Route
           path="/blog"
           element={
@@ -194,10 +189,8 @@ const App = () => {
             <Layout>
               <Wishlist />
             </Layout>
-            
           }
         />
-        <Route path="/head/:totalItems" element={<Mainheader />} />
         <Route
           path="/orderhistory"
           element={
@@ -213,7 +206,7 @@ const App = () => {
         <Route path="/admin/*" element={<AdminTemplate />} />
         {/* <Route path="/adminhome" element={<Adminhome />} />
         <Route path="/inventoryitem" element={<Inventoryitem />} /> */}
-         
+
       </Routes>
     </BrowserRouter>
   );

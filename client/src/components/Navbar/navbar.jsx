@@ -26,7 +26,6 @@ const Navbar = ({ userData }) => {
       <div className="hrline"></div>
       <div className="desk-product">
         <Productheader onSelectProductType={handleSelectProductType} />
-        
       </div>
     </>
   );

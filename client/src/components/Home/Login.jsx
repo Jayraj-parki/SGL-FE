@@ -5,13 +5,12 @@ import Avatar from "react-avatar";
 import { FaUser } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import Signup from "./Signup"; 
+import Signup from "./Signup"; // Assuming you have a Signup component
 import ForgotPassword from "./Forgotpassword";
 import "./Login.css";
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -29,10 +28,10 @@ const Login = ({ onLogin }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
   const handleSignupSuccess = (data) => {
-    
+    // Handle the signup success data if needed
     console.log("Signup Success Data:", data);
 
-    
+    // Close the signup form
     setShowSignup(false);
   };
   const handleSubmit = async (e) => {
@@ -55,12 +54,10 @@ const Login = ({ onLogin }) => {
       onLogin(responseData.user);
       navigate("/")
       alert("Login Successful")
-      navigate("/")
     } catch (error) {
       console.error("Error:", error);
       navigate("/login")
       // alert("error login",error)
-      // loginchangeds
 
       // if (error instanceof TypeError && error.message === "Failed to fetch") {
        
@@ -251,7 +248,6 @@ const Login = ({ onLogin }) => {
           )}
         </div>
       </div>
-      <button onClick={handleLogout}>logout</button>
     </div>
     )
   );

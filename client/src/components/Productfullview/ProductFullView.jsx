@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"
 
 const ProductFullView = ({ selectedItem }) => {
+  const navigate = useNavigate();
   const [isCartOpen, setCartOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -18,64 +19,71 @@ const ProductFullView = ({ selectedItem }) => {
   const [showScrollAnimation, setShowScrollAnimation] = useState(true);
 
   const handleQuantityChange = (newQuantity) => {
-    setQuantity((prevQuantity) => newQuantity);
+    setQuantity(newQuantity);
     updateCalculatedPrice(newQuantity);
-  };
-
-  const updateCalculatedPrice = (newQuantity) => {
-    if (selectedItem) {
-      setCalculatedPrice((prevPrice) => {
-        const itemPrice = parseFloat(selectedItem.price);
-        let totalPrice;
-
-        if (newQuantity > 0) {
-          totalPrice = (newQuantity * itemPrice).toFixed(2);
-        } else if (newQuantity < 0) {
-          totalPrice = (itemPrice / Math.abs(newQuantity)).toFixed(2);
-        } else {
-          totalPrice = 0;
-        }
-
-        return totalPrice;
-      });
-    }
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
 
+      // Check if the scroll position is greater than a certain threshold
       const shouldShowScrollAnimation = scrollPosition < 100;
 
+      // Update the state to control the scroll animation
       setShowScrollAnimation(shouldShowScrollAnimation);
     };
 
+    // Attach the scroll event listener when the component mounts
     window.addEventListener("scroll", handleScroll);
 
+    // Detach the scroll event listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
+  const updateCalculatedPrice = (newQuantity) => {
+    if (selectedItem) {
+      const itemPrice = parseFloat(selectedItem.price);
+
+      // Calculate total price based on quantity
+      let totalPrice;
+      if (newQuantity > 0) {
+        totalPrice = (newQuantity * itemPrice).toFixed(2);
+      } else if (newQuantity < 0) {
+        // Divide the price by the absolute quantity if it's less than 0
+        totalPrice = (itemPrice / Math.abs(newQuantity)).toFixed(2);
+      } else {
+        // Quantity is 0
+        totalPrice = 0;
+      }
+
+      setCalculatedPrice(totalPrice);
+    }
+  };
+
   useEffect(() => {
     if (selectedItem) {
+      console.log(selectedItem,"Selected Item")
       if (selectedItem.image) {
         setSelectedImage(selectedItem.image);
       } else {
+        // Find the zodiac stone in the imported data (case-insensitive)
         const stone = zodiacStonesData.find(
           (stone) =>
             stone.name.toLowerCase() === selectedItem.name.toLowerCase()
         );
 
         if (stone) {
-          setMatchingStone(stone);
+          setMatchingStone(stone); // Set matchingStone if found
           setSelectedImage(stone.image);
         } else {
+          // Display a warning message if the item is not a zodiac stone and has no image
           Swal.fire({
             icon: "warning",
             title: "No Image",
-            text:
-              "The selected item is not a zodiac stone and has no image.",
+            text: "The selected item is not a zodiac stone and has no image.",
             showConfirmButton: false,
             timer: 3000,
           });
@@ -420,7 +428,10 @@ const ProductFullView = ({ selectedItem }) => {
                     <span className="detail-label">Microscopic Examination</span>
                     <span className="detail-value" style={{paddingLeft:"12px"}}>: {selectedItem.microscopicexamination}</span>
                   </div>
-                  
+                  {/* <div className="product-detail">
+                    <span className="detail-label">Units:</span>
+                    <span className="detail-value">${selectedItem.units}</span>
+                  </div> */}
                 </div>
 
                 {/* Add your description here */}

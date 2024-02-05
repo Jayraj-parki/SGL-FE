@@ -16,7 +16,6 @@ const ShoppingCart = () => {
   
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const user= JSON.parse(sessionStorage.getItem("userData"))
@@ -216,7 +215,7 @@ const ShoppingCart = () => {
           <p className="font-weight-bold">Total Items: {totalItems}</p>
           <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>
           <p>Shipping: Free</p>
-       
+          {/* <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p> */}
         </div>
 
         <div className="invoice-block">
@@ -242,7 +241,5 @@ const ShoppingCart = () => {
     </div>
   );
 };
-
-
 
 export default ShoppingCart;
