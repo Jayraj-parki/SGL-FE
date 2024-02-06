@@ -3,9 +3,11 @@ import { FaSignOutAlt } from "react-icons/fa";
 import './Queries.css'
 import { useState,useEffect } from "react";
 import HomeIcon from '@mui/icons-material/Home';
+import { useNavigate } from "react-router-dom";
 
 const Queries=(()=>{
     const [products, setProducts] = useState([]);
+    const navigate=useNavigate()
     const [error, setError] = useState(null);
   
     useEffect(() => {
@@ -36,7 +38,7 @@ const Queries=(()=>{
                 className="container d-flex justify-content-center align-items-center text-center"
                 style={{ marginRight: "auto" }}
                 >
-                                        <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
+                <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",cursor:"pointer",margin:"5% 0% 0% 5%"}}/>
 
                 <h1
                     className="admin-dashboard ms-4 ms-sm-3 mx-auto"
@@ -46,7 +48,7 @@ const Queries=(()=>{
                 </h1>
                 <div
                     onClick={() => {
-                    navigate("/admin-login");
+                    navigate("/adminlogin");
                     }}
                     className="logout-button ms-auto"
                 >

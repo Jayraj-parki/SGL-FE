@@ -261,7 +261,7 @@ const Orders = () => {
 
   return (
     <div className="orders-page">
-                      <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
+                      <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",cursor:"pointer",width:"40px",margin:"5% 0% 0% 5%"}}/>
 
       <Modal show={isEditFormVisible} onHide={handleCancelEditForm} centered>
         <Modal.Header closeButton>
@@ -291,7 +291,7 @@ const Orders = () => {
           >
             Admin Dashboard
           </h1>
-          <div
+          {/* <div
             onClick={() => {
               navigate("/adminlogin");
             }}
@@ -299,11 +299,11 @@ const Orders = () => {
           >
             <span className="d-none d-sm-inline">Logout </span>
             <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
-          </div>
+          </div> */}
         </div>
       </nav>
 
-      <div id="OrdersWindow" className="container mt-3">
+      <div id="OrdersWindow" className=" mt-3" style={{width:"100%"}}>
         <div className="row">
           {/* <div className="col-lg-3 mb-0">
             <AdminSideNav />
@@ -312,11 +312,11 @@ const Orders = () => {
             className="col-lg-9 shadow p-4 mb-5 bg-white rounded w-lg-100"
             style={{
               transition: "width 0.5s ease",
-              maxWidth: "72%", // Initial width
+              maxWidth: "100%", // Initial width
               marginLeft: "6rem",
               marginRight: "0",
               "@media (min-width: 1200px)": {
-                maxWidth: "90%", // Adjust the value for large screens
+                maxWidth: "100%", // Adjust the value for large screens
                 marginLeft: "auto", // Move to the center for large screens
               },
             }}

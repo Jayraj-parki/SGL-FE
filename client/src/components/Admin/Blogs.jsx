@@ -94,7 +94,7 @@ const Blogs = () => {
           className="container d-flex justify-content-center align-items-center text-center"
           style={{ marginLeft: "auto", marginRight: "auto" }}
         >
-                <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",margin:"5% 0% 0% 5%"}}/>
+        <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",cursor:"pointer",width:"40px",margin:"5% 0% 0% 5%"}}/>
 
           <h1
             className="admin-dashboard ms-4 ms-sm-3 mx-auto"
@@ -102,7 +102,7 @@ const Blogs = () => {
           >
             Admin Dashboard
           </h1>
-          <div
+          {/* <div
             onClick={() => {
               navigate("/adminlogin");
             }}
@@ -110,7 +110,7 @@ const Blogs = () => {
           >
             <span className="d-none d-sm-inline">Logout </span>
             <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
-          </div>
+          </div> */}
         </div>
       </nav>
 

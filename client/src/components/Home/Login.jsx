@@ -72,28 +72,6 @@ const Login = ({ onLogin }) => {
         title: "Oops...",
         text: "Give correct email and Password Details!",
       });
-      // alert("error login",error)
-
-      // if (error instanceof TypeError && error.message === "Failed to fetch") {
-       
-      //   console.error("Network error or failed to fetch:", error);
-      //   toast.error("Network error or failed to fetch. Please try again.");
-      // } else {
-        
-      //   if (error.response) {
-      //     console.error("Server Response:", error.response.data);
-      //     console.error("Status Code:", error.response.status);
-      //     console.error("Headers:", error.response.headers);
-      //   } else if (error.request) {
-      //     alert("No response received. Request:", error.request)
-      //     // console.error("No response received. Request:", error.request);
-      //   } else {
-      //     alert("Error setting up the request:", error.message)
-      //     // console.error("Error setting up the request:", error.message);
-      //   }
-
-      //   // toast.error("Login failed. Please try again.");
-      // }
     }
   };
 
@@ -110,6 +88,11 @@ const Login = ({ onLogin }) => {
   const useD=JSON.parse(sessionStorage.getItem("userData"))
   const logout=()=>{
     sessionStorage.removeItem("userData");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Loged out.!",
+    });
   }
   
 
@@ -141,7 +124,7 @@ const Login = ({ onLogin }) => {
             <Signup onSignupSuccess={handleSignupSuccess} />
           )
         ) : (
-          <form onSubmit={handleSubmit}>
+          <form >
             <div className="mb-3">
               
               <TextField id="standard-basic" value={useD.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />

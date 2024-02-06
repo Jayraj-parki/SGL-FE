@@ -11,6 +11,7 @@ import Profile from "../Home/Profile";
 import Badge from '@mui/material/Badge';
 import Stack from '@mui/material/Stack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Swal from "sweetalert2";
 
 const Mainheader = ({ selectedProductType, userData }) => {
   // State for managing the search bar and profile popup
@@ -24,7 +25,12 @@ const Mainheader = ({ selectedProductType, userData }) => {
 
   const handleCartClick = () => {
     if (!userData1) {
-      alert("Please login to unlock the website features.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to unlock the website features.!",
+      });
+      // alert("Please login to unlock the website features.");
       navigate("/login")
     } else {
       navigate("/cart").then(() => {
@@ -36,7 +42,12 @@ const Mainheader = ({ selectedProductType, userData }) => {
 
   const wish=()=>{
     if (!userData1) {
-      alert("Please login to unlock the website features.");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please login to unlock the website features.!",
+      });
+      // alert("Please login to unlock the website features.");
       navigate("/login")
     } else {
       navigate("/cart").then(() => {
@@ -118,7 +129,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
           </span>
         </p> */}
         <Stack style={{paddingBottom:"15px"}}  >
-      <Badge badgeContent={4} color="secondary"  >
+      <Badge badgeContent={4} color="warning"  >
         <FaHeart style={{height:"20px",width:"20px"}} color="action" />
       </Badge>
      
@@ -140,7 +151,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
         <p>
       
     <Stack  >
-      <Badge badgeContent={4} color="secondary">
+      <Badge badgeContent={4} color="warning">
         <ShoppingCartIcon color="action" />
       </Badge>
      
