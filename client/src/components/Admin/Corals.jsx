@@ -24,6 +24,13 @@ const Corals = () => {
   });
 
   const [inventoryData, setInventoryData] = useState([]);
+  useEffect(() => {
+    // Check if the user is already logged in
+    const adminUsername = sessionStorage.getItem("admin-username");
+    if (!adminUsername) {
+      navigate("/adminlogin");
+    }
+  }, []);
 
   useEffect(() => {
     const fetchInventory = async () => {
@@ -353,7 +360,7 @@ const Corals = () => {
 
           <button
             type="submit"
-            style={{ background: "green", color: "white" }}
+            style={{ backgroundColor:"rgba(244, 130, 31, 1)", color: "white" }}
             onClick={handleSubmit}
           >
             Submit

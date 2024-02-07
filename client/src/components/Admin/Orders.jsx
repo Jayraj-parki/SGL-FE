@@ -19,6 +19,13 @@ const Orders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
+  useEffect(() => {
+    // Check if the user is already logged in
+    const adminUsername = sessionStorage.getItem("admin-username");
+    if (!adminUsername) {
+      navigate("/adminlogin");
+    }
+  }, []);
 
   const fetchOrders = async () => {
     try {
@@ -261,7 +268,7 @@ const Orders = () => {
 
   return (
     <div className="orders-page">
-                      <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",cursor:"pointer",width:"40px",margin:"5% 0% 0% 5%"}}/>
+                      {/* <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",cursor:"pointer",width:"40px",margin:"5% 0% 0% 5%"}}/> */}
 
       <Modal show={isEditFormVisible} onHide={handleCancelEditForm} centered>
         <Modal.Header closeButton>
@@ -281,16 +288,16 @@ const Orders = () => {
         className="navbar navbar-expand-lg navbar-light bg-light"
         style={{ marginTop: 0 }}
       >
-        <div
+        {/* <div
           className="container d-flex justify-content-center align-items-center text-center"
           style={{ marginLeft: "auto", marginRight: "auto" }}
-        >
-          <h1
+        > */}
+          {/* <h1
             className="admin-dashboard ms-4 ms-sm-3 mx-auto"
             style={{ maxWidth: "fit-content" }}
           >
             Admin Dashboard
-          </h1>
+          </h1> */}
           {/* <div
             onClick={() => {
               navigate("/adminlogin");
@@ -300,7 +307,13 @@ const Orders = () => {
             <span className="d-none d-sm-inline">Logout </span>
             <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
           </div> */}
-        </div>
+        {/* </div> */}
+        <div >
+                <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",cursor:"pointer",margin:"5% 0% 0% 5%"}}/>
+                
+                {/* <h1 style={{textAlign:"center"}}>Admin Dashboard</h1> */}
+                </div>
+                <h1 style={{padding:"0px 35% 0% 35%"}}>Admin Dashboard</h1>
       </nav>
 
       <div id="OrdersWindow" className=" mt-3" style={{width:"100%"}}>

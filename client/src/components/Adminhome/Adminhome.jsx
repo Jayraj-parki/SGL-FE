@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Adminhome.css"
 import { useNavigate } from 'react-router-dom';
 import { FaComments, FaShoppingCart, FaList, FaBox } from "react-icons/fa";
@@ -8,13 +8,25 @@ import { FaEdit, FaTrashAlt, FaSignOutAlt } from "react-icons/fa";
 
 const Adminhome = () => {
     const navigate =useNavigate()
+    useEffect(() => {
+        // Check if the user is already logged in
+        const adminUsername = sessionStorage.getItem("admin-username");
+        if (!adminUsername) {
+          navigate("/adminlogin");
+        }
+      }, []);
+      const logou=()=>{
+        sessionStorage.removeItem("admin-username")
+        navigate("/adminlogin")
+      }
   return (
     <div style={{textAlign:"center",height:"100vh"}}>
         <h1>Admin Dashbord</h1>
         <div
-            onClick={() => {
-              navigate("/adminlogin");
-            }}
+        onClick={logou}
+            // onClick={() => {
+            //   navigate("/adminlogin");
+            // }}
             className="logout-button ms-auto"
           >
             <span className="d-none d-sm-inline">Logout </span>

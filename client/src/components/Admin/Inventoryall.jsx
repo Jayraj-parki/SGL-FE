@@ -79,6 +79,14 @@ const Inventory = () => {
     ));
   };
 
+  useEffect(() => {
+    // Check if the user is already logged in
+    const adminUsername = sessionStorage.getItem("admin-username");
+    if (!adminUsername) {
+      navigate("/adminlogin");
+    }
+  }, []);
+
   return (
     <div>
       {/* Navigation bar for smaller screens */}

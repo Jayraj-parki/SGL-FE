@@ -50,7 +50,7 @@ const Mainheader = ({ selectedProductType, userData }) => {
       // alert("Please login to unlock the website features.");
       navigate("/login")
     } else {
-      navigate("/cart").then(() => {
+      navigate("/wishlist").then(() => {
         console.log("Unlocking website features...");
         startBlinking(); // or any other function you want to call
       });

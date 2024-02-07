@@ -41,6 +41,13 @@ const Pearls = () => {
 
     fetchInventory();
   }, []);
+  useEffect(() => {
+    // Check if the user is already logged in
+    const adminUsername = sessionStorage.getItem("admin-username");
+    if (!adminUsername) {
+      navigate("/adminlogin");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -353,7 +360,7 @@ const Pearls = () => {
 
           <button
             type="submit"
-            style={{ background: "green", color: "white" }}
+            style={{ backgroundColor:"rgba(244, 130, 31, 1)", color: "white" }}
             onClick={handleSubmit}
           >
             Submit

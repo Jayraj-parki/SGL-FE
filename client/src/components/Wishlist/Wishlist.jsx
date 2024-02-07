@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import "../Perals/PearlsHome.css"
 import CircularProgress from "@mui/material/CircularProgress";
+import Swal from "sweetalert2";
 
 const Wishlist = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingwish,setLoadingwish]=useState(false)
+  const [loading,setLoading]=useState(false)
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
@@ -26,6 +29,7 @@ const Wishlist = () => {
   }, []);
 
   const addtocart = async (index) => {
+    setLoading(true)
     const item = wishlistItems[index];
     console.log(item,"Item need to send the api")
     try {
@@ -41,13 +45,21 @@ const Wishlist = () => {
       });
 
       if (response.ok) {
+        setLoading(false)
         // Assuming you have a function to show success message
         // showSuccessMessage("Item added to cart!");
         console.log("data send succesfully")
+        await Swal.fire({
+          icon: "success",
+          title: "added item successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
       } else {
         console.error('Failed to add item to cart:', response.statusText);
       }
     } catch (error) {
+      setLoading(false)
       console.error('Error adding item to cart:', error);
     }
   };
@@ -83,6 +95,7 @@ const Wishlist = () => {
   //   // showSuccessMessage("Item removed from the wishlist!");
   // };
   const deleteItem = async (index, itemId) => {
+    setLoadingwish(true)
     try {
       // Make a request to the delete API endpoint
       const response = await fetch(`https://sgl-be.onrender.com/deletewhishlist/${itemId}`, {
@@ -96,14 +109,22 @@ const Wishlist = () => {
         // If deletion on the server is successful, update the local state
         const updatedCart = [...wishlistItems];
         updatedCart.splice(index, 1);
+        setLoadingwish(false)
         setWishlistItems(updatedCart);
+        Swal.fire({
+          icon: "success",
+          title: "added item successfully!",
+          text: "Item Removed from the Wishlist!",
+        });
   
         console.log("Item deleted successfully");
       } else {
+        setLoading(false)
         console.error("Failed to delete item. Server returned:", response.status, response.statusText);
         // If deletion on the server fails, you may want to revert the local state or handle it accordingly
       }
     } catch (error) {
+      setLoadingwish(false)
       console.error("Error deleting item:", error);
       // Handle the error, show an error message, or take appropriate action
     }
@@ -147,7 +168,7 @@ const Wishlist = () => {
                 Remove
               </button>
               <button style={{backgroundColor:"green",paddingBottom:"30px",marginBottom:"20px"}} onClick={() => addtocart(index)} className="btn btn-danger">
-                Add to Cart
+               Add to Cart
               </button>
               </div>
             </div>

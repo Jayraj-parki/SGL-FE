@@ -27,6 +27,14 @@ const Queries=(()=>{
         fetchData();
       }, []);
 
+      useEffect(() => {
+        // Check if the user is already logged in
+        const adminUsername = sessionStorage.getItem("admin-username");
+        if (!adminUsername) {
+          navigate("/adminlogin");
+        }
+      }, []);
+
     return(
         <>  
            {/* <AdminSideNav/> */}
