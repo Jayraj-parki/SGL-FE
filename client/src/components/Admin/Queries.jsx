@@ -34,9 +34,9 @@ const Queries=(()=>{
                 className="navbar navbar-expand-lg navbar-light bg-light"
                 style={{ marginTop: 0 }}
             >
-                <div
-                className="container d-flex justify-content-center align-items-center text-center"
-                style={{ marginRight: "auto" }}
+                {/* <div
+                className="container"
+                style={{ marginRight: "auto", display:'flex',justifyContent:"space-between"}}
                 >
                 <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",cursor:"pointer",margin:"5% 0% 0% 5%"}}/>
 
@@ -45,8 +45,8 @@ const Queries=(()=>{
                     style={{ maxWidth: "fit-content" }}
                 >
                     Admin Dashboard
-                </h1>
-                <div
+                </h1> */}
+                {/* <div
                     onClick={() => {
                     navigate("/adminlogin");
                     }}
@@ -54,8 +54,14 @@ const Queries=(()=>{
                 >
                     <span className="d-none d-sm-inline">Logout </span>
                     <FaSignOutAlt style={{ marginLeft: "8px", fontSize: "1rem" }} />
+                </div> */}
+                {/* </div> */}
+                <div >
+                <HomeIcon onClick={()=>navigate("/admin/adminhome")} style={{height:"40px",width:"40px",cursor:"pointer",margin:"5% 0% 0% 5%"}}/>
+                
+                {/* <h1 style={{textAlign:"center"}}>Admin Dashboard</h1> */}
                 </div>
-                </div>
+                <h1 style={{padding:"0px 35% 0% 35%"}}>Admin Dashboard</h1>
             </nav>
             <div className="queries-con">
                  <h1>Queries</h1>

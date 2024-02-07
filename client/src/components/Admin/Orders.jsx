@@ -313,7 +313,7 @@ const Orders = () => {
             style={{
               transition: "width 0.5s ease",
               maxWidth: "100%", // Initial width
-              marginLeft: "6rem",
+              marginLeft: "0rem",
               marginRight: "0",
               "@media (min-width: 1200px)": {
                 maxWidth: "100%", // Adjust the value for large screens

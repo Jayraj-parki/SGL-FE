@@ -52,10 +52,14 @@ const Login = ({ onLogin }) => {
         throw new Error(errorData.message || "Unknown error");
       }
       const responseData = await response.json();
+      console.log(responseData,"response data")
       setUserData(responseData.user);
+      console.log(userData,"userData")
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
       onLogin(responseData.user);
       navigate("/")
+      console.log(responseData.user,"kjnafkl")
+      console.log(userData)
       // alert("Login Successful")
       await Swal.fire({
         icon: "success",
@@ -139,7 +143,7 @@ const Login = ({ onLogin }) => {
               
             </div>
             <button type="submit" className="btn btn-primary btn-block mb-4">
-              {useD ? "Save" : "Login"}
+              Save
             </button>
             <button type="submit" className="btn btn-primary btn-block" onClick={logout}>
               Logout

@@ -434,7 +434,7 @@ const Jewellary = () => {
 
       const response = await fetch("https://sgl-be.onrender.com/postgemjewellary", {
         method: "POST",
-        body: formData,
+        body: formData, 
       });
 
       if (response.ok) {

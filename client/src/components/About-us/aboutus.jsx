@@ -172,96 +172,99 @@
 import React from 'react';
 import './aboutus.css'; // Import a separate CSS file for styling if needed
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import Im from "./about.png"
 
 const Aboutus = () => {
   return (
-    <div style={{marginLeft:"10%"}}>
+    // <div style={{marginLeft:"10%"}}>
       
-      <div style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-        <div style={{width:"20%"}}>
-          <div style={{display:'flex',alignItems:"center"}}>
-            <div>
-              <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
-              <div>
-                <PostAddIcon/>
-              </div>
-              <div>
-                Completed DD agrrement received
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div style={{width:"20%"}}>
-        <div style={{display:'flex',alignItems:"center"}}>
-            <div>
-              <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
-              <div>
-                <PostAddIcon/>
-              </div>
-              <div>
-                Completed DD agrrement received
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div style={{width:"20%"}}>
-        <div style={{display:'flex',alignItems:"center"}}>
-            <div>
-              <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
-              <div>
-                <PostAddIcon/>
-              </div>
-              <div>
-                Completed DD agrrement received
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div style={{width:"20%"}}>
-        <div style={{display:'flex',alignItems:"center"}}>
-            <div>
-              <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
-              <div>
-                <PostAddIcon/>
-              </div>
-              <div>
-                Completed DD agrrement received
-              </div>
-            </div>
-          </div>
-        </div> 
-        <div style={{width:"20%"}}><div style={{display:'flex',alignItems:"center"}}>
-            <div>
-              <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
-            </div>
-            <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
-              <div>
-                <PostAddIcon/>
-              </div>
-              <div>
-                Completed DD agrrement received
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center"}}>
-        <div style={{width:"20%"}}><hr style={{ borderStyle: 'solid', borderWidth: '2px',color:"dark" }} /></div> &gt;
-        <div style={{width:"20%"}}><hr/></div> &gt;
-        <div style={{width:"20%"}}><hr/></div> &gt;
-        <div style={{width:"20%"}}><hr/></div> &gt;
-        <div style={{width:"20%"}} ><hr/></div>
-        {/* <div className='vi'></div> &gt; */}
-        
-      </div>
+    //   {/* <div style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    //     <div style={{width:"20%"}}>
+    //       <div style={{display:'flex',alignItems:"center"}}>
+    //         <div>
+    //           <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
+    //         </div>
+    //         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
+    //           <div>
+    //             <PostAddIcon/>
+    //           </div>
+    //           <div>
+    //             Completed DD agrrement received
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div> 
+    //     <div style={{width:"20%"}}>
+    //     <div style={{display:'flex',alignItems:"center"}}>
+    //         <div>
+    //           <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>2</p>
+    //         </div>
+    //         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
+    //           <div>
+    //             <SupportAgentIcon/>
+    //           </div>
+    //           <div>
+    //             <p>Your account manager will get in touch to get the ball rolling</p>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div> 
+    //     <div style={{width:"20%"}}>
+    //     <div style={{display:'flex',alignItems:"center"}}>
+    //         <div>
+    //           <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
+    //         </div>
+    //         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
+    //           <div>
+    //             <PostAddIcon/>
+    //           </div>
+    //           <div>
+    //             Completed DD agrrement received
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div> 
+    //     <div style={{width:"20%"}}>
+    //     <div style={{display:'flex',alignItems:"center"}}>
+    //         <div>
+    //           <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
+    //         </div>
+    //         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
+    //           <div>
+    //             <PostAddIcon/>
+    //           </div>
+    //           <div>
+    //             Completed DD agrrement received
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div> 
+    //     <div style={{width:"20%"}}><div style={{display:'flex',alignItems:"center"}}>
+    //         <div>
+    //           <p style={{backgroundColor:"green",padding:"5px 10px 5px 10px",borderRadius:"100px"}}>1</p>
+    //         </div>
+    //         <div style={{display:"flex",flexDirection:"column",alignItems:"flex-start",margin:"20px"}}>
+    //           <div>
+    //             <PostAddIcon/>
+    //           </div>
+    //           <div>
+    //             Completed DD agrrement received
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div style={{width:"90%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+    //     <div style={{width:"20%"}}><hr style={{ borderStyle: 'solid', borderWidth: '2px',color:"dark" }} /></div> &gt;
+    //     <div style={{width:"20%"}}><hr/></div> &gt;
+    //     <div style={{width:"20%"}}><hr/></div> &gt;
+    //     <div style={{width:"20%"}}><hr/></div> &gt;
+    //     <div style={{width:"20%"}} ><hr/></div>        
+    //   </div> */}
+    // </div>
+    <div style={{margin:"10px",textAlign:"center"}}>
+      <img src={Im}/>
     </div>
   );
 };
