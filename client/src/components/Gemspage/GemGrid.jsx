@@ -83,7 +83,7 @@ const GemGrid = () => {
       {console.log(beads,"data from backed")}
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress />
+          <CircularProgress color="warning"/>
         </div>
       )}
 

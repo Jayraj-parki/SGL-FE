@@ -55,6 +55,8 @@ const Wishlist = () => {
           showConfirmButton: false,
           timer: 1500,
         });
+        navigate("/cart")
+            window.location.reload()
       } else {
         console.error('Failed to add item to cart:', response.statusText);
       }
@@ -113,9 +115,10 @@ const Wishlist = () => {
         setWishlistItems(updatedCart);
         Swal.fire({
           icon: "success",
-          title: "added item successfully!",
+          title: "Removed item successfully!",
           text: "Item Removed from the Wishlist!",
         });
+            window.location.reload()
   
         console.log("Item deleted successfully");
       } else {
@@ -134,11 +137,13 @@ const Wishlist = () => {
     <div className="perals-map-area">
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress />
+          <CircularProgress color="warning"/>
         </div>
       )}
       {!isLoading && 
       (<div className="gemsmain-con " style={{ margin: "20px" }}>
+        {wishlistItems.length<=0 ?"No Items in wishlist":(
+        <>
         {wishlistItems.map((item, index) => (
           <div key={index} >
             <div className='beads-box' style={{borderRadius:"7px",width:"250px",textAlign:"center"}}>
@@ -173,7 +178,7 @@ const Wishlist = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))}</>)}
       </div>)}
     </div>
   );

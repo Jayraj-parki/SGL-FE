@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../Perals/PearlsHome.css";
 import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import diamondsmeasure from "../diamondsmesure.jpg"
 
 const ITEMS_PER_PAGE = 10;
 
@@ -79,12 +80,15 @@ const GemGrid = () => {
     <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress />
+          <CircularProgress color="warning"/>
         </div>
       )}
 
       {!isLoading && (
-        <div className="remaincont">
+        <div className="remaincont diam" >
+          <div>
+            <img src={diamondsmeasure} alt="Dimond Calculator" className="ima" style={{height:"500px"}} />
+          </div>
           <div className="perals-map-area">
             <div className="gemsmain-con">
               {currentItems.map((item, index) => (

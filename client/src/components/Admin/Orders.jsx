@@ -26,6 +26,7 @@ const Orders = () => {
       navigate("/adminlogin");
     }
   }, []);
+  console.log(orders,"Orders")
 
   const fetchOrders = async () => {
     try {
@@ -356,6 +357,7 @@ const Orders = () => {
                     <th>Date</th>
                     <th>Status</th>
                     <th>Address</th>
+                    <th>Number</th>
                     <th>Total Price</th>
                     <th>Action</th>
                   </tr>
@@ -369,6 +371,7 @@ const Orders = () => {
                       <td>{new Date(order.date).toLocaleDateString()}</td>
                       <td>{order.status}</td>
                       <td>{order.address}</td>
+                      <td>Pending In Backend</td>
                       <td>${order.grandTotal}</td>
                       <td style={{display:"flex",flexWrap:"wrap"}} >
                         <button

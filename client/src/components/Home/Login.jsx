@@ -16,9 +16,19 @@ import Swal from "sweetalert2";
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
   const [loading,setLoading]=useState(false)
-  const [formData, setFormData] = useState({
+  const useD=JSON.parse(sessionStorage.getItem("userData"))
+  const [editMode, setEditMode] = useState(false);
+  const [form, setForm] = useState({
     email: "",
     password: "",
+  });
+  const [formData, setFormData] = useState({
+    email: useD ? useD.email : "",
+    Name: useD ? useD.username : "",
+    Number: useD ? useD.whatsapp : "",
+    Address: useD ? useD.address : "",
+    Image:useD ? useD.image:"",
+    Password:useD ? useD.password:""
   });
 
   const [showSignup, setShowSignup] = useState(false);
@@ -28,6 +38,22 @@ const Login = ({ onLogin }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleChang = (e) => {
+    const { name, value } = e.target;
+    setForm((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setFormData((prevData) => ({ ...prevData, imageBase64: reader.result }));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
   const handleSignupSuccess = (data) => {
     // Handle the signup success data if needed
@@ -40,12 +66,14 @@ const Login = ({ onLogin }) => {
     setLoading(true)
     e.preventDefault();
     try {
+      console.log(formData,"formdata")
+      console.log(form,"form")
       const response = await fetch("https://sgl-be.onrender.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(form),
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -53,6 +81,7 @@ const Login = ({ onLogin }) => {
       }
       const responseData = await response.json();
       console.log(responseData,"response data")
+
       setUserData(responseData.user);
       console.log(userData,"userData")
       sessionStorage.setItem("userData", JSON.stringify(responseData.user));
@@ -89,7 +118,7 @@ const Login = ({ onLogin }) => {
     setShowSignup(false);
   };
 
-  const useD=JSON.parse(sessionStorage.getItem("userData"))
+  // const useD=JSON.parse(sessionStorage.getItem("userData"))
   const logout=()=>{
     sessionStorage.removeItem("userData");
     Swal.fire({
@@ -98,6 +127,70 @@ const Login = ({ onLogin }) => {
       text: "Loged out.!",
     });
   }
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
+  // const handleSaveClick = () => {
+  //   setEditMode(false);
+  //   // Handle save logic here
+  //   // You might want to send updated user data to the server
+  //   // or update it locally depending on your use case.
+  // };
+  const handleSaveClick = async () => {
+    setLoading(true)
+    try {
+      // const hashedPassword = await bcrypt.hash(formData.Password, 10);
+      console.log(formData,"FromData nee to send update")
+      const response = await fetch(`https://sgl-be.onrender.com/updateUser/${useD._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.Name,
+          email: formData.email,
+          whatsapp: formData.Number,
+          imageBase64: formData.Image,  // You may need to handle profile image separately if needed
+          address: formData.Address,
+          password: formData.Password,  // You may need to handle password separately if needed
+        }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Unknown error");
+      }
+  
+      const responseData = await response.json();
+      console.log(responseData);
+  
+      // Handle any logic you need after the user details are successfully updated
+  
+      // You might want to update the local state or perform any other actions
+  
+      Swal.fire({
+        icon: "success",
+        title: "User details updated successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      sessionStorage.setItem("userData", JSON.stringify(responseData.user));
+      
+      // sessionStorage.setItem("userData",formData)
+      setEditMode(false);
+    } catch (error) {
+      setLoading(false)
+      console.error("Error updating user details:", error);
+  
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to update user details. Please try again!",
+      });
+    }
+  };
+  
   
 
   return (
@@ -131,21 +224,53 @@ const Login = ({ onLogin }) => {
           <form >
             <div className="mb-3">
               
-              <TextField id="standard-basic" value={useD.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
+              <TextField id="standard-basic" disabled value={formData.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
             </div>
             
             <div className="mb-3">
-            <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="text" value={useD.username} onChange={handleChange} label="Password" variant="standard" />
+            <TextField id="standard-basic" disabled={!editMode} style={{textAlign:"start",width:"250px"}} name="Name" type="text" value={formData.Name} onChange={handleChange} label="Name" variant="standard" />
               
             </div>
             <div className="mb-3">
-            <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="text" value={useD.whatsapp} onChange={handleChange} label="Password" variant="standard" />
+            <TextField id="standard-basic" disabled={!editMode} style={{textAlign:"start",width:"250px"}} name="Number" type="text" value={formData.Number} onChange={handleChange} label="Number" variant="standard" />
               
             </div>
-            <button type="submit" className="btn btn-primary btn-block mb-4">
-              Save
-            </button>
-            <button type="submit" className="btn btn-primary btn-block" onClick={logout}>
+            <div className="mb-3">
+            <TextField id="standard-basic" disabled={!editMode} style={{textAlign:"start",width:"250px"}} name="Address" type="text" value={formData.Address} onChange={handleChange} label="Address" variant="standard" />
+              
+            </div>
+            <div className="mb-3">
+            <TextField id="standard-basic" disabled={!editMode} style={{textAlign:"start",width:"250px"}} name="Password" type="text" value={formData.Password} onChange={handleChange} label="Password" variant="standard" />
+              
+            </div>
+            <div className="mb-3">
+        <div className="input-group" style={{width:"250px"}}>
+            <label className="input-group-text" htmlFor="profileImage">
+              Profile Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              name="Image"
+              disabled={!editMode}
+              value={useD.Image}
+              className="profileImage"
+              id="profileImage"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </div>
+        </div>
+            <div style={{display:'flex'}}>
+              <button type="button" disabled={editMode} onClick={handleEditClick} style={{width:"80px",paddingBottom:"30px"}} className="btn btn-primary btn-block mb-4">
+                Edit
+              </button>
+              <button type="button" disabled={!editMode} onClick={handleSaveClick} style={{width:"80px",paddingBottom:"30px"}} className="btn btn-primary btn-block mb-4">
+                {/* Save */}
+                {loading ? "Wait...":"Save"}
+              </button>
+            </div>
+            <button type="submit" style={{paddingBottom:"30px"}} className="btn btn-primary btn-block" onClick={logout}>
               Logout
             </button>
           </form>
@@ -185,11 +310,11 @@ const Login = ({ onLogin }) => {
           ) : (
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <TextField id="standard-basic" value={formData.email} onChange={handleChange} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
+                <TextField id="standard-basic" value={form.email} onChange={handleChang} name="email" style={{textAlign:"start",width:"250px"}} label="Email" variant="standard" />
               </div>
               
               <div className="mb-3">
-              <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="password" value={formData.password} onChange={handleChange} label="Password" variant="standard" />
+              <TextField id="standard-basic" style={{textAlign:"start",width:"250px"}} name="password" type="password" value={form.password} onChange={handleChang} label="Password" variant="standard" />
               </div>
               <button type="submit" style={{paddingBottom:"30px"}} className="btn btn-primary btn-block">
                 {/* {showSignup ? "Sign Up" : "Login"} */}

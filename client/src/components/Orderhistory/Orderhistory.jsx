@@ -57,17 +57,18 @@ const Orderhistory = () => {
     
         fetchData();
       }, [])
-    console.log(cartItems)
+    console.log(cartItems.length,"length")
   return (
     <div>
       <h1>Order History</h1>
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress />
+          <CircularProgress color="warning"/>
         </div>
       )}
       {!isLoading && (
       <center>
+        {cartItems.length<=0 ?"No Orders":(
       <table border="1" style={{width:"90%",marginBottom:"20px",paddingBottom:"20px",textAlign:"center"}}>
         <thead style={{textAlign:'center'}}>
           <tr>
@@ -98,6 +99,7 @@ const Orderhistory = () => {
           ))}
         </tbody>
       </table>
+        )}
       </center>
       )}
     </div>

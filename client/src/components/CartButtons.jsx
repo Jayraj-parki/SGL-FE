@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import "./CartButton.css";
 import PropTypes from "prop-types";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const AddCart = ({ onAddToCart, onQuantityChange }) => {
+  const navigate=useNavigate()
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -69,6 +71,9 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
               showConfirmButton: false,
               timer: 1500,
             });
+            navigate("/wishlist")
+            window.location.reload()
+            
           } else {
             Swal.fire({
               icon: "error",
@@ -171,6 +176,9 @@ const AddCart = ({ onAddToCart, onQuantityChange }) => {
               showConfirmButton: false,
               timer: 1500,
             });
+            navigate("/cart")
+            window.location.reload()
+            
           } else {
             Swal.fire({
               icon: "error",

@@ -9,7 +9,7 @@ const ShoppingCart = () => {
   const navigate=useNavigate()
   const [showPayment, setShowPayment] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [addres,setAddress]=useState("")
+  const [address,setAddress]=useState("")
   const [grandTotal, setGrandTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -18,11 +18,18 @@ const ShoppingCart = () => {
     setAddress(e.target.value)
   }
 
+  const user= JSON.parse(sessionStorage.getItem("userData"))
+  if (address.length<=0){
+    setAddress(user.address)
+  }
+        // setAddress(user.address)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user= JSON.parse(sessionStorage.getItem("userData"))
         console.log(user)
+        // setAddress(user.address)
         const response = await fetch("https://sgl-be.onrender.com/getallcart");
         const data = await response.json();
         const userCartItems = data.cartItems.filter(item => item.userIds === user._id);
@@ -34,6 +41,9 @@ const ShoppingCart = () => {
           // setBeads(data);
           
           setIsLoading(false);
+          // console.log(updatedData,"updateddata")
+          // const sumOfQuantities = updatedData.reduce((total, item) => total + item.quantity, 0);
+        // console.log("Sum of quantities:", sumOfQuantities);
         } else {
           const errorMessage = await response.text();
           console.error(
@@ -95,6 +105,7 @@ const ShoppingCart = () => {
         setCartItems(updatedCart);
   
         console.log("Item deleted successfully");
+        window.location.reload()
       } else {
         console.error("Failed to delete item. Server returned:", response.status, response.statusText);
         // If deletion on the server fails, you may want to revert the local state or handle it accordingly
@@ -108,13 +119,10 @@ const ShoppingCart = () => {
     const userdata = JSON.parse(sessionStorage.getItem("userData"));
     const username=userdata.email
     const userID=userdata._id
-    // console.log(username,"usernamnlnnj")
     const address=addres
-    // console.log(userdata.username,"username")
-    // console.log(userdata,"jnallj")
     const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
-    const shipping = 0; // Assuming shipping is free based on your code
+    const shipping = 0; 
     const grandTotal = parseFloat(totalCost) + parseFloat(totalCost);
     const date = new Date().toLocaleDateString();
     const status="Initializing"
@@ -150,6 +158,7 @@ const ShoppingCart = () => {
         const responseData = await response.json();
         console.log("Order placed successfully:", responseData);
         alert("Order successfully")
+        await deleteCartData(orderDetails.userID);
         // You can handle success, show a confirmation message, or navigate to a success page
       } else {
         console.error("Failed to place order. Server returned:", response.status, response.statusText);
@@ -160,6 +169,28 @@ const ShoppingCart = () => {
       // Handle the error, show an error message, or take appropriate action
     }finally{
       setLoading(false); 
+    }
+  };
+  const deleteCartData = async (userID) => {
+    try {
+      const deleteResponse = await fetch("https://sgl-be.onrender.com/deletecartdata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userID }),
+      });
+  
+      if (deleteResponse.ok) {
+        const deleteData = await deleteResponse.json();
+        console.log("Cart data deleted successfully:", deleteData);
+      } else {
+        console.error("Failed to delete cart data. Server returned:", deleteResponse.status, deleteResponse.statusText);
+        // Handle the error, show an error message, or take appropriate action
+      }
+    } catch (error) {
+      console.error("Error deleting cart data:", error);
+      // Handle the error, show an error message, or take appropriate action
     }
   };
 
@@ -176,12 +207,14 @@ const ShoppingCart = () => {
         <h4 style={{textAlign:"end",padding:"10px",margin:"20px",borderRadius:"7px",cursor:"pointer",backgroundColor:"rgba(244, 130, 31, 1)"}} onClick={()=>navigate("/orderhistory")} >Order History</h4>
       </div>
       {isLoading && (
-        <div className="loading-container">
-          <CircularProgress />
+        <div className="loading-container" style={{height:"450px"}}>
+          <CircularProgress color="warning"/><h1>Please Wait...</h1>
         </div>
       )}
+
       {!isLoading && (
 <>
+{cartItems.length<=0 ?"No Items in the Cart":(
       <div className="cart-items-grid">
         {cartItems.map((item, index) => (
           <div className="cart-item" key={item.id}>
@@ -213,22 +246,22 @@ const ShoppingCart = () => {
             </div>
           </div>
         ))}
-      </div>
-      
+      </div>)}
+      {cartItems.length<=0?"":(
       <div className="cart-summary bg-light p-3 rounded">
         <div className="order-summary">
           <h4 className="text-primary">Order Summary</h4>
           <p className="font-weight-bold">Total Items: {totalItems}</p>
           <p className="font-weight-bold">Total Cost: ${calculateTotal()}</p>
           <p>Shipping: Free</p>
-          <input type="text" value={addres} onChange={changeadd} />
+          {/* <input type="text" value={address} style={{width:"300px"}} placeholder="Add Address here" onChange={changeadd} /> */}
           {/* <p>Estimated Tax: ${(calculateTotal() * 0.1).toFixed(2)}</p> */}
         </div>
 
         <div className="invoice-block">
           <hr />
           <p className="font-weight-bold" style={{ textAlign: "end", paddingRight: "35px" }}>
-            <p>{addres}</p>
+            <p>Address: {address}</p>
             Grand Total: ${grandTotal.toFixed(2)}
           </p>
           
@@ -244,6 +277,7 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
+      )}
       </>
       )}
     </div>

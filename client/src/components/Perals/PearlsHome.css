@@ -188,3 +188,20 @@ h4{
     margin-right: 0px;
   }
 }
+
+.diam{
+  display: flex;
+  /* margin-right: 100px; */
+}
+.ima{
+  margin: 10px 50px 0px 20px;
+}
+@media screen and (max-width:400px) {
+  .diam{
+    display: flex;
+    flex-direction: column;
+  }
+  .ima{
+    margin: 10px;
+  }
+}

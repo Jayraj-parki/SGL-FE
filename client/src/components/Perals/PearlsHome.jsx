@@ -182,7 +182,7 @@ const GemGrid = () => {
     <div className="pearlshome-container">
       {isLoading && (
         <div className="loading-container">
-          <CircularProgress />
+          <CircularProgress color="warning"/>
         </div>
       )}
 
