@@ -118,8 +118,9 @@ const ShoppingCart = () => {
   const handleProceedToCheckout = () => {
     const userdata = JSON.parse(sessionStorage.getItem("userData"));
     const username=userdata.email
+    const number=userdata.whatsapp
     const userID=userdata._id
-    const address=addres
+    // const address=addres
     const totalItems = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
     const totalCost = cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
     const shipping = 0; 
@@ -136,7 +137,8 @@ const ShoppingCart = () => {
       date,
       address,
       status,
-      userID
+      userID,
+      number
     };
   
     postUserOrder(orderDetails);

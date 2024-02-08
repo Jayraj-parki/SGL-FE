@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import "../Perals/PearlsHome.css"
 import CircularProgress from "@mui/material/CircularProgress";
 import Swal from "sweetalert2";
+import { useNavigate } from 'react-router-dom';
 
 const Wishlist = () => {
+  const navigate=useNavigate()
   const [isLoading, setIsLoading] = useState(true);
   const [loadingwish,setLoadingwish]=useState(false)
   const [loading,setLoading]=useState(false)

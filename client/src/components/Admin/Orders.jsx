@@ -371,7 +371,7 @@ const Orders = () => {
                       <td>{new Date(order.date).toLocaleDateString()}</td>
                       <td>{order.status}</td>
                       <td>{order.address}</td>
-                      <td>Pending In Backend</td>
+                      <td>{order.number}</td>
                       <td>${order.grandTotal}</td>
                       <td style={{display:"flex",flexWrap:"wrap"}} >
                         <button

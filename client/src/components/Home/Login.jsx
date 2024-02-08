@@ -122,8 +122,8 @@ const Login = ({ onLogin }) => {
   const logout=()=>{
     sessionStorage.removeItem("userData");
     Swal.fire({
-      icon: "error",
-      title: "Oops...",
+      icon: "success",
+      title: "Logged OUT",
       text: "Loged out.!",
     });
   }
