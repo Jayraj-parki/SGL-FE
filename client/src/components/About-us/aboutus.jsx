@@ -264,7 +264,7 @@ const Aboutus = () => {
     //   </div> */}
     // </div>
     <div style={{margin:"10px",textAlign:"center"}}>
-      <img src={Im}/>
+      <img src={Im} style={{width:"90%"}} alt='about image'/>
     </div>
   );
 };
