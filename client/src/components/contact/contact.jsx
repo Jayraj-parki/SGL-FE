@@ -8,19 +8,43 @@ const Contact = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        mobileNo: '',
+        mobile: '',
         message: ''
     });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        const newValue = name === 'mobile' ? Number(value) : value;
         setFormData({
             ...formData,
-            [name]: value
+            [name]: newValue
         });
     };
+
+    const handlesubmit= async()=>{
+        console.log(formData)
+        try{
+            const response=await fetch("https://sgl-be.onrender.com/postcontact",{
+                method:"POST",
+                headers: {
+                    "Content-Type": "application/json",
+                  },
+                body:JSON.stringify(formData),
+            })
+            if (response.ok){
+                console.log("Data posted succesfully")
+                alert("Agent will reach you")
+            }else{
+                console.log("Error to send the data")
+                alert("Falid to send Data")
+            }
+        }
+        catch(error){
+            console.log("Getting error",error)
+        }
+    }
     
-  console.log(formData)
+//   console.log(formData)
     return (
         <>
             <h1>Contact us</h1>
@@ -53,8 +77,8 @@ const Contact = () => {
                     label="Mobile No"
                     multiline
                     maxRows={4}
-                    name="mobileNo"
-                    value={formData.mobileNo}
+                    name="mobile"
+                    value={formData.mobile}
                     onChange={handleInputChange}
                     type='number'
                 />
@@ -64,7 +88,7 @@ const Contact = () => {
                     label="Message"
                     multiline
                     maxRows={4}
-                    name="mobileNo"
+                    name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     type='text'
@@ -78,6 +102,7 @@ const Contact = () => {
                         // Add any other styles you want to maintain on hover
                         },
                     }} 
+                    onClick={handlesubmit}
                      className='submit'>
                      submit
                 </Button>
